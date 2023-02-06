@@ -1,0 +1,1279 @@
+       !        
+       !        Hewlett Packard Enterprise Decompilation
+       !        Notice - This output is provided for information only.
+       !        
+       !        Hewlett Packard Enterprise reserves the right to change the
+       !        format of this information at any time and does not
+       !        guarantee the readability or accuracy of this information.
+       !        
+       !        This information may not be compilable and corresponds to
+       !        the internal representation of the program during the
+       !        optimization phase of the compilation process.
+       !        
+       !        Source                :  gem_fft_wrapper.f90
+       !        File                  :  /gpfs/alpine/fus123/world-shared/qihengcai/GEM_Yang_Simplified_0202/gem_fft_wrapper.cg
+       !        Network               :  Slingshot10 interconnect
+       !        Target                :  Heterogeneous
+       !              Cpu             :  x86-trento :: avx2, fma
+       !              Accel           :  amdgcn-gfx90a
+       !        
+   12.       
+   12.       subroutine ccfft( c, isign, n, scale, x, table, work, isys )
+   12.       $GVN_oloc_x_151 = loc( x )
+   12.       6[$GVN_oloc_x_151,0].L = 0
+   12.       6[loc( table ),0].L = 1
+   12.       6[loc( work ),0].L = 1
+   21.       $GVN_isign_99 = 0[loc( isign ),0]
+   21.       if ( $GVN_isign_99 == 0 ) then
+   22.          $GVN_c_54 = int( substr[c,0:1] )
+   22.          if ( $GVN_c_54 == 120 ) then
+   24.             $GVN_oloc_n_148 = loc( n )
+   24.             _prefetch( coefxn[0].L )
+   24.             call zffti( 0[$GVN_oloc_n_148,0], coefxn )
+   26.             _prefetch( 0[$GVN_oloc_n_148,0] )
+   26.             _prefetch( coefxp[0].L )
+   26.             call zffti( 0[$GVN_oloc_n_148,0], coefxp )
+   26.          endif
+   28.          if ( $GVN_c_54 == 121 ) then
+   30.             $GVN_oloc_n_149 = loc( n )
+   30.             _prefetch( coefyn[0].L )
+   30.             call zffti( 0[$GVN_oloc_n_149,0], coefyn )
+   32.             _prefetch( 0[$GVN_oloc_n_149,0] )
+   32.             _prefetch( coefyp[0].L )
+   32.             call zffti( 0[$GVN_oloc_n_149,0], coefyp )
+   32.          endif
+   34.          if ( $GVN_c_54 == 122 ) then
+   36.             $GVN_oloc_n_150 = loc( n )
+   36.             _prefetch( coefzn[0].L )
+   36.             call zffti( 0[$GVN_oloc_n_150,0], coefzn )
+   38.             _prefetch( 0[$GVN_oloc_n_150,0] )
+   38.             _prefetch( coefzp[0].L )
+   38.             call zffti( 0[$GVN_oloc_n_150,0], coefzp )
+   38.          endif
+   38.       endif
+   42.       if ( $GVN_isign_99 == 1 ) then
+   43.          $GVN_c_55 = int( substr[c,0:1] )
+   43.          if ( $GVN_c_55 == 120 ) then
+   45.             $GVN_x_98 = 2[$GVN_oloc_x_151,0].L
+   45.             if ( int( _lsh( $GVN_x_98, 59 ) < 0 .or. _lsh( $GVN_x_98, 63 ) >= 0 ) /= 0 ) then
+   45. !dir$ suppress 0[int( 0[loc( x ),0].L, 8 ),0].L
+   45.                t$4 = int( loc( 0[int( 0[$GVN_oloc_x_151,0].L, 8 ),0].L ), 8 )
+   45.             else
+   45.                $GVN_x_97 = 7[$GVN_oloc_x_151,0].L
+   45.                t$4 = int( _alloc( _lsh( max( 0, $GVN_x_97 ), 4 ) ), 8 )
+   45.                if ( $GVN_x_97 > 0 ) then !  99.50%
+   45.                   $I_L45_S0 = 0
+   45.                   $GVN_x_96 = 8[$GVN_oloc_x_151,0].L
+   45.                   if ( $GVN_x_96 /= 2 ) then
+   45.                      $SR_S1 = 0
+   45.                      $LIS_b1 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   45.                      if ( 8 <= $GVN_x_97 ) then
+   45.                         $LIS_T_I_L45_62 = and( -8, $GVN_x_97 + _rsh( _ash( $GVN_x_97, 2 ), 61 ) )
+   45.                         do
+   45.                            0[t$4,$SR_S1:2:1].L = 0[$LIS_b1,$I_L45_S0 * $GVN_x_96:2:1].L
+   45.                            $SR_S2 = 2 + $SR_S1
+   45.                            0[t$4,$SR_S2:2:1].L = 0[$LIS_b1,$GVN_x_96 * ( 1 + $I_L45_S0 ):2:1].L
+   45.                            $SR_S3 = 2 + $SR_S2
+   45.                            0[t$4,$SR_S3:2:1].L = 0[$LIS_b1,$GVN_x_96 * ( 2 + $I_L45_S0 ):2:1].L
+   45.                            $SR_S4 = 2 + $SR_S3
+   45.                            0[t$4,$SR_S4:2:1].L = 0[$LIS_b1,$GVN_x_96 * ( 3 + $I_L45_S0 ):2:1].L
+   45.                            $SR_S5 = 2 + $SR_S4
+   45.                            0[t$4,$SR_S5:2:1].L = 0[$LIS_b1,$GVN_x_96 * ( 4 + $I_L45_S0 ):2:1].L
+   45.                            $SR_S6 = 2 + $SR_S5
+   45.                            0[t$4,$SR_S6:2:1].L = 0[$LIS_b1,$GVN_x_96 * ( 5 + $I_L45_S0 ):2:1].L
+   45.                            $SR_S7 = 2 + $SR_S6
+   45.                            0[t$4,$SR_S7:2:1].L = 0[$LIS_b1,$GVN_x_96 * ( 6 + $I_L45_S0 ):2:1].L
+   45.                            $SR_S8 = 2 + $SR_S7
+   45.                            0[t$4,$SR_S8:2:1].L = 0[$LIS_b1,$GVN_x_96 * ( 7 + $I_L45_S0 ):2:1].L
+   45.                            $SR_S1 = 2 + $SR_S8
+   45.                            $I_L45_S0 = 8 + $I_L45_S0
+   45.                            if ( $I_L45_S0 >= $LIS_T_I_L45_62 ) exit
+   45.                         enddo
+   45.                      endif
+   45.                      if ( $I_L45_S0 < $GVN_x_97 ) then
+   45.                         do
+   45.                            0[t$4,$SR_S1:2:1].L = 0[$LIS_b1,$I_L45_S0 * $GVN_x_96:2:1].L
+   45.                            $SR_S1 = 2 + $SR_S1
+   45.                            $I_L45_S0 = 1 + $I_L45_S0
+   45.                            if ( logical( $I_L45_S0 >= $GVN_x_97 ) ) exit
+   45.                         enddo
+   45.                      endif
+   45.                   else
+   45.                      if ( $GVN_x_97 >= 4 ) then !  99.50%
+   45.                         $TC_150 = and( -4, $GVN_x_97 )
+   45.                         $LC_S9 = -$TC_150
+   45.                         $SI_S10 = 0
+   45.                         $LIS_b2 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   45.                         if ( $LC_S9 < -7 ) then
+   45.                            do
+   45.                               $GVN_122 = t$4 + $SI_S10
+   45.                               $GVN_123 = $LIS_b2 + $SI_S10
+   45.                               0[$GVN_122:4:1,a8].L = 0[$GVN_123:4:1,a8].L
+   45.                               4[$GVN_122:4:1,a8].L = 4[$GVN_123:4:1,a8].L
+   45.                               8[$GVN_122:4:1,a8].L = 8[$GVN_123:4:1,a8].L
+   45.                               12[$GVN_122:4:1,a8].L = 12[$GVN_123:4:1,a8].L
+   45.                               $SI_S10 = 128 + $SI_S10
+   45.                               $LC_S9 = 8 + $LC_S9
+   45.                               if ( $LC_S9 >= -7 ) exit
+   45.                            enddo
+   45.                         endif
+   45.                         if ( $LC_S9 < 0 ) then
+   45.                            $GVN_146 = t$4 + $SI_S10
+   45.                            $GVN_147 = $LIS_b2 + $SI_S10
+   45.                            0[$GVN_146:4:1,a8].L = 0[$GVN_147:4:1,a8].L
+   45.                            4[$GVN_146:4:1,a8].L = 4[$GVN_147:4:1,a8].L
+   45.                         endif
+   45.                         $I_L45_S0 = $TC_150
+   45.                      endif
+   45.                      if ( $GVN_x_97 > $I_L45_S0 ) then !  99.50%
+   45.                         $SR_S11 = _lsh( $I_L45_S0, 1 )
+   45.                         $LIS_b3 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   45. !dir$ ivdep
+   45.                         do
+   45.                            0[t$4,$SR_S11:2:1].L = 0[$LIS_b3,$SR_S11:2:1].L
+   45.                            $SR_S11 = 2 + $SR_S11
+   45.                            $I_L45_S0 = 1 + $I_L45_S0
+   45.                            if ( logical( $I_L45_S0 >= $GVN_x_97 ) ) exit
+   45.                         enddo
+   45.                      endif
+   45.                   endif
+   45.                endif
+   45.             endif
+   45.             _prefetch( 0[t$4,0].L )
+   45.             _prefetch( coefxp[0].L )
+   45.             call zfftb( 0[loc( n ),0], 0[t$4,0].L, coefxp )
+   45.             $GVN_x_95 = 2[$GVN_oloc_x_151,0].L
+   45.             if ( int( _lsh( $GVN_x_95, 59 ) < 0 .or. _lsh( $GVN_x_95, 63 ) >= 0 ) == 0 ) then
+   45.                $GVN_x_94 = 7[$GVN_oloc_x_151,0].L
+   45.                if ( $GVN_x_94 > 0 ) then !  99.50%
+   45.                   $I_L45_S19 = 0
+   45.                   $GVN_x_93 = 8[$GVN_oloc_x_151,0].L
+   45.                   if ( $GVN_x_93 /= 2 ) then
+   45.                      if ( $GVN_x_94 >= 4 ) then !  99.50%
+   45.                         $TC_39 = and( -4, $GVN_x_94 )
+   45.                         $LC_S13 = -$TC_39
+   45.                         $SI_S16 = 0
+   45.                         $SR_S12 = t$4
+   45.                         $LIS_b5 = _lsh( $GVN_x_93, 3 )
+   45.                         $LIS_b4 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   45.                         $SI_NEXT_S14 = 64 + t$4
+   45.                         $VPO_S15[0:4:2,a32].L = 0[t$4:4:2,a8].L
+   45.                         if ( $LC_S13 < -7 ) then
+   45.                            do
+   45.                               $VP_t_197[0:4:2,a32].L = 0[$SI_NEXT_S14:4:2,a8].L
+   45.                               0[$LIS_b4 + $LIS_b5 * $SI_S16,0,a8].L = $VPO_S15[0].L
+   45.                               0[$LIS_b4 + $LIS_b5 * $SI_S16,$GVN_x_93,a8].L = $VPO_S15[1].L
+   45.                               0[$LIS_b4 + $LIS_b5 * $SI_S16,2 * $GVN_x_93,a8].L = $VPO_S15[2].L
+   45.                               0[$LIS_b4 + $LIS_b5 * $SI_S16,3 * $GVN_x_93,a8].L = $VPO_S15[3].L
+   45.                               $SI_NEXT_S18 = 64 + $SI_NEXT_S14
+   45.                               $VPO_S15[0:4:2,a32].L = 0[$SI_NEXT_S18:4:2,a8].L
+   45.                               0[$LIS_b4 + $LIS_b5 * ( 4 + $SI_S16 ),0,a8].L = $VP_t_197[0].L
+   45.                               0[$LIS_b4 + $LIS_b5 * ( 4 + $SI_S16 ),$GVN_x_93,a8].L = $VP_t_197[1].L
+   45.                               0[$LIS_b4 + $LIS_b5 * ( 4 + $SI_S16 ),2 * $GVN_x_93,a8].L = $VP_t_197[2].L
+   45.                               0[$LIS_b4 + $LIS_b5 * ( 4 + $SI_S16 ),3 * $GVN_x_93,a8].L = $VP_t_197[3].L
+   45.                               $SI_S16 = 8 + $SI_S16
+   45.                               $SR_S12 = $SI_NEXT_S18
+   45.                               $SI_NEXT_S14 = 64 + $SI_NEXT_S18
+   45.                               $LC_S13 = 8 + $LC_S13
+   45.                               if ( $LC_S13 >= -7 ) exit
+   45.                            enddo
+   45.                         endif
+   45.                         if ( $LC_S13 < 0 ) then
+   45.                            0[$LIS_b4 + $LIS_b5 * $SI_S16:2:1,a8].L = 0[$SR_S12:2:1,a8].L
+   45.                            0[$LIS_b4 + $LIS_b5 * $SI_S16,$GVN_x_93:2:1,a8].L = 2[$SR_S12:2:1,a8].L
+   45.                            0[$LIS_b4 + $LIS_b5 * $SI_S16,2 * $GVN_x_93:2:1,a8].L = 4[$SR_S12:2:1,a8].L
+   45.                            0[$LIS_b4 + $LIS_b5 * $SI_S16,3 * $GVN_x_93:2:1,a8].L = 6[$SR_S12:2:1,a8].L
+   45.                         endif
+   45.                         $I_L45_S19 = $TC_39
+   45.                      endif
+   45.                      if ( $GVN_x_94 - $I_L45_S19 >= 2 ) then !  99.50%
+   45.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L45_S19 * $GVN_x_93:2:1,a8].L = 0[t$4,_lsh( $I_L45_S19, 1 ):2:1,a8].L
+   45.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$GVN_x_93 * ( 1 + $I_L45_S19 ):2:1,a8].L = 2[t$4,_lsh( $I_L45_S19, 1 ):2:1,a8].L
+   45.                         $I_L45_S19 = 2 + $I_L45_S19
+   45.                      endif
+   45.                      if ( $GVN_x_94 > $I_L45_S19 ) then !  99.50%
+   45.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L45_S19 * $GVN_x_93:2:1].L = 0[t$4,_lsh( $I_L45_S19, 1 ):2:1].L
+   45.                      endif
+   45.                   else
+   45.                      if ( $GVN_x_94 >= 4 ) then !  99.50%
+   45.                         $TC_154 = and( -4, $GVN_x_94 )
+   45.                         $LC_S20 = -$TC_154
+   45.                         $SI_S21 = 0
+   45.                         $LIS_b7 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   45.                         if ( $LC_S20 < -7 ) then
+   45.                            do
+   45.                               $GVN_120 = $LIS_b7 + $SI_S21
+   45.                               $GVN_121 = t$4 + $SI_S21
+   45.                               0[$GVN_120:4:1,a8].L = 0[$GVN_121:4:1,a8].L
+   45.                               4[$GVN_120:4:1,a8].L = 4[$GVN_121:4:1,a8].L
+   45.                               8[$GVN_120:4:1,a8].L = 8[$GVN_121:4:1,a8].L
+   45.                               12[$GVN_120:4:1,a8].L = 12[$GVN_121:4:1,a8].L
+   45.                               $SI_S21 = 128 + $SI_S21
+   45.                               $LC_S20 = 8 + $LC_S20
+   45.                               if ( $LC_S20 >= -7 ) exit
+   45.                            enddo
+   45.                         endif
+   45.                         if ( $LC_S20 < 0 ) then
+   45.                            $GVN_144 = $LIS_b7 + $SI_S21
+   45.                            $GVN_145 = t$4 + $SI_S21
+   45.                            0[$GVN_144:4:1,a8].L = 0[$GVN_145:4:1,a8].L
+   45.                            4[$GVN_144:4:1,a8].L = 4[$GVN_145:4:1,a8].L
+   45.                         endif
+   45.                         $I_L45_S19 = $TC_154
+   45.                      endif
+   45.                      if ( $GVN_x_94 > $I_L45_S19 ) then !  99.50%
+   45.                         $SR_S22 = _lsh( $I_L45_S19, 1 )
+   45.                         $LIS_b8 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   45. !dir$ ivdep
+   45.                         do
+   45.                            0[$LIS_b8,$SR_S22:2:1].L = 0[t$4,$SR_S22:2:1].L
+   45.                            $SR_S22 = 2 + $SR_S22
+   45.                            $I_L45_S19 = 1 + $I_L45_S19
+   45.                            if ( logical( $I_L45_S19 >= $GVN_x_94 ) ) exit
+   45.                         enddo
+   45.                      endif
+   45.                   endif
+   45.                endif
+   45.                _free( t$4 )
+   45.             else
+   45. !dir$ suppress 0[t$4,0].L, t$4
+   45.             endif
+   45.          endif
+   47.          if ( $GVN_c_55 == 121 ) then
+   49.             $GVN_x_92 = 2[$GVN_oloc_x_151,0].L
+   49.             if ( int( _lsh( $GVN_x_92, 59 ) < 0 .or. _lsh( $GVN_x_92, 63 ) >= 0 ) /= 0 ) then
+   49. !dir$ suppress 0[int( 0[loc( x ),0].L, 8 ),0].L
+   49.                t$8 = int( loc( 0[int( 0[$GVN_oloc_x_151,0].L, 8 ),0].L ), 8 )
+   49.             else
+   49.                $GVN_x_91 = 7[$GVN_oloc_x_151,0].L
+   49.                t$8 = int( _alloc( _lsh( max( 0, $GVN_x_91 ), 4 ) ), 8 )
+   49.                if ( $GVN_x_91 > 0 ) then !  99.50%
+   49.                   $I_L49_S23 = 0
+   49.                   $GVN_x_90 = 8[$GVN_oloc_x_151,0].L
+   49.                   if ( $GVN_x_90 /= 2 ) then
+   49.                      $SR_S24 = 0
+   49.                      $LIS_b10 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   49.                      if ( 8 <= $GVN_x_91 ) then
+   49.                         $LIS_T_I_L49_61 = and( -8, $GVN_x_91 + _rsh( _ash( $GVN_x_91, 2 ), 61 ) )
+   49.                         do
+   49.                            0[t$8,$SR_S24:2:1].L = 0[$LIS_b10,$I_L49_S23 * $GVN_x_90:2:1].L
+   49.                            $SR_S25 = 2 + $SR_S24
+   49.                            0[t$8,$SR_S25:2:1].L = 0[$LIS_b10,$GVN_x_90 * ( 1 + $I_L49_S23 ):2:1].L
+   49.                            $SR_S26 = 2 + $SR_S25
+   49.                            0[t$8,$SR_S26:2:1].L = 0[$LIS_b10,$GVN_x_90 * ( 2 + $I_L49_S23 ):2:1].L
+   49.                            $SR_S27 = 2 + $SR_S26
+   49.                            0[t$8,$SR_S27:2:1].L = 0[$LIS_b10,$GVN_x_90 * ( 3 + $I_L49_S23 ):2:1].L
+   49.                            $SR_S28 = 2 + $SR_S27
+   49.                            0[t$8,$SR_S28:2:1].L = 0[$LIS_b10,$GVN_x_90 * ( 4 + $I_L49_S23 ):2:1].L
+   49.                            $SR_S29 = 2 + $SR_S28
+   49.                            0[t$8,$SR_S29:2:1].L = 0[$LIS_b10,$GVN_x_90 * ( 5 + $I_L49_S23 ):2:1].L
+   49.                            $SR_S30 = 2 + $SR_S29
+   49.                            0[t$8,$SR_S30:2:1].L = 0[$LIS_b10,$GVN_x_90 * ( 6 + $I_L49_S23 ):2:1].L
+   49.                            $SR_S31 = 2 + $SR_S30
+   49.                            0[t$8,$SR_S31:2:1].L = 0[$LIS_b10,$GVN_x_90 * ( 7 + $I_L49_S23 ):2:1].L
+   49.                            $SR_S24 = 2 + $SR_S31
+   49.                            $I_L49_S23 = 8 + $I_L49_S23
+   49.                            if ( $I_L49_S23 >= $LIS_T_I_L49_61 ) exit
+   49.                         enddo
+   49.                      endif
+   49.                      if ( $I_L49_S23 < $GVN_x_91 ) then
+   49.                         do
+   49.                            0[t$8,$SR_S24:2:1].L = 0[$LIS_b10,$I_L49_S23 * $GVN_x_90:2:1].L
+   49.                            $SR_S24 = 2 + $SR_S24
+   49.                            $I_L49_S23 = 1 + $I_L49_S23
+   49.                            if ( logical( $I_L49_S23 >= $GVN_x_91 ) ) exit
+   49.                         enddo
+   49.                      endif
+   49.                   else
+   49.                      if ( $GVN_x_91 >= 4 ) then !  99.50%
+   49.                         $TC_157 = and( -4, $GVN_x_91 )
+   49.                         $LC_S32 = -$TC_157
+   49.                         $SI_S33 = 0
+   49.                         $LIS_b11 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   49.                         if ( $LC_S32 < -7 ) then
+   49.                            do
+   49.                               $GVN_118 = t$8 + $SI_S33
+   49.                               $GVN_119 = $LIS_b11 + $SI_S33
+   49.                               0[$GVN_118:4:1,a8].L = 0[$GVN_119:4:1,a8].L
+   49.                               4[$GVN_118:4:1,a8].L = 4[$GVN_119:4:1,a8].L
+   49.                               8[$GVN_118:4:1,a8].L = 8[$GVN_119:4:1,a8].L
+   49.                               12[$GVN_118:4:1,a8].L = 12[$GVN_119:4:1,a8].L
+   49.                               $SI_S33 = 128 + $SI_S33
+   49.                               $LC_S32 = 8 + $LC_S32
+   49.                               if ( $LC_S32 >= -7 ) exit
+   49.                            enddo
+   49.                         endif
+   49.                         if ( $LC_S32 < 0 ) then
+   49.                            $GVN_142 = t$8 + $SI_S33
+   49.                            $GVN_143 = $LIS_b11 + $SI_S33
+   49.                            0[$GVN_142:4:1,a8].L = 0[$GVN_143:4:1,a8].L
+   49.                            4[$GVN_142:4:1,a8].L = 4[$GVN_143:4:1,a8].L
+   49.                         endif
+   49.                         $I_L49_S23 = $TC_157
+   49.                      endif
+   49.                      if ( $GVN_x_91 > $I_L49_S23 ) then !  99.50%
+   49.                         $SR_S34 = _lsh( $I_L49_S23, 1 )
+   49.                         $LIS_b12 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   49. !dir$ ivdep
+   49.                         do
+   49.                            0[t$8,$SR_S34:2:1].L = 0[$LIS_b12,$SR_S34:2:1].L
+   49.                            $SR_S34 = 2 + $SR_S34
+   49.                            $I_L49_S23 = 1 + $I_L49_S23
+   49.                            if ( logical( $I_L49_S23 >= $GVN_x_91 ) ) exit
+   49.                         enddo
+   49.                      endif
+   49.                   endif
+   49.                endif
+   49.             endif
+   49.             _prefetch( 0[t$8,0].L )
+   49.             _prefetch( coefyp[0].L )
+   49.             call zfftb( 0[loc( n ),0], 0[t$8,0].L, coefyp )
+   49.             $GVN_x_89 = 2[$GVN_oloc_x_151,0].L
+   49.             if ( int( _lsh( $GVN_x_89, 59 ) < 0 .or. _lsh( $GVN_x_89, 63 ) >= 0 ) == 0 ) then
+   49.                $GVN_x_88 = 7[$GVN_oloc_x_151,0].L
+   49.                if ( $GVN_x_88 > 0 ) then !  99.50%
+   49.                   $I_L49_S42 = 0
+   49.                   $GVN_x_87 = 8[$GVN_oloc_x_151,0].L
+   49.                   if ( $GVN_x_87 /= 2 ) then
+   49.                      if ( $GVN_x_88 >= 4 ) then !  99.50%
+   49.                         $TC_45 = and( -4, $GVN_x_88 )
+   49.                         $LC_S36 = -$TC_45
+   49.                         $SI_S39 = 0
+   49.                         $SR_S35 = t$8
+   49.                         $LIS_b14 = _lsh( $GVN_x_87, 3 )
+   49.                         $LIS_b13 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   49.                         $SI_NEXT_S37 = 64 + t$8
+   49.                         $VPO_S38[0:4:2,a32].L = 0[t$8:4:2,a8].L
+   49.                         if ( $LC_S36 < -7 ) then
+   49.                            do
+   49.                               $VP_t_204[0:4:2,a32].L = 0[$SI_NEXT_S37:4:2,a8].L
+   49.                               0[$LIS_b13 + $LIS_b14 * $SI_S39,0,a8].L = $VPO_S38[0].L
+   49.                               0[$LIS_b13 + $LIS_b14 * $SI_S39,$GVN_x_87,a8].L = $VPO_S38[1].L
+   49.                               0[$LIS_b13 + $LIS_b14 * $SI_S39,2 * $GVN_x_87,a8].L = $VPO_S38[2].L
+   49.                               0[$LIS_b13 + $LIS_b14 * $SI_S39,3 * $GVN_x_87,a8].L = $VPO_S38[3].L
+   49.                               $SI_NEXT_S41 = 64 + $SI_NEXT_S37
+   49.                               $VPO_S38[0:4:2,a32].L = 0[$SI_NEXT_S41:4:2,a8].L
+   49.                               0[$LIS_b13 + $LIS_b14 * ( 4 + $SI_S39 ),0,a8].L = $VP_t_204[0].L
+   49.                               0[$LIS_b13 + $LIS_b14 * ( 4 + $SI_S39 ),$GVN_x_87,a8].L = $VP_t_204[1].L
+   49.                               0[$LIS_b13 + $LIS_b14 * ( 4 + $SI_S39 ),2 * $GVN_x_87,a8].L = $VP_t_204[2].L
+   49.                               0[$LIS_b13 + $LIS_b14 * ( 4 + $SI_S39 ),3 * $GVN_x_87,a8].L = $VP_t_204[3].L
+   49.                               $SI_S39 = 8 + $SI_S39
+   49.                               $SR_S35 = $SI_NEXT_S41
+   49.                               $SI_NEXT_S37 = 64 + $SI_NEXT_S41
+   49.                               $LC_S36 = 8 + $LC_S36
+   49.                               if ( $LC_S36 >= -7 ) exit
+   49.                            enddo
+   49.                         endif
+   49.                         if ( $LC_S36 < 0 ) then
+   49.                            0[$LIS_b13 + $LIS_b14 * $SI_S39:2:1,a8].L = 0[$SR_S35:2:1,a8].L
+   49.                            0[$LIS_b13 + $LIS_b14 * $SI_S39,$GVN_x_87:2:1,a8].L = 2[$SR_S35:2:1,a8].L
+   49.                            0[$LIS_b13 + $LIS_b14 * $SI_S39,2 * $GVN_x_87:2:1,a8].L = 4[$SR_S35:2:1,a8].L
+   49.                            0[$LIS_b13 + $LIS_b14 * $SI_S39,3 * $GVN_x_87:2:1,a8].L = 6[$SR_S35:2:1,a8].L
+   49.                         endif
+   49.                         $I_L49_S42 = $TC_45
+   49.                      endif
+   49.                      if ( $GVN_x_88 - $I_L49_S42 >= 2 ) then !  99.50%
+   49.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L49_S42 * $GVN_x_87:2:1,a8].L = 0[t$8,_lsh( $I_L49_S42, 1 ):2:1,a8].L
+   49.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$GVN_x_87 * ( 1 + $I_L49_S42 ):2:1,a8].L = 2[t$8,_lsh( $I_L49_S42, 1 ):2:1,a8].L
+   49.                         $I_L49_S42 = 2 + $I_L49_S42
+   49.                      endif
+   49.                      if ( $GVN_x_88 > $I_L49_S42 ) then !  99.50%
+   49.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L49_S42 * $GVN_x_87:2:1].L = 0[t$8,_lsh( $I_L49_S42, 1 ):2:1].L
+   49.                      endif
+   49.                   else
+   49.                      if ( $GVN_x_88 >= 4 ) then !  99.50%
+   49.                         $TC_161 = and( -4, $GVN_x_88 )
+   49.                         $LC_S43 = -$TC_161
+   49.                         $SI_S44 = 0
+   49.                         $LIS_b16 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   49.                         if ( $LC_S43 < -7 ) then
+   49.                            do
+   49.                               $GVN_116 = $LIS_b16 + $SI_S44
+   49.                               $GVN_117 = t$8 + $SI_S44
+   49.                               0[$GVN_116:4:1,a8].L = 0[$GVN_117:4:1,a8].L
+   49.                               4[$GVN_116:4:1,a8].L = 4[$GVN_117:4:1,a8].L
+   49.                               8[$GVN_116:4:1,a8].L = 8[$GVN_117:4:1,a8].L
+   49.                               12[$GVN_116:4:1,a8].L = 12[$GVN_117:4:1,a8].L
+   49.                               $SI_S44 = 128 + $SI_S44
+   49.                               $LC_S43 = 8 + $LC_S43
+   49.                               if ( $LC_S43 >= -7 ) exit
+   49.                            enddo
+   49.                         endif
+   49.                         if ( $LC_S43 < 0 ) then
+   49.                            $GVN_140 = $LIS_b16 + $SI_S44
+   49.                            $GVN_141 = t$8 + $SI_S44
+   49.                            0[$GVN_140:4:1,a8].L = 0[$GVN_141:4:1,a8].L
+   49.                            4[$GVN_140:4:1,a8].L = 4[$GVN_141:4:1,a8].L
+   49.                         endif
+   49.                         $I_L49_S42 = $TC_161
+   49.                      endif
+   49.                      if ( $GVN_x_88 > $I_L49_S42 ) then !  99.50%
+   49.                         $SR_S45 = _lsh( $I_L49_S42, 1 )
+   49.                         $LIS_b17 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   49. !dir$ ivdep
+   49.                         do
+   49.                            0[$LIS_b17,$SR_S45:2:1].L = 0[t$8,$SR_S45:2:1].L
+   49.                            $SR_S45 = 2 + $SR_S45
+   49.                            $I_L49_S42 = 1 + $I_L49_S42
+   49.                            if ( logical( $I_L49_S42 >= $GVN_x_88 ) ) exit
+   49.                         enddo
+   49.                      endif
+   49.                   endif
+   49.                endif
+   49.                _free( t$8 )
+   49.             else
+   49. !dir$ suppress 0[t$8,0].L, t$8
+   49.             endif
+   49.          endif
+   51.          if ( $GVN_c_55 == 122 ) then
+   53.             $GVN_x_86 = 2[$GVN_oloc_x_151,0].L
+   53.             if ( int( _lsh( $GVN_x_86, 59 ) < 0 .or. _lsh( $GVN_x_86, 63 ) >= 0 ) /= 0 ) then
+   53. !dir$ suppress 0[int( 0[loc( x ),0].L, 8 ),0].L
+   53.                t$12 = int( loc( 0[int( 0[$GVN_oloc_x_151,0].L, 8 ),0].L ), 8 )
+   53.             else
+   53.                $GVN_x_85 = 7[$GVN_oloc_x_151,0].L
+   53.                t$12 = int( _alloc( _lsh( max( 0, $GVN_x_85 ), 4 ) ), 8 )
+   53.                if ( $GVN_x_85 > 0 ) then !  99.50%
+   53.                   $I_L53_S46 = 0
+   53.                   $GVN_x_84 = 8[$GVN_oloc_x_151,0].L
+   53.                   if ( $GVN_x_84 /= 2 ) then
+   53.                      $SR_S47 = 0
+   53.                      $LIS_b19 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   53.                      if ( 8 <= $GVN_x_85 ) then
+   53.                         $LIS_T_I_L53_60 = and( -8, $GVN_x_85 + _rsh( _ash( $GVN_x_85, 2 ), 61 ) )
+   53.                         do
+   53.                            0[t$12,$SR_S47:2:1].L = 0[$LIS_b19,$I_L53_S46 * $GVN_x_84:2:1].L
+   53.                            $SR_S48 = 2 + $SR_S47
+   53.                            0[t$12,$SR_S48:2:1].L = 0[$LIS_b19,$GVN_x_84 * ( 1 + $I_L53_S46 ):2:1].L
+   53.                            $SR_S49 = 2 + $SR_S48
+   53.                            0[t$12,$SR_S49:2:1].L = 0[$LIS_b19,$GVN_x_84 * ( 2 + $I_L53_S46 ):2:1].L
+   53.                            $SR_S50 = 2 + $SR_S49
+   53.                            0[t$12,$SR_S50:2:1].L = 0[$LIS_b19,$GVN_x_84 * ( 3 + $I_L53_S46 ):2:1].L
+   53.                            $SR_S51 = 2 + $SR_S50
+   53.                            0[t$12,$SR_S51:2:1].L = 0[$LIS_b19,$GVN_x_84 * ( 4 + $I_L53_S46 ):2:1].L
+   53.                            $SR_S52 = 2 + $SR_S51
+   53.                            0[t$12,$SR_S52:2:1].L = 0[$LIS_b19,$GVN_x_84 * ( 5 + $I_L53_S46 ):2:1].L
+   53.                            $SR_S53 = 2 + $SR_S52
+   53.                            0[t$12,$SR_S53:2:1].L = 0[$LIS_b19,$GVN_x_84 * ( 6 + $I_L53_S46 ):2:1].L
+   53.                            $SR_S54 = 2 + $SR_S53
+   53.                            0[t$12,$SR_S54:2:1].L = 0[$LIS_b19,$GVN_x_84 * ( 7 + $I_L53_S46 ):2:1].L
+   53.                            $SR_S47 = 2 + $SR_S54
+   53.                            $I_L53_S46 = 8 + $I_L53_S46
+   53.                            if ( $I_L53_S46 >= $LIS_T_I_L53_60 ) exit
+   53.                         enddo
+   53.                      endif
+   53.                      if ( $I_L53_S46 < $GVN_x_85 ) then
+   53.                         do
+   53.                            0[t$12,$SR_S47:2:1].L = 0[$LIS_b19,$I_L53_S46 * $GVN_x_84:2:1].L
+   53.                            $SR_S47 = 2 + $SR_S47
+   53.                            $I_L53_S46 = 1 + $I_L53_S46
+   53.                            if ( logical( $I_L53_S46 >= $GVN_x_85 ) ) exit
+   53.                         enddo
+   53.                      endif
+   53.                   else
+   53.                      if ( $GVN_x_85 >= 4 ) then !  99.50%
+   53.                         $TC_164 = and( -4, $GVN_x_85 )
+   53.                         $LC_S55 = -$TC_164
+   53.                         $SI_S56 = 0
+   53.                         $LIS_b20 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   53.                         if ( $LC_S55 < -7 ) then
+   53.                            do
+   53.                               $GVN_114 = t$12 + $SI_S56
+   53.                               $GVN_115 = $LIS_b20 + $SI_S56
+   53.                               0[$GVN_114:4:1,a8].L = 0[$GVN_115:4:1,a8].L
+   53.                               4[$GVN_114:4:1,a8].L = 4[$GVN_115:4:1,a8].L
+   53.                               8[$GVN_114:4:1,a8].L = 8[$GVN_115:4:1,a8].L
+   53.                               12[$GVN_114:4:1,a8].L = 12[$GVN_115:4:1,a8].L
+   53.                               $SI_S56 = 128 + $SI_S56
+   53.                               $LC_S55 = 8 + $LC_S55
+   53.                               if ( $LC_S55 >= -7 ) exit
+   53.                            enddo
+   53.                         endif
+   53.                         if ( $LC_S55 < 0 ) then
+   53.                            $GVN_138 = t$12 + $SI_S56
+   53.                            $GVN_139 = $LIS_b20 + $SI_S56
+   53.                            0[$GVN_138:4:1,a8].L = 0[$GVN_139:4:1,a8].L
+   53.                            4[$GVN_138:4:1,a8].L = 4[$GVN_139:4:1,a8].L
+   53.                         endif
+   53.                         $I_L53_S46 = $TC_164
+   53.                      endif
+   53.                      if ( $GVN_x_85 > $I_L53_S46 ) then !  99.50%
+   53.                         $SR_S57 = _lsh( $I_L53_S46, 1 )
+   53.                         $LIS_b21 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   53. !dir$ ivdep
+   53.                         do
+   53.                            0[t$12,$SR_S57:2:1].L = 0[$LIS_b21,$SR_S57:2:1].L
+   53.                            $SR_S57 = 2 + $SR_S57
+   53.                            $I_L53_S46 = 1 + $I_L53_S46
+   53.                            if ( logical( $I_L53_S46 >= $GVN_x_85 ) ) exit
+   53.                         enddo
+   53.                      endif
+   53.                   endif
+   53.                endif
+   53.             endif
+   53.             _prefetch( 0[t$12,0].L )
+   53.             _prefetch( coefzp[0].L )
+   53.             call zfftb( 0[loc( n ),0], 0[t$12,0].L, coefzp )
+   53.             $GVN_x_83 = 2[$GVN_oloc_x_151,0].L
+   53.             if ( int( _lsh( $GVN_x_83, 59 ) < 0 .or. _lsh( $GVN_x_83, 63 ) >= 0 ) == 0 ) then
+   53.                $GVN_x_82 = 7[$GVN_oloc_x_151,0].L
+   53.                if ( $GVN_x_82 > 0 ) then !  99.50%
+   53.                   $I_L53_S65 = 0
+   53.                   $GVN_x_81 = 8[$GVN_oloc_x_151,0].L
+   53.                   if ( $GVN_x_81 /= 2 ) then
+   53.                      if ( $GVN_x_82 >= 4 ) then !  99.50%
+   53.                         $TC_51 = and( -4, $GVN_x_82 )
+   53.                         $LC_S59 = -$TC_51
+   53.                         $SI_S62 = 0
+   53.                         $SR_S58 = t$12
+   53.                         $LIS_b23 = _lsh( $GVN_x_81, 3 )
+   53.                         $LIS_b22 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   53.                         $SI_NEXT_S60 = 64 + t$12
+   53.                         $VPO_S61[0:4:2,a32].L = 0[t$12:4:2,a8].L
+   53.                         if ( $LC_S59 < -7 ) then
+   53.                            do
+   53.                               $VP_t_211[0:4:2,a32].L = 0[$SI_NEXT_S60:4:2,a8].L
+   53.                               0[$LIS_b22 + $LIS_b23 * $SI_S62,0,a8].L = $VPO_S61[0].L
+   53.                               0[$LIS_b22 + $LIS_b23 * $SI_S62,$GVN_x_81,a8].L = $VPO_S61[1].L
+   53.                               0[$LIS_b22 + $LIS_b23 * $SI_S62,2 * $GVN_x_81,a8].L = $VPO_S61[2].L
+   53.                               0[$LIS_b22 + $LIS_b23 * $SI_S62,3 * $GVN_x_81,a8].L = $VPO_S61[3].L
+   53.                               $SI_NEXT_S64 = 64 + $SI_NEXT_S60
+   53.                               $VPO_S61[0:4:2,a32].L = 0[$SI_NEXT_S64:4:2,a8].L
+   53.                               0[$LIS_b22 + $LIS_b23 * ( 4 + $SI_S62 ),0,a8].L = $VP_t_211[0].L
+   53.                               0[$LIS_b22 + $LIS_b23 * ( 4 + $SI_S62 ),$GVN_x_81,a8].L = $VP_t_211[1].L
+   53.                               0[$LIS_b22 + $LIS_b23 * ( 4 + $SI_S62 ),2 * $GVN_x_81,a8].L = $VP_t_211[2].L
+   53.                               0[$LIS_b22 + $LIS_b23 * ( 4 + $SI_S62 ),3 * $GVN_x_81,a8].L = $VP_t_211[3].L
+   53.                               $SI_S62 = 8 + $SI_S62
+   53.                               $SR_S58 = $SI_NEXT_S64
+   53.                               $SI_NEXT_S60 = 64 + $SI_NEXT_S64
+   53.                               $LC_S59 = 8 + $LC_S59
+   53.                               if ( $LC_S59 >= -7 ) exit
+   53.                            enddo
+   53.                         endif
+   53.                         if ( $LC_S59 < 0 ) then
+   53.                            0[$LIS_b22 + $LIS_b23 * $SI_S62:2:1,a8].L = 0[$SR_S58:2:1,a8].L
+   53.                            0[$LIS_b22 + $LIS_b23 * $SI_S62,$GVN_x_81:2:1,a8].L = 2[$SR_S58:2:1,a8].L
+   53.                            0[$LIS_b22 + $LIS_b23 * $SI_S62,2 * $GVN_x_81:2:1,a8].L = 4[$SR_S58:2:1,a8].L
+   53.                            0[$LIS_b22 + $LIS_b23 * $SI_S62,3 * $GVN_x_81:2:1,a8].L = 6[$SR_S58:2:1,a8].L
+   53.                         endif
+   53.                         $I_L53_S65 = $TC_51
+   53.                      endif
+   53.                      if ( $GVN_x_82 - $I_L53_S65 >= 2 ) then !  99.50%
+   53.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L53_S65 * $GVN_x_81:2:1,a8].L = 0[t$12,_lsh( $I_L53_S65, 1 ):2:1,a8].L
+   53.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$GVN_x_81 * ( 1 + $I_L53_S65 ):2:1,a8].L = 2[t$12,_lsh( $I_L53_S65, 1 ):2:1,a8].L
+   53.                         $I_L53_S65 = 2 + $I_L53_S65
+   53.                      endif
+   53.                      if ( $GVN_x_82 > $I_L53_S65 ) then !  99.50%
+   53.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L53_S65 * $GVN_x_81:2:1].L = 0[t$12,_lsh( $I_L53_S65, 1 ):2:1].L
+   53.                      endif
+   53.                   else
+   53.                      if ( $GVN_x_82 >= 4 ) then !  99.50%
+   53.                         $TC_168 = and( -4, $GVN_x_82 )
+   53.                         $LC_S66 = -$TC_168
+   53.                         $SI_S67 = 0
+   53.                         $LIS_b25 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   53.                         if ( $LC_S66 < -7 ) then
+   53.                            do
+   53.                               $GVN_112 = $LIS_b25 + $SI_S67
+   53.                               $GVN_113 = t$12 + $SI_S67
+   53.                               0[$GVN_112:4:1,a8].L = 0[$GVN_113:4:1,a8].L
+   53.                               4[$GVN_112:4:1,a8].L = 4[$GVN_113:4:1,a8].L
+   53.                               8[$GVN_112:4:1,a8].L = 8[$GVN_113:4:1,a8].L
+   53.                               12[$GVN_112:4:1,a8].L = 12[$GVN_113:4:1,a8].L
+   53.                               $SI_S67 = 128 + $SI_S67
+   53.                               $LC_S66 = 8 + $LC_S66
+   53.                               if ( $LC_S66 >= -7 ) exit
+   53.                            enddo
+   53.                         endif
+   53.                         if ( $LC_S66 < 0 ) then
+   53.                            $GVN_136 = $LIS_b25 + $SI_S67
+   53.                            $GVN_137 = t$12 + $SI_S67
+   53.                            0[$GVN_136:4:1,a8].L = 0[$GVN_137:4:1,a8].L
+   53.                            4[$GVN_136:4:1,a8].L = 4[$GVN_137:4:1,a8].L
+   53.                         endif
+   53.                         $I_L53_S65 = $TC_168
+   53.                      endif
+   53.                      if ( $GVN_x_82 > $I_L53_S65 ) then !  99.50%
+   53.                         $SR_S68 = _lsh( $I_L53_S65, 1 )
+   53.                         $LIS_b26 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   53. !dir$ ivdep
+   53.                         do
+   53.                            0[$LIS_b26,$SR_S68:2:1].L = 0[t$12,$SR_S68:2:1].L
+   53.                            $SR_S68 = 2 + $SR_S68
+   53.                            $I_L53_S65 = 1 + $I_L53_S65
+   53.                            if ( logical( $I_L53_S65 >= $GVN_x_82 ) ) exit
+   53.                         enddo
+   53.                      endif
+   53.                   endif
+   53.                endif
+   53.                _free( t$12 )
+   53.             else
+   53. !dir$ suppress 0[t$12,0].L, t$12
+   53.             endif
+   53.          endif
+   53.       endif
+   57.       if ( $GVN_isign_99 == -1 ) then
+   58.          $GVN_c_56 = int( substr[c,0:1] )
+   58.          if ( $GVN_c_56 == 120 ) then
+   60.             $GVN_x_80 = 2[$GVN_oloc_x_151,0].L
+   60.             if ( int( _lsh( $GVN_x_80, 59 ) < 0 .or. _lsh( $GVN_x_80, 63 ) >= 0 ) /= 0 ) then
+   60. !dir$ suppress 0[int( 0[loc( x ),0].L, 8 ),0].L
+   60.                t$16 = int( loc( 0[int( 0[$GVN_oloc_x_151,0].L, 8 ),0].L ), 8 )
+   60.             else
+   60.                $GVN_x_79 = 7[$GVN_oloc_x_151,0].L
+   60.                t$16 = int( _alloc( _lsh( max( 0, $GVN_x_79 ), 4 ) ), 8 )
+   60.                if ( $GVN_x_79 > 0 ) then !  99.50%
+   60.                   $I_L60_S69 = 0
+   60.                   $GVN_x_78 = 8[$GVN_oloc_x_151,0].L
+   60.                   if ( $GVN_x_78 /= 2 ) then
+   60.                      $SR_S70 = 0
+   60.                      $LIS_b28 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   60.                      if ( 8 <= $GVN_x_79 ) then
+   60.                         $LIS_T_I_L60_59 = and( -8, $GVN_x_79 + _rsh( _ash( $GVN_x_79, 2 ), 61 ) )
+   60.                         do
+   60.                            0[t$16,$SR_S70:2:1].L = 0[$LIS_b28,$I_L60_S69 * $GVN_x_78:2:1].L
+   60.                            $SR_S71 = 2 + $SR_S70
+   60.                            0[t$16,$SR_S71:2:1].L = 0[$LIS_b28,$GVN_x_78 * ( 1 + $I_L60_S69 ):2:1].L
+   60.                            $SR_S72 = 2 + $SR_S71
+   60.                            0[t$16,$SR_S72:2:1].L = 0[$LIS_b28,$GVN_x_78 * ( 2 + $I_L60_S69 ):2:1].L
+   60.                            $SR_S73 = 2 + $SR_S72
+   60.                            0[t$16,$SR_S73:2:1].L = 0[$LIS_b28,$GVN_x_78 * ( 3 + $I_L60_S69 ):2:1].L
+   60.                            $SR_S74 = 2 + $SR_S73
+   60.                            0[t$16,$SR_S74:2:1].L = 0[$LIS_b28,$GVN_x_78 * ( 4 + $I_L60_S69 ):2:1].L
+   60.                            $SR_S75 = 2 + $SR_S74
+   60.                            0[t$16,$SR_S75:2:1].L = 0[$LIS_b28,$GVN_x_78 * ( 5 + $I_L60_S69 ):2:1].L
+   60.                            $SR_S76 = 2 + $SR_S75
+   60.                            0[t$16,$SR_S76:2:1].L = 0[$LIS_b28,$GVN_x_78 * ( 6 + $I_L60_S69 ):2:1].L
+   60.                            $SR_S77 = 2 + $SR_S76
+   60.                            0[t$16,$SR_S77:2:1].L = 0[$LIS_b28,$GVN_x_78 * ( 7 + $I_L60_S69 ):2:1].L
+   60.                            $SR_S70 = 2 + $SR_S77
+   60.                            $I_L60_S69 = 8 + $I_L60_S69
+   60.                            if ( $I_L60_S69 >= $LIS_T_I_L60_59 ) exit
+   60.                         enddo
+   60.                      endif
+   60.                      if ( $I_L60_S69 < $GVN_x_79 ) then
+   60.                         do
+   60.                            0[t$16,$SR_S70:2:1].L = 0[$LIS_b28,$I_L60_S69 * $GVN_x_78:2:1].L
+   60.                            $SR_S70 = 2 + $SR_S70
+   60.                            $I_L60_S69 = 1 + $I_L60_S69
+   60.                            if ( logical( $I_L60_S69 >= $GVN_x_79 ) ) exit
+   60.                         enddo
+   60.                      endif
+   60.                   else
+   60.                      if ( $GVN_x_79 >= 4 ) then !  99.50%
+   60.                         $TC_171 = and( -4, $GVN_x_79 )
+   60.                         $LC_S78 = -$TC_171
+   60.                         $SI_S79 = 0
+   60.                         $LIS_b29 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   60.                         if ( $LC_S78 < -7 ) then
+   60.                            do
+   60.                               $GVN_110 = t$16 + $SI_S79
+   60.                               $GVN_111 = $LIS_b29 + $SI_S79
+   60.                               0[$GVN_110:4:1,a8].L = 0[$GVN_111:4:1,a8].L
+   60.                               4[$GVN_110:4:1,a8].L = 4[$GVN_111:4:1,a8].L
+   60.                               8[$GVN_110:4:1,a8].L = 8[$GVN_111:4:1,a8].L
+   60.                               12[$GVN_110:4:1,a8].L = 12[$GVN_111:4:1,a8].L
+   60.                               $SI_S79 = 128 + $SI_S79
+   60.                               $LC_S78 = 8 + $LC_S78
+   60.                               if ( $LC_S78 >= -7 ) exit
+   60.                            enddo
+   60.                         endif
+   60.                         if ( $LC_S78 < 0 ) then
+   60.                            $GVN_134 = t$16 + $SI_S79
+   60.                            $GVN_135 = $LIS_b29 + $SI_S79
+   60.                            0[$GVN_134:4:1,a8].L = 0[$GVN_135:4:1,a8].L
+   60.                            4[$GVN_134:4:1,a8].L = 4[$GVN_135:4:1,a8].L
+   60.                         endif
+   60.                         $I_L60_S69 = $TC_171
+   60.                      endif
+   60.                      if ( $GVN_x_79 > $I_L60_S69 ) then !  99.50%
+   60.                         $SR_S80 = _lsh( $I_L60_S69, 1 )
+   60.                         $LIS_b30 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   60. !dir$ ivdep
+   60.                         do
+   60.                            0[t$16,$SR_S80:2:1].L = 0[$LIS_b30,$SR_S80:2:1].L
+   60.                            $SR_S80 = 2 + $SR_S80
+   60.                            $I_L60_S69 = 1 + $I_L60_S69
+   60.                            if ( logical( $I_L60_S69 >= $GVN_x_79 ) ) exit
+   60.                         enddo
+   60.                      endif
+   60.                   endif
+   60.                endif
+   60.             endif
+   60.             _prefetch( 0[t$16,0].L )
+   60.             _prefetch( coefxn[0].L )
+   60.             call zfftf( 0[loc( n ),0], 0[t$16,0].L, coefxn )
+   60.             $GVN_x_77 = 2[$GVN_oloc_x_151,0].L
+   60.             if ( int( _lsh( $GVN_x_77, 59 ) < 0 .or. _lsh( $GVN_x_77, 63 ) >= 0 ) == 0 ) then
+   60.                $GVN_x_76 = 7[$GVN_oloc_x_151,0].L
+   60.                if ( $GVN_x_76 > 0 ) then !  99.50%
+   60.                   $I_L60_S88 = 0
+   60.                   $GVN_x_75 = 8[$GVN_oloc_x_151,0].L
+   60.                   if ( $GVN_x_75 /= 2 ) then
+   60.                      if ( $GVN_x_76 >= 4 ) then !  99.50%
+   60.                         $TC_57 = and( -4, $GVN_x_76 )
+   60.                         $LC_S82 = -$TC_57
+   60.                         $SI_S85 = 0
+   60.                         $SR_S81 = t$16
+   60.                         $LIS_b32 = _lsh( $GVN_x_75, 3 )
+   60.                         $LIS_b31 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   60.                         $SI_NEXT_S83 = 64 + t$16
+   60.                         $VPO_S84[0:4:2,a32].L = 0[t$16:4:2,a8].L
+   60.                         if ( $LC_S82 < -7 ) then
+   60.                            do
+   60.                               $VP_t_218[0:4:2,a32].L = 0[$SI_NEXT_S83:4:2,a8].L
+   60.                               0[$LIS_b31 + $LIS_b32 * $SI_S85,0,a8].L = $VPO_S84[0].L
+   60.                               0[$LIS_b31 + $LIS_b32 * $SI_S85,$GVN_x_75,a8].L = $VPO_S84[1].L
+   60.                               0[$LIS_b31 + $LIS_b32 * $SI_S85,2 * $GVN_x_75,a8].L = $VPO_S84[2].L
+   60.                               0[$LIS_b31 + $LIS_b32 * $SI_S85,3 * $GVN_x_75,a8].L = $VPO_S84[3].L
+   60.                               $SI_NEXT_S87 = 64 + $SI_NEXT_S83
+   60.                               $VPO_S84[0:4:2,a32].L = 0[$SI_NEXT_S87:4:2,a8].L
+   60.                               0[$LIS_b31 + $LIS_b32 * ( 4 + $SI_S85 ),0,a8].L = $VP_t_218[0].L
+   60.                               0[$LIS_b31 + $LIS_b32 * ( 4 + $SI_S85 ),$GVN_x_75,a8].L = $VP_t_218[1].L
+   60.                               0[$LIS_b31 + $LIS_b32 * ( 4 + $SI_S85 ),2 * $GVN_x_75,a8].L = $VP_t_218[2].L
+   60.                               0[$LIS_b31 + $LIS_b32 * ( 4 + $SI_S85 ),3 * $GVN_x_75,a8].L = $VP_t_218[3].L
+   60.                               $SI_S85 = 8 + $SI_S85
+   60.                               $SR_S81 = $SI_NEXT_S87
+   60.                               $SI_NEXT_S83 = 64 + $SI_NEXT_S87
+   60.                               $LC_S82 = 8 + $LC_S82
+   60.                               if ( $LC_S82 >= -7 ) exit
+   60.                            enddo
+   60.                         endif
+   60.                         if ( $LC_S82 < 0 ) then
+   60.                            0[$LIS_b31 + $LIS_b32 * $SI_S85:2:1,a8].L = 0[$SR_S81:2:1,a8].L
+   60.                            0[$LIS_b31 + $LIS_b32 * $SI_S85,$GVN_x_75:2:1,a8].L = 2[$SR_S81:2:1,a8].L
+   60.                            0[$LIS_b31 + $LIS_b32 * $SI_S85,2 * $GVN_x_75:2:1,a8].L = 4[$SR_S81:2:1,a8].L
+   60.                            0[$LIS_b31 + $LIS_b32 * $SI_S85,3 * $GVN_x_75:2:1,a8].L = 6[$SR_S81:2:1,a8].L
+   60.                         endif
+   60.                         $I_L60_S88 = $TC_57
+   60.                      endif
+   60.                      if ( $GVN_x_76 - $I_L60_S88 >= 2 ) then !  99.50%
+   60.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L60_S88 * $GVN_x_75:2:1,a8].L = 0[t$16,_lsh( $I_L60_S88, 1 ):2:1,a8].L
+   60.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$GVN_x_75 * ( 1 + $I_L60_S88 ):2:1,a8].L = 2[t$16,_lsh( $I_L60_S88, 1 ):2:1,a8].L
+   60.                         $I_L60_S88 = 2 + $I_L60_S88
+   60.                      endif
+   60.                      if ( $GVN_x_76 > $I_L60_S88 ) then !  99.50%
+   60.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L60_S88 * $GVN_x_75:2:1].L = 0[t$16,_lsh( $I_L60_S88, 1 ):2:1].L
+   60.                      endif
+   60.                   else
+   60.                      if ( $GVN_x_76 >= 4 ) then !  99.50%
+   60.                         $TC_175 = and( -4, $GVN_x_76 )
+   60.                         $LC_S89 = -$TC_175
+   60.                         $SI_S90 = 0
+   60.                         $LIS_b34 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   60.                         if ( $LC_S89 < -7 ) then
+   60.                            do
+   60.                               $GVN_108 = $LIS_b34 + $SI_S90
+   60.                               $GVN_109 = t$16 + $SI_S90
+   60.                               0[$GVN_108:4:1,a8].L = 0[$GVN_109:4:1,a8].L
+   60.                               4[$GVN_108:4:1,a8].L = 4[$GVN_109:4:1,a8].L
+   60.                               8[$GVN_108:4:1,a8].L = 8[$GVN_109:4:1,a8].L
+   60.                               12[$GVN_108:4:1,a8].L = 12[$GVN_109:4:1,a8].L
+   60.                               $SI_S90 = 128 + $SI_S90
+   60.                               $LC_S89 = 8 + $LC_S89
+   60.                               if ( $LC_S89 >= -7 ) exit
+   60.                            enddo
+   60.                         endif
+   60.                         if ( $LC_S89 < 0 ) then
+   60.                            $GVN_132 = $LIS_b34 + $SI_S90
+   60.                            $GVN_133 = t$16 + $SI_S90
+   60.                            0[$GVN_132:4:1,a8].L = 0[$GVN_133:4:1,a8].L
+   60.                            4[$GVN_132:4:1,a8].L = 4[$GVN_133:4:1,a8].L
+   60.                         endif
+   60.                         $I_L60_S88 = $TC_175
+   60.                      endif
+   60.                      if ( $GVN_x_76 > $I_L60_S88 ) then !  99.50%
+   60.                         $SR_S91 = _lsh( $I_L60_S88, 1 )
+   60.                         $LIS_b35 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   60. !dir$ ivdep
+   60.                         do
+   60.                            0[$LIS_b35,$SR_S91:2:1].L = 0[t$16,$SR_S91:2:1].L
+   60.                            $SR_S91 = 2 + $SR_S91
+   60.                            $I_L60_S88 = 1 + $I_L60_S88
+   60.                            if ( logical( $I_L60_S88 >= $GVN_x_76 ) ) exit
+   60.                         enddo
+   60.                      endif
+   60.                   endif
+   60.                endif
+   60.                _free( t$16 )
+   60.             else
+   60. !dir$ suppress 0[t$16,0].L, t$16
+   60.             endif
+   60.          endif
+   62.          if ( $GVN_c_56 == 121 ) then
+   64.             $GVN_x_74 = 2[$GVN_oloc_x_151,0].L
+   64.             if ( int( _lsh( $GVN_x_74, 59 ) < 0 .or. _lsh( $GVN_x_74, 63 ) >= 0 ) /= 0 ) then
+   64. !dir$ suppress 0[int( 0[loc( x ),0].L, 8 ),0].L
+   64.                t$20 = int( loc( 0[int( 0[$GVN_oloc_x_151,0].L, 8 ),0].L ), 8 )
+   64.             else
+   64.                $GVN_x_73 = 7[$GVN_oloc_x_151,0].L
+   64.                t$20 = int( _alloc( _lsh( max( 0, $GVN_x_73 ), 4 ) ), 8 )
+   64.                if ( $GVN_x_73 > 0 ) then !  99.50%
+   64.                   $I_L64_S92 = 0
+   64.                   $GVN_x_72 = 8[$GVN_oloc_x_151,0].L
+   64.                   if ( $GVN_x_72 /= 2 ) then
+   64.                      $SR_S93 = 0
+   64.                      $LIS_b37 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   64.                      if ( 8 <= $GVN_x_73 ) then
+   64.                         $LIS_T_I_L64_58 = and( -8, $GVN_x_73 + _rsh( _ash( $GVN_x_73, 2 ), 61 ) )
+   64.                         do
+   64.                            0[t$20,$SR_S93:2:1].L = 0[$LIS_b37,$I_L64_S92 * $GVN_x_72:2:1].L
+   64.                            $SR_S94 = 2 + $SR_S93
+   64.                            0[t$20,$SR_S94:2:1].L = 0[$LIS_b37,$GVN_x_72 * ( 1 + $I_L64_S92 ):2:1].L
+   64.                            $SR_S95 = 2 + $SR_S94
+   64.                            0[t$20,$SR_S95:2:1].L = 0[$LIS_b37,$GVN_x_72 * ( 2 + $I_L64_S92 ):2:1].L
+   64.                            $SR_S96 = 2 + $SR_S95
+   64.                            0[t$20,$SR_S96:2:1].L = 0[$LIS_b37,$GVN_x_72 * ( 3 + $I_L64_S92 ):2:1].L
+   64.                            $SR_S97 = 2 + $SR_S96
+   64.                            0[t$20,$SR_S97:2:1].L = 0[$LIS_b37,$GVN_x_72 * ( 4 + $I_L64_S92 ):2:1].L
+   64.                            $SR_S98 = 2 + $SR_S97
+   64.                            0[t$20,$SR_S98:2:1].L = 0[$LIS_b37,$GVN_x_72 * ( 5 + $I_L64_S92 ):2:1].L
+   64.                            $SR_S99 = 2 + $SR_S98
+   64.                            0[t$20,$SR_S99:2:1].L = 0[$LIS_b37,$GVN_x_72 * ( 6 + $I_L64_S92 ):2:1].L
+   64.                            $SR_S100 = 2 + $SR_S99
+   64.                            0[t$20,$SR_S100:2:1].L = 0[$LIS_b37,$GVN_x_72 * ( 7 + $I_L64_S92 ):2:1].L
+   64.                            $SR_S93 = 2 + $SR_S100
+   64.                            $I_L64_S92 = 8 + $I_L64_S92
+   64.                            if ( $I_L64_S92 >= $LIS_T_I_L64_58 ) exit
+   64.                         enddo
+   64.                      endif
+   64.                      if ( $I_L64_S92 < $GVN_x_73 ) then
+   64.                         do
+   64.                            0[t$20,$SR_S93:2:1].L = 0[$LIS_b37,$I_L64_S92 * $GVN_x_72:2:1].L
+   64.                            $SR_S93 = 2 + $SR_S93
+   64.                            $I_L64_S92 = 1 + $I_L64_S92
+   64.                            if ( logical( $I_L64_S92 >= $GVN_x_73 ) ) exit
+   64.                         enddo
+   64.                      endif
+   64.                   else
+   64.                      if ( $GVN_x_73 >= 4 ) then !  99.50%
+   64.                         $TC_178 = and( -4, $GVN_x_73 )
+   64.                         $LC_S101 = -$TC_178
+   64.                         $SI_S102 = 0
+   64.                         $LIS_b38 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   64.                         if ( $LC_S101 < -7 ) then
+   64.                            do
+   64.                               $GVN_106 = t$20 + $SI_S102
+   64.                               $GVN_107 = $LIS_b38 + $SI_S102
+   64.                               0[$GVN_106:4:1,a8].L = 0[$GVN_107:4:1,a8].L
+   64.                               4[$GVN_106:4:1,a8].L = 4[$GVN_107:4:1,a8].L
+   64.                               8[$GVN_106:4:1,a8].L = 8[$GVN_107:4:1,a8].L
+   64.                               12[$GVN_106:4:1,a8].L = 12[$GVN_107:4:1,a8].L
+   64.                               $SI_S102 = 128 + $SI_S102
+   64.                               $LC_S101 = 8 + $LC_S101
+   64.                               if ( $LC_S101 >= -7 ) exit
+   64.                            enddo
+   64.                         endif
+   64.                         if ( $LC_S101 < 0 ) then
+   64.                            $GVN_130 = t$20 + $SI_S102
+   64.                            $GVN_131 = $LIS_b38 + $SI_S102
+   64.                            0[$GVN_130:4:1,a8].L = 0[$GVN_131:4:1,a8].L
+   64.                            4[$GVN_130:4:1,a8].L = 4[$GVN_131:4:1,a8].L
+   64.                         endif
+   64.                         $I_L64_S92 = $TC_178
+   64.                      endif
+   64.                      if ( $GVN_x_73 > $I_L64_S92 ) then !  99.50%
+   64.                         $SR_S103 = _lsh( $I_L64_S92, 1 )
+   64.                         $LIS_b39 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   64. !dir$ ivdep
+   64.                         do
+   64.                            0[t$20,$SR_S103:2:1].L = 0[$LIS_b39,$SR_S103:2:1].L
+   64.                            $SR_S103 = 2 + $SR_S103
+   64.                            $I_L64_S92 = 1 + $I_L64_S92
+   64.                            if ( logical( $I_L64_S92 >= $GVN_x_73 ) ) exit
+   64.                         enddo
+   64.                      endif
+   64.                   endif
+   64.                endif
+   64.             endif
+   64.             _prefetch( 0[t$20,0].L )
+   64.             _prefetch( coefyn[0].L )
+   64.             call zfftf( 0[loc( n ),0], 0[t$20,0].L, coefyn )
+   64.             $GVN_x_71 = 2[$GVN_oloc_x_151,0].L
+   64.             if ( int( _lsh( $GVN_x_71, 59 ) < 0 .or. _lsh( $GVN_x_71, 63 ) >= 0 ) == 0 ) then
+   64.                $GVN_x_70 = 7[$GVN_oloc_x_151,0].L
+   64.                if ( $GVN_x_70 > 0 ) then !  99.50%
+   64.                   $I_L64_S111 = 0
+   64.                   $GVN_x_69 = 8[$GVN_oloc_x_151,0].L
+   64.                   if ( $GVN_x_69 /= 2 ) then
+   64.                      if ( $GVN_x_70 >= 4 ) then !  99.50%
+   64.                         $TC_63 = and( -4, $GVN_x_70 )
+   64.                         $LC_S105 = -$TC_63
+   64.                         $SI_S108 = 0
+   64.                         $SR_S104 = t$20
+   64.                         $LIS_b41 = _lsh( $GVN_x_69, 3 )
+   64.                         $LIS_b40 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   64.                         $SI_NEXT_S106 = 64 + t$20
+   64.                         $VPO_S107[0:4:2,a32].L = 0[t$20:4:2,a8].L
+   64.                         if ( $LC_S105 < -7 ) then
+   64.                            do
+   64.                               $VP_t_225[0:4:2,a32].L = 0[$SI_NEXT_S106:4:2,a8].L
+   64.                               0[$LIS_b40 + $LIS_b41 * $SI_S108,0,a8].L = $VPO_S107[0].L
+   64.                               0[$LIS_b40 + $LIS_b41 * $SI_S108,$GVN_x_69,a8].L = $VPO_S107[1].L
+   64.                               0[$LIS_b40 + $LIS_b41 * $SI_S108,2 * $GVN_x_69,a8].L = $VPO_S107[2].L
+   64.                               0[$LIS_b40 + $LIS_b41 * $SI_S108,3 * $GVN_x_69,a8].L = $VPO_S107[3].L
+   64.                               $SI_NEXT_S110 = 64 + $SI_NEXT_S106
+   64.                               $VPO_S107[0:4:2,a32].L = 0[$SI_NEXT_S110:4:2,a8].L
+   64.                               0[$LIS_b40 + $LIS_b41 * ( 4 + $SI_S108 ),0,a8].L = $VP_t_225[0].L
+   64.                               0[$LIS_b40 + $LIS_b41 * ( 4 + $SI_S108 ),$GVN_x_69,a8].L = $VP_t_225[1].L
+   64.                               0[$LIS_b40 + $LIS_b41 * ( 4 + $SI_S108 ),2 * $GVN_x_69,a8].L = $VP_t_225[2].L
+   64.                               0[$LIS_b40 + $LIS_b41 * ( 4 + $SI_S108 ),3 * $GVN_x_69,a8].L = $VP_t_225[3].L
+   64.                               $SI_S108 = 8 + $SI_S108
+   64.                               $SR_S104 = $SI_NEXT_S110
+   64.                               $SI_NEXT_S106 = 64 + $SI_NEXT_S110
+   64.                               $LC_S105 = 8 + $LC_S105
+   64.                               if ( $LC_S105 >= -7 ) exit
+   64.                            enddo
+   64.                         endif
+   64.                         if ( $LC_S105 < 0 ) then
+   64.                            0[$LIS_b40 + $LIS_b41 * $SI_S108:2:1,a8].L = 0[$SR_S104:2:1,a8].L
+   64.                            0[$LIS_b40 + $LIS_b41 * $SI_S108,$GVN_x_69:2:1,a8].L = 2[$SR_S104:2:1,a8].L
+   64.                            0[$LIS_b40 + $LIS_b41 * $SI_S108,2 * $GVN_x_69:2:1,a8].L = 4[$SR_S104:2:1,a8].L
+   64.                            0[$LIS_b40 + $LIS_b41 * $SI_S108,3 * $GVN_x_69:2:1,a8].L = 6[$SR_S104:2:1,a8].L
+   64.                         endif
+   64.                         $I_L64_S111 = $TC_63
+   64.                      endif
+   64.                      if ( $GVN_x_70 - $I_L64_S111 >= 2 ) then !  99.50%
+   64.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L64_S111 * $GVN_x_69:2:1,a8].L = 0[t$20,_lsh( $I_L64_S111, 1 ):2:1,a8].L
+   64.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$GVN_x_69 * ( 1 + $I_L64_S111 ):2:1,a8].L = 2[t$20,_lsh( $I_L64_S111, 1 ):2:1,a8].L
+   64.                         $I_L64_S111 = 2 + $I_L64_S111
+   64.                      endif
+   64.                      if ( $GVN_x_70 > $I_L64_S111 ) then !  99.50%
+   64.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L64_S111 * $GVN_x_69:2:1].L = 0[t$20,_lsh( $I_L64_S111, 1 ):2:1].L
+   64.                      endif
+   64.                   else
+   64.                      if ( $GVN_x_70 >= 4 ) then !  99.50%
+   64.                         $TC_182 = and( -4, $GVN_x_70 )
+   64.                         $LC_S112 = -$TC_182
+   64.                         $SI_S113 = 0
+   64.                         $LIS_b43 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   64.                         if ( $LC_S112 < -7 ) then
+   64.                            do
+   64.                               $GVN_104 = $LIS_b43 + $SI_S113
+   64.                               $GVN_105 = t$20 + $SI_S113
+   64.                               0[$GVN_104:4:1,a8].L = 0[$GVN_105:4:1,a8].L
+   64.                               4[$GVN_104:4:1,a8].L = 4[$GVN_105:4:1,a8].L
+   64.                               8[$GVN_104:4:1,a8].L = 8[$GVN_105:4:1,a8].L
+   64.                               12[$GVN_104:4:1,a8].L = 12[$GVN_105:4:1,a8].L
+   64.                               $SI_S113 = 128 + $SI_S113
+   64.                               $LC_S112 = 8 + $LC_S112
+   64.                               if ( $LC_S112 >= -7 ) exit
+   64.                            enddo
+   64.                         endif
+   64.                         if ( $LC_S112 < 0 ) then
+   64.                            $GVN_128 = $LIS_b43 + $SI_S113
+   64.                            $GVN_129 = t$20 + $SI_S113
+   64.                            0[$GVN_128:4:1,a8].L = 0[$GVN_129:4:1,a8].L
+   64.                            4[$GVN_128:4:1,a8].L = 4[$GVN_129:4:1,a8].L
+   64.                         endif
+   64.                         $I_L64_S111 = $TC_182
+   64.                      endif
+   64.                      if ( $GVN_x_70 > $I_L64_S111 ) then !  99.50%
+   64.                         $SR_S114 = _lsh( $I_L64_S111, 1 )
+   64.                         $LIS_b44 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   64. !dir$ ivdep
+   64.                         do
+   64.                            0[$LIS_b44,$SR_S114:2:1].L = 0[t$20,$SR_S114:2:1].L
+   64.                            $SR_S114 = 2 + $SR_S114
+   64.                            $I_L64_S111 = 1 + $I_L64_S111
+   64.                            if ( logical( $I_L64_S111 >= $GVN_x_70 ) ) exit
+   64.                         enddo
+   64.                      endif
+   64.                   endif
+   64.                endif
+   64.                _free( t$20 )
+   64.             else
+   64. !dir$ suppress 0[t$20,0].L, t$20
+   64.             endif
+   64.          endif
+   66.          if ( $GVN_c_56 == 122 ) then
+   68.             $GVN_x_68 = 2[$GVN_oloc_x_151,0].L
+   68.             if ( int( _lsh( $GVN_x_68, 59 ) < 0 .or. _lsh( $GVN_x_68, 63 ) >= 0 ) /= 0 ) then
+   68. !dir$ suppress 0[int( 0[loc( x ),0].L, 8 ),0].L
+   68.                t$24 = int( loc( 0[int( 0[$GVN_oloc_x_151,0].L, 8 ),0].L ), 8 )
+   68.             else
+   68.                $GVN_x_67 = 7[$GVN_oloc_x_151,0].L
+   68.                t$24 = int( _alloc( _lsh( max( 0, $GVN_x_67 ), 4 ) ), 8 )
+   68.                if ( $GVN_x_67 > 0 ) then !  99.50%
+   68.                   $I_L68_S115 = 0
+   68.                   $GVN_x_66 = 8[$GVN_oloc_x_151,0].L
+   68.                   if ( $GVN_x_66 /= 2 ) then
+   68.                      $SR_S116 = 0
+   68.                      $LIS_b46 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   68.                      if ( 8 <= $GVN_x_67 ) then
+   68.                         $LIS_T_I_L68_57 = and( -8, $GVN_x_67 + _rsh( _ash( $GVN_x_67, 2 ), 61 ) )
+   68.                         do
+   68.                            0[t$24,$SR_S116:2:1].L = 0[$LIS_b46,$I_L68_S115 * $GVN_x_66:2:1].L
+   68.                            $SR_S117 = 2 + $SR_S116
+   68.                            0[t$24,$SR_S117:2:1].L = 0[$LIS_b46,$GVN_x_66 * ( 1 + $I_L68_S115 ):2:1].L
+   68.                            $SR_S118 = 2 + $SR_S117
+   68.                            0[t$24,$SR_S118:2:1].L = 0[$LIS_b46,$GVN_x_66 * ( 2 + $I_L68_S115 ):2:1].L
+   68.                            $SR_S119 = 2 + $SR_S118
+   68.                            0[t$24,$SR_S119:2:1].L = 0[$LIS_b46,$GVN_x_66 * ( 3 + $I_L68_S115 ):2:1].L
+   68.                            $SR_S120 = 2 + $SR_S119
+   68.                            0[t$24,$SR_S120:2:1].L = 0[$LIS_b46,$GVN_x_66 * ( 4 + $I_L68_S115 ):2:1].L
+   68.                            $SR_S121 = 2 + $SR_S120
+   68.                            0[t$24,$SR_S121:2:1].L = 0[$LIS_b46,$GVN_x_66 * ( 5 + $I_L68_S115 ):2:1].L
+   68.                            $SR_S122 = 2 + $SR_S121
+   68.                            0[t$24,$SR_S122:2:1].L = 0[$LIS_b46,$GVN_x_66 * ( 6 + $I_L68_S115 ):2:1].L
+   68.                            $SR_S123 = 2 + $SR_S122
+   68.                            0[t$24,$SR_S123:2:1].L = 0[$LIS_b46,$GVN_x_66 * ( 7 + $I_L68_S115 ):2:1].L
+   68.                            $SR_S116 = 2 + $SR_S123
+   68.                            $I_L68_S115 = 8 + $I_L68_S115
+   68.                            if ( $I_L68_S115 >= $LIS_T_I_L68_57 ) exit
+   68.                         enddo
+   68.                      endif
+   68.                      if ( $I_L68_S115 < $GVN_x_67 ) then
+   68.                         do
+   68.                            0[t$24,$SR_S116:2:1].L = 0[$LIS_b46,$I_L68_S115 * $GVN_x_66:2:1].L
+   68.                            $SR_S116 = 2 + $SR_S116
+   68.                            $I_L68_S115 = 1 + $I_L68_S115
+   68.                            if ( logical( $I_L68_S115 >= $GVN_x_67 ) ) exit
+   68.                         enddo
+   68.                      endif
+   68.                   else
+   68.                      if ( $GVN_x_67 >= 4 ) then !  99.50%
+   68.                         $TC_185 = and( -4, $GVN_x_67 )
+   68.                         $LC_S124 = -$TC_185
+   68.                         $SI_S125 = 0
+   68.                         $LIS_b47 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   68.                         if ( $LC_S124 < -7 ) then
+   68.                            do
+   68.                               $GVN_102 = t$24 + $SI_S125
+   68.                               $GVN_103 = $LIS_b47 + $SI_S125
+   68.                               0[$GVN_102:4:1,a8].L = 0[$GVN_103:4:1,a8].L
+   68.                               4[$GVN_102:4:1,a8].L = 4[$GVN_103:4:1,a8].L
+   68.                               8[$GVN_102:4:1,a8].L = 8[$GVN_103:4:1,a8].L
+   68.                               12[$GVN_102:4:1,a8].L = 12[$GVN_103:4:1,a8].L
+   68.                               $SI_S125 = 128 + $SI_S125
+   68.                               $LC_S124 = 8 + $LC_S124
+   68.                               if ( $LC_S124 >= -7 ) exit
+   68.                            enddo
+   68.                         endif
+   68.                         if ( $LC_S124 < 0 ) then
+   68.                            $GVN_126 = t$24 + $SI_S125
+   68.                            $GVN_127 = $LIS_b47 + $SI_S125
+   68.                            0[$GVN_126:4:1,a8].L = 0[$GVN_127:4:1,a8].L
+   68.                            4[$GVN_126:4:1,a8].L = 4[$GVN_127:4:1,a8].L
+   68.                         endif
+   68.                         $I_L68_S115 = $TC_185
+   68.                      endif
+   68.                      if ( $GVN_x_67 > $I_L68_S115 ) then !  99.50%
+   68.                         $SR_S126 = _lsh( $I_L68_S115, 1 )
+   68.                         $LIS_b48 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   68. !dir$ ivdep
+   68.                         do
+   68.                            0[t$24,$SR_S126:2:1].L = 0[$LIS_b48,$SR_S126:2:1].L
+   68.                            $SR_S126 = 2 + $SR_S126
+   68.                            $I_L68_S115 = 1 + $I_L68_S115
+   68.                            if ( logical( $I_L68_S115 >= $GVN_x_67 ) ) exit
+   68.                         enddo
+   68.                      endif
+   68.                   endif
+   68.                endif
+   68.             endif
+   68.             _prefetch( 0[t$24,0].L )
+   68.             _prefetch( coefzn[0].L )
+   68.             call zfftf( 0[loc( n ),0], 0[t$24,0].L, coefzn )
+   68.             $GVN_x_65 = 2[$GVN_oloc_x_151,0].L
+   68.             if ( int( _lsh( $GVN_x_65, 59 ) < 0 .or. _lsh( $GVN_x_65, 63 ) >= 0 ) == 0 ) then
+   68.                $GVN_x_64 = 7[$GVN_oloc_x_151,0].L
+   68.                if ( $GVN_x_64 > 0 ) then !  99.50%
+   68.                   $I_L68_S134 = 0
+   68.                   $GVN_x_63 = 8[$GVN_oloc_x_151,0].L
+   68.                   if ( $GVN_x_63 /= 2 ) then
+   68.                      if ( $GVN_x_64 >= 4 ) then !  99.50%
+   68.                         $TC_69 = and( -4, $GVN_x_64 )
+   68.                         $LC_S128 = -$TC_69
+   68.                         $SI_S131 = 0
+   68.                         $SR_S127 = t$24
+   68.                         $LIS_b50 = _lsh( $GVN_x_63, 3 )
+   68.                         $LIS_b49 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   68.                         $SI_NEXT_S129 = 64 + t$24
+   68.                         $VPO_S130[0:4:2,a32].L = 0[t$24:4:2,a8].L
+   68.                         if ( $LC_S128 < -7 ) then
+   68.                            do
+   68.                               $VP_t_232[0:4:2,a32].L = 0[$SI_NEXT_S129:4:2,a8].L
+   68.                               0[$LIS_b49 + $LIS_b50 * $SI_S131,0,a8].L = $VPO_S130[0].L
+   68.                               0[$LIS_b49 + $LIS_b50 * $SI_S131,$GVN_x_63,a8].L = $VPO_S130[1].L
+   68.                               0[$LIS_b49 + $LIS_b50 * $SI_S131,2 * $GVN_x_63,a8].L = $VPO_S130[2].L
+   68.                               0[$LIS_b49 + $LIS_b50 * $SI_S131,3 * $GVN_x_63,a8].L = $VPO_S130[3].L
+   68.                               $SI_NEXT_S133 = 64 + $SI_NEXT_S129
+   68.                               $VPO_S130[0:4:2,a32].L = 0[$SI_NEXT_S133:4:2,a8].L
+   68.                               0[$LIS_b49 + $LIS_b50 * ( 4 + $SI_S131 ),0,a8].L = $VP_t_232[0].L
+   68.                               0[$LIS_b49 + $LIS_b50 * ( 4 + $SI_S131 ),$GVN_x_63,a8].L = $VP_t_232[1].L
+   68.                               0[$LIS_b49 + $LIS_b50 * ( 4 + $SI_S131 ),2 * $GVN_x_63,a8].L = $VP_t_232[2].L
+   68.                               0[$LIS_b49 + $LIS_b50 * ( 4 + $SI_S131 ),3 * $GVN_x_63,a8].L = $VP_t_232[3].L
+   68.                               $SI_S131 = 8 + $SI_S131
+   68.                               $SR_S127 = $SI_NEXT_S133
+   68.                               $SI_NEXT_S129 = 64 + $SI_NEXT_S133
+   68.                               $LC_S128 = 8 + $LC_S128
+   68.                               if ( $LC_S128 >= -7 ) exit
+   68.                            enddo
+   68.                         endif
+   68.                         if ( $LC_S128 < 0 ) then
+   68.                            0[$LIS_b49 + $LIS_b50 * $SI_S131:2:1,a8].L = 0[$SR_S127:2:1,a8].L
+   68.                            0[$LIS_b49 + $LIS_b50 * $SI_S131,$GVN_x_63:2:1,a8].L = 2[$SR_S127:2:1,a8].L
+   68.                            0[$LIS_b49 + $LIS_b50 * $SI_S131,2 * $GVN_x_63:2:1,a8].L = 4[$SR_S127:2:1,a8].L
+   68.                            0[$LIS_b49 + $LIS_b50 * $SI_S131,3 * $GVN_x_63:2:1,a8].L = 6[$SR_S127:2:1,a8].L
+   68.                         endif
+   68.                         $I_L68_S134 = $TC_69
+   68.                      endif
+   68.                      if ( $GVN_x_64 - $I_L68_S134 >= 2 ) then !  99.50%
+   68.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L68_S134 * $GVN_x_63:2:1,a8].L = 0[t$24,_lsh( $I_L68_S134, 1 ):2:1,a8].L
+   68.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$GVN_x_63 * ( 1 + $I_L68_S134 ):2:1,a8].L = 2[t$24,_lsh( $I_L68_S134, 1 ):2:1,a8].L
+   68.                         $I_L68_S134 = 2 + $I_L68_S134
+   68.                      endif
+   68.                      if ( $GVN_x_64 > $I_L68_S134 ) then !  99.50%
+   68.                         0[int( 0[$GVN_oloc_x_151,0].L, 8 ),$I_L68_S134 * $GVN_x_63:2:1].L = 0[t$24,_lsh( $I_L68_S134, 1 ):2:1].L
+   68.                      endif
+   68.                   else
+   68.                      if ( $GVN_x_64 >= 4 ) then !  99.50%
+   68.                         $TC_189 = and( -4, $GVN_x_64 )
+   68.                         $LC_S135 = -$TC_189
+   68.                         $SI_S136 = 0
+   68.                         $LIS_b52 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   68.                         if ( $LC_S135 < -7 ) then
+   68.                            do
+   68.                               $GVN_100 = $LIS_b52 + $SI_S136
+   68.                               $GVN_101 = t$24 + $SI_S136
+   68.                               0[$GVN_100:4:1,a8].L = 0[$GVN_101:4:1,a8].L
+   68.                               4[$GVN_100:4:1,a8].L = 4[$GVN_101:4:1,a8].L
+   68.                               8[$GVN_100:4:1,a8].L = 8[$GVN_101:4:1,a8].L
+   68.                               12[$GVN_100:4:1,a8].L = 12[$GVN_101:4:1,a8].L
+   68.                               $SI_S136 = 128 + $SI_S136
+   68.                               $LC_S135 = 8 + $LC_S135
+   68.                               if ( $LC_S135 >= -7 ) exit
+   68.                            enddo
+   68.                         endif
+   68.                         if ( $LC_S135 < 0 ) then
+   68.                            $GVN_124 = $LIS_b52 + $SI_S136
+   68.                            $GVN_125 = t$24 + $SI_S136
+   68.                            0[$GVN_124:4:1,a8].L = 0[$GVN_125:4:1,a8].L
+   68.                            4[$GVN_124:4:1,a8].L = 4[$GVN_125:4:1,a8].L
+   68.                         endif
+   68.                         $I_L68_S134 = $TC_189
+   68.                      endif
+   68.                      if ( $GVN_x_64 > $I_L68_S134 ) then !  99.50%
+   68.                         $SR_S137 = _lsh( $I_L68_S134, 1 )
+   68.                         $LIS_b53 = int( 0[$GVN_oloc_x_151,0].L, 8 )
+   68. !dir$ ivdep
+   68.                         do
+   68.                            0[$LIS_b53,$SR_S137:2:1].L = 0[t$24,$SR_S137:2:1].L
+   68.                            $SR_S137 = 2 + $SR_S137
+   68.                            $I_L68_S134 = 1 + $I_L68_S134
+   68.                            if ( logical( $I_L68_S134 >= $GVN_x_64 ) ) exit
+   68.                         enddo
+   68.                      endif
+   68.                   endif
+   68.                endif
+   68.                _free( t$24 )
+   68.             else
+   68. !dir$ suppress 0[t$24,0].L, t$24
+   68.             endif
+   68.          endif
+   68.       endif
+   73.       return
+   73.       end
+   73.       
+   75.       
+   75.       subroutine dsinf( init, x, inc1x, inc2x, inc1y, inc2y, n, m, scale, aux1, naux1, aux2, naux2 )
+   75.       $GVN_oloc_x_23 = loc( x )
+   75.       6[$GVN_oloc_x_23,0].L = 1
+   75.       6[loc( aux1 ),0].L = 1
+   75.       6[loc( aux2 ),0].L = 1
+   80.       $PRT_P0 = 0[loc( n ),0]
+   80.       n2 = -1 + _ash( $PRT_P0 + _rsh( $PRT_P0, 31 ), 1 )
+   82.       $GVN_init_9 = 0[loc( init ),0]
+   82.       if ( $GVN_init_9 /= 0 ) then
+   83.          _prefetch( n2 )
+   83.          _prefetch( wsave[0].L )
+   83.          call dsinti( n2, wsave )
+   83.       endif
+   86.       if ( $GVN_init_9 == 0 ) then
+   87.          $GVN_x_8 = int( 0[$GVN_oloc_x_23,0].L, 8 )
+   87.          $GVN_x_20 = 8[$GVN_oloc_x_23,0].L
+   87.          _prefetch( n2 )
+   87.          _prefetch( wsave[0].L )
+   87.          call dsint( n2, 0[$GVN_x_8,$GVN_x_20].L, wsave )
+   88.          $GVN_n2_10 = n2
+   88.          if ( $GVN_n2_10 > 0 ) then
+   88.             $I_L88_S1 = 0
+   90.             $T_$I_L88_0_H0 = $GVN_n2_10
+   88.             if ( $GVN_x_20 /= 1 ) then
+   89.                $LIS_b1 = $GVN_x_8 + _lsh( $GVN_x_20, 3 )
+   89.                $LIS_b2 = 5.0e-1
+   90.                if ( 8 <= $T_$I_L88_0_H0 ) then
+   88.                   $LIS_T_I_L88_7 = and( -8, $T_$I_L88_0_H0 + _rsh( _ash( $T_$I_L88_0_H0, 2 ), 61 ) )
+   88.                   do
+   89.                      $GVN_19 = $I_L88_S1 * $GVN_x_20
+   89.                      0[$LIS_b1,$GVN_19].L = $LIS_b2 * 0[$LIS_b1,$GVN_19].L
+   89.                      $GVN_17 = $GVN_x_20 * ( 1 + $I_L88_S1 )
+   89.                      0[$LIS_b1,$GVN_17].L = $LIS_b2 * 0[$LIS_b1,$GVN_17].L
+   89.                      $GVN_16 = $GVN_x_20 * ( 2 + $I_L88_S1 )
+   89.                      0[$LIS_b1,$GVN_16].L = $LIS_b2 * 0[$LIS_b1,$GVN_16].L
+   89.                      $GVN_15 = $GVN_x_20 * ( 3 + $I_L88_S1 )
+   89.                      0[$LIS_b1,$GVN_15].L = $LIS_b2 * 0[$LIS_b1,$GVN_15].L
+   89.                      $GVN_14 = $GVN_x_20 * ( 4 + $I_L88_S1 )
+   89.                      0[$LIS_b1,$GVN_14].L = $LIS_b2 * 0[$LIS_b1,$GVN_14].L
+   89.                      $GVN_13 = $GVN_x_20 * ( 5 + $I_L88_S1 )
+   89.                      0[$LIS_b1,$GVN_13].L = $LIS_b2 * 0[$LIS_b1,$GVN_13].L
+   89.                      $GVN_12 = $GVN_x_20 * ( 6 + $I_L88_S1 )
+   89.                      0[$LIS_b1,$GVN_12].L = $LIS_b2 * 0[$LIS_b1,$GVN_12].L
+   89.                      $GVN_11 = $GVN_x_20 * ( 7 + $I_L88_S1 )
+   89.                      0[$LIS_b1,$GVN_11].L = $LIS_b2 * 0[$LIS_b1,$GVN_11].L
+   90.                      $I_L88_S1 = 8 + $I_L88_S1
+   90.                      if ( $I_L88_S1 >= $LIS_T_I_L88_7 ) exit
+   90.                   enddo
+   90.                endif
+   88.                if ( $I_L88_S1 < $T_$I_L88_0_H0 ) then
+   88.                   do
+   89.                      $GVN_18 = $I_L88_S1 * $GVN_x_20
+   89.                      0[$LIS_b1,$GVN_18].L = $LIS_b2 * 0[$LIS_b1,$GVN_18].L
+   90.                      $I_L88_S1 = 1 + $I_L88_S1
+   90.                      if ( logical( $I_L88_S1 >= $T_$I_L88_0_H0 ) ) exit
+   90.                   enddo
+   90.                endif
+   90.             else
+   88.                if ( $T_$I_L88_0_H0 >= 4 ) then !  99.50%
+   88.                   $TC_12 = and( -4, $T_$I_L88_0_H0 )
+   88.                   $LC_S2 = -$TC_12
+   88.                   $SI_S3 = 8
+   89.                   $LIS_5_0eM1_4[0:4:1,a32].L = _bcst( 5.0e-1, 4 )
+   88.                   if ( $LC_S2 < -7 ) then
+   88.                      do
+   89.                         $GVN_21 = $SI_S3 + $GVN_x_8
+   89.                         0[$GVN_21:4:1,a8].L = $LIS_5_0eM1_4[0:4:1,a32].L * 0[$GVN_21:4:1,a8].L
+   89.                         4[$GVN_21:4:1,a8].L = $LIS_5_0eM1_4[0:4:1,a32].L * 4[$GVN_21:4:1,a8].L
+   88.                         $SI_S3 = 64 + $SI_S3
+   88.                         $LC_S2 = 8 + $LC_S2
+   90.                         if ( $LC_S2 >= -7 ) exit
+   90.                      enddo
+   90.                   endif
+   88.                   if ( $LC_S2 < 0 ) then
+   89.                      $GVN_22 = $SI_S3 + $GVN_x_8
+   89.                      0[$GVN_22:4:1,a8].L = $LIS_5_0eM1_4[0:4:1,a32].L * 0[$GVN_22:4:1,a8].L
+   89.                   endif
+   88.                   $I_L88_S1 = $TC_12
+   88.                endif
+   88.                if ( $T_$I_L88_0_H0 > $I_L88_S1 ) then !  99.50%
+   89.                   $LIS_b6 = 5.0e-1
+   88. !dir$ ivdep
+   88.                   do
+   89.                      1[$GVN_x_8,$I_L88_S1].L = $LIS_b6 * 1[$GVN_x_8,$I_L88_S1].L
+   90.                      $I_L88_S1 = 1 + $I_L88_S1
+   90.                      if ( logical( $I_L88_S1 >= $T_$I_L88_0_H0 ) ) exit
+   90.                   enddo
+   90.                endif
+   90.             endif
+   90.          endif
+   91.          0[$GVN_x_8,0].L = 0.0
+   91.       endif
+   95.       return
+   95.       end
+   95.       
+    1.       
+    1.       module gem_fft_wrapper
+   97.       return
+   97.       end
+   97.       

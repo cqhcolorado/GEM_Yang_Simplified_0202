@@ -1,0 +1,2460 @@
+       !        
+       !        Hewlett Packard Enterprise Decompilation
+       !        Notice - This output is provided for information only.
+       !        
+       !        Hewlett Packard Enterprise reserves the right to change the
+       !        format of this information at any time and does not
+       !        guarantee the readability or accuracy of this information.
+       !        
+       !        This information may not be compilable and corresponds to
+       !        the internal representation of the program during the
+       !        optimization phase of the compilation process.
+       !        
+       !        Source                :  gem_equil.f90
+       !        File                  :  /gpfs/alpine/fus123/world-shared/qihengcai/GEM_Yang_Simplified_0202/gem_equil.opt
+       !        Network               :  Slingshot10 interconnect
+       !        Target                :  Heterogeneous
+       !              Cpu             :  x86-trento :: avx2, fma
+       !              Accel           :  amdgcn-gfx90a
+       !        
+   46.       
+   46.       subroutine new_equil
+   46.       t$2 = nr
+   46.       t$4 = ntheta
+   46.       t$38 = 1 + nr
+   64.       t$39 = _zla( 0, 1 + nr )
+   46.       t$40 = _zla( 0, 1 + nr )
+   46.       t$41 = 1 + ntheta
+   64.       t$42 = _zla( 0, 1 + ntheta )
+   46.       t$43 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta )
+   64.       t$46 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 8
+   64.       t$47 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 8
+   64.       t$49 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 16
+   64.       t$50 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 16
+   64.       t$52 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 24
+   64.       t$53 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 24
+   64.       t$55 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 32
+   64.       t$56 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 32
+   64.       t$58 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 40
+   59.       t$59 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 40
+   59.       t$61 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 48
+   63.       t$62 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 48
+   63.       t$64 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 56
+   63.       t$65 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 56
+   63.       t$67 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 64
+   63.       t$68 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 64
+   63.       t$70 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 72
+   63.       t$71 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 72
+   63.       t$73 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 80
+   63.       t$74 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 80
+   63.       t$76 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88
+   60.       t$77 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88
+   60.       t$79 = 8 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88
+   54.       t$81 = 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88
+   46.       t$6 = ( -1 + ntheta )
+   46.       t$82 = ntheta
+   59.       t$83 = _zla( 0, ntheta )
+   59.       t$84 = 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 )
+   59.       t$86 = 8 * _zla( 0, ntheta ) + 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 )
+   59.       t$87 = 8 * _zla( 0, ntheta ) + 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 )
+   59.       t$89 = 8 * _zla( 0, 1 + nr ) + 8 * _zla( 0, ntheta ) + 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 )
+   60.       t$90 = 8 * _zla( 0, 1 + nr ) + 8 * _zla( 0, ntheta ) + 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 )
+   60.       t$92 = 8 * _zla( 0, ntheta ) + 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 ) + 16 * _zla( 0, 1 + nr )
+   59.       t$93 = 8 * _zla( 0, ntheta ) + 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 ) + 16 * _zla( 0, 1 + nr )
+   59.       t$95 = 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 ) + 16 * _zla( 0, 1 + nr ) + 16 * _zla( 0, ntheta )
+   46.       t$44 = int( _alloc( 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 ) + 16 * _zla( 0, 1 + nr ) + 16 * _zla( 0, ntheta ) ), 8 )
+   64.       t$45 = t$44
+   64.       t$48 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 8
+   64.       t$51 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 16
+   64.       t$54 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 24
+   64.       t$57 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 32
+   59.       t$60 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 40
+   63.       t$63 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 48
+   63.       t$66 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 56
+   63.       t$69 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 64
+   63.       t$72 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 72
+   63.       t$75 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 80
+   60.       t$78 = t$44 + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88
+   54.       t$80 = t$44 + 8 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88
+   59.       t$85 = t$44 + 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 )
+   59.       t$88 = t$44 + 8 * _zla( 0, ntheta ) + 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 )
+   60.       t$91 = t$44 + 8 * _zla( 0, 1 + nr ) + 8 * _zla( 0, ntheta ) + 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 )
+   59.       t$94 = t$44 + 8 * _zla( 0, ntheta ) + 8 * ( ( 12 * _zla( 0, 1 + nr ) + _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 88 + 7 ) / 8 ) + 16 * _zla( 0, 1 + nr )
+   66.       bfld%header%a_contig = 1
+   66.       bfld%header%decl_mem_handle = 0
+   66.       bfld%header%locl_mem_handle = 0
+   66.       bfld%header%omp_mem_handle = 0
+   66.       bfld%dim_1%LB = 0
+   66.       bfld%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   66.       bfld%dim_1%SM = 1
+   66.       bfld%dim_2%LB = 0
+   66.       bfld%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   66.       bfld%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   66.       qhat%header%a_contig = 1
+   66.       qhat%header%decl_mem_handle = 0
+   66.       qhat%header%locl_mem_handle = 0
+   66.       qhat%header%omp_mem_handle = 0
+   66.       qhat%dim_1%LB = 0
+   66.       qhat%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   66.       qhat%dim_1%SM = 1
+   66.       qhat%dim_2%LB = 0
+   66.       qhat%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   66.       qhat%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   66.       radius%header%a_contig = 1
+   66.       radius%header%decl_mem_handle = 0
+   66.       radius%header%locl_mem_handle = 0
+   66.       radius%header%omp_mem_handle = 0
+   66.       radius%dim_1%LB = 0
+   66.       radius%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   66.       radius%dim_1%SM = 1
+   66.       radius%dim_2%LB = 0
+   66.       radius%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   66.       radius%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   67.       gr%header%a_contig = 1
+   67.       gr%header%decl_mem_handle = 0
+   67.       gr%header%locl_mem_handle = 0
+   67.       gr%header%omp_mem_handle = 0
+   67.       gr%dim_1%LB = 0
+   67.       gr%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   67.       gr%dim_1%SM = 1
+   67.       gr%dim_2%LB = 0
+   67.       gr%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   67.       gr%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   67.       gth%header%a_contig = 1
+   67.       gth%header%decl_mem_handle = 0
+   67.       gth%header%locl_mem_handle = 0
+   67.       gth%header%omp_mem_handle = 0
+   67.       gth%dim_1%LB = 0
+   67.       gth%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   67.       gth%dim_1%SM = 1
+   67.       gth%dim_2%LB = 0
+   67.       gth%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   67.       gth%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   67.       grdgt%header%a_contig = 1
+   67.       grdgt%header%decl_mem_handle = 0
+   67.       grdgt%header%locl_mem_handle = 0
+   67.       grdgt%header%omp_mem_handle = 0
+   67.       grdgt%dim_1%LB = 0
+   67.       grdgt%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   67.       grdgt%dim_1%SM = 1
+   67.       grdgt%dim_2%LB = 0
+   67.       grdgt%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   67.       grdgt%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   68.       grcgt%header%a_contig = 1
+   68.       grcgt%header%decl_mem_handle = 0
+   68.       grcgt%header%locl_mem_handle = 0
+   68.       grcgt%header%omp_mem_handle = 0
+   68.       grcgt%dim_1%LB = 0
+   68.       grcgt%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   68.       grcgt%dim_1%SM = 1
+   68.       grcgt%dim_2%LB = 0
+   68.       grcgt%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   68.       grcgt%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   68.       gxdgy%header%a_contig = 1
+   68.       gxdgy%header%decl_mem_handle = 0
+   68.       gxdgy%header%locl_mem_handle = 0
+   68.       gxdgy%header%omp_mem_handle = 0
+   68.       gxdgy%dim_1%LB = 0
+   68.       gxdgy%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   68.       gxdgy%dim_1%SM = 1
+   68.       gxdgy%dim_2%LB = 0
+   68.       gxdgy%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   68.       gxdgy%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   68.       dydr%header%a_contig = 1
+   68.       dydr%header%decl_mem_handle = 0
+   68.       dydr%header%locl_mem_handle = 0
+   68.       dydr%header%omp_mem_handle = 0
+   68.       dydr%dim_1%LB = 0
+   68.       dydr%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   68.       dydr%dim_1%SM = 1
+   68.       dydr%dim_2%LB = 0
+   68.       dydr%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   68.       dydr%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   69.       dbdr%header%a_contig = 1
+   69.       dbdr%header%decl_mem_handle = 0
+   69.       dbdr%header%locl_mem_handle = 0
+   69.       dbdr%header%omp_mem_handle = 0
+   69.       dbdr%dim_1%LB = 0
+   69.       dbdr%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   69.       dbdr%dim_1%SM = 1
+   69.       dbdr%dim_2%LB = 0
+   69.       dbdr%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   69.       dbdr%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   69.       dbdth%header%a_contig = 1
+   69.       dbdth%header%decl_mem_handle = 0
+   69.       dbdth%header%locl_mem_handle = 0
+   69.       dbdth%header%omp_mem_handle = 0
+   69.       dbdth%dim_1%LB = 0
+   69.       dbdth%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   69.       dbdth%dim_1%SM = 1
+   69.       dbdth%dim_2%LB = 0
+   69.       dbdth%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   69.       dbdth%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   69.       dqhdr%header%a_contig = 1
+   69.       dqhdr%header%decl_mem_handle = 0
+   69.       dqhdr%header%locl_mem_handle = 0
+   69.       dqhdr%header%omp_mem_handle = 0
+   69.       dqhdr%dim_1%LB = 0
+   69.       dqhdr%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   69.       dqhdr%dim_1%SM = 1
+   69.       dqhdr%dim_2%LB = 0
+   69.       dqhdr%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   69.       dqhdr%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   70.       jacob%header%a_contig = 1
+   70.       jacob%header%decl_mem_handle = 0
+   70.       jacob%header%locl_mem_handle = 0
+   70.       jacob%header%omp_mem_handle = 0
+   70.       jacob%dim_1%LB = 0
+   70.       jacob%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   70.       jacob%dim_1%SM = 1
+   70.       jacob%dim_2%LB = 0
+   70.       jacob%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   70.       jacob%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   70.       jfn%header%a_contig = 1
+   70.       jfn%header%decl_mem_handle = 0
+   70.       jfn%header%locl_mem_handle = 0
+   70.       jfn%header%omp_mem_handle = 0
+   70.       jfn%dim_1%LB = 0
+   70.       jfn%dim_1%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   70.       jfn%dim_1%SM = 1
+   70.       zfnth%header%a_contig = 1
+   70.       zfnth%header%decl_mem_handle = 0
+   70.       zfnth%header%locl_mem_handle = 0
+   70.       zfnth%header%omp_mem_handle = 0
+   70.       zfnth%dim_1%LB = 0
+   70.       zfnth%dim_1%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   70.       zfnth%dim_1%SM = 1
+   70.       thfnz%header%a_contig = 1
+   70.       thfnz%header%decl_mem_handle = 0
+   70.       thfnz%header%locl_mem_handle = 0
+   70.       thfnz%header%omp_mem_handle = 0
+   70.       thfnz%dim_1%LB = 0
+   70.       thfnz%dim_1%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   70.       thfnz%dim_1%SM = 1
+   71.       yfn%header%a_contig = 1
+   71.       yfn%header%decl_mem_handle = 0
+   71.       yfn%header%locl_mem_handle = 0
+   71.       yfn%header%omp_mem_handle = 0
+   71.       yfn%dim_1%LB = 0
+   71.       yfn%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   71.       yfn%dim_1%SM = 1
+   71.       yfn%dim_2%LB = 0
+   71.       yfn%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   71.       yfn%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   71.       hght%header%a_contig = 1
+   71.       hght%header%decl_mem_handle = 0
+   71.       hght%header%locl_mem_handle = 0
+   71.       hght%header%omp_mem_handle = 0
+   71.       hght%dim_1%LB = 0
+   71.       hght%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   71.       hght%dim_1%SM = 1
+   71.       hght%dim_2%LB = 0
+   71.       hght%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   71.       hght%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   71.       thflx%header%a_contig = 1
+   71.       thflx%header%decl_mem_handle = 0
+   71.       thflx%header%locl_mem_handle = 0
+   71.       thflx%header%omp_mem_handle = 0
+   71.       thflx%dim_1%LB = 0
+   71.       thflx%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   71.       thflx%dim_1%SM = 1
+   71.       thflx%dim_2%LB = 0
+   71.       thflx%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   71.       thflx%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   66.       _alocat( __allocate, 0x13200000000001L, 0, 0, _fcd( 0, 0 ), bfld, qhat, radius, gr, gth, grdgt, grcgt, gxdgy, dydr, dbdr, dbdth, dqhdr, jacob, jfn, zfnth, thfnz, yfn, hght, thflx )
+   73.       rmaj%header%a_contig = 1
+   73.       rmaj%header%decl_mem_handle = 0
+   73.       rmaj%header%locl_mem_handle = 0
+   73.       rmaj%header%omp_mem_handle = 0
+   73.       rmaj%dim_1%LB = 0
+   73.       rmaj%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   73.       rmaj%dim_1%SM = 1
+   73.       elon%header%a_contig = 1
+   73.       elon%header%decl_mem_handle = 0
+   73.       elon%header%locl_mem_handle = 0
+   73.       elon%header%omp_mem_handle = 0
+   73.       elon%dim_1%LB = 0
+   73.       elon%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   73.       elon%dim_1%SM = 1
+   73.       tria%header%a_contig = 1
+   73.       tria%header%decl_mem_handle = 0
+   73.       tria%header%locl_mem_handle = 0
+   73.       tria%header%omp_mem_handle = 0
+   73.       tria%dim_1%LB = 0
+   73.       tria%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   73.       tria%dim_1%SM = 1
+   73.       sf%header%a_contig = 1
+   73.       sf%header%decl_mem_handle = 0
+   73.       sf%header%locl_mem_handle = 0
+   73.       sf%header%omp_mem_handle = 0
+   73.       sf%dim_1%LB = 0
+   73.       sf%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   73.       sf%dim_1%SM = 1
+   73.       psi%header%a_contig = 1
+   73.       psi%header%decl_mem_handle = 0
+   73.       psi%header%locl_mem_handle = 0
+   73.       psi%header%omp_mem_handle = 0
+   73.       psi%dim_1%LB = 0
+   73.       psi%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   73.       psi%dim_1%SM = 1
+   74.       rmajp%header%a_contig = 1
+   74.       rmajp%header%decl_mem_handle = 0
+   74.       rmajp%header%locl_mem_handle = 0
+   74.       rmajp%header%omp_mem_handle = 0
+   74.       rmajp%dim_1%LB = 0
+   74.       rmajp%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   74.       rmajp%dim_1%SM = 1
+   74.       selon%header%a_contig = 1
+   74.       selon%header%decl_mem_handle = 0
+   74.       selon%header%locl_mem_handle = 0
+   74.       selon%header%omp_mem_handle = 0
+   74.       selon%dim_1%LB = 0
+   74.       selon%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   74.       selon%dim_1%SM = 1
+   74.       stria%header%a_contig = 1
+   74.       stria%header%decl_mem_handle = 0
+   74.       stria%header%locl_mem_handle = 0
+   74.       stria%header%omp_mem_handle = 0
+   74.       stria%dim_1%LB = 0
+   74.       stria%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   74.       stria%dim_1%SM = 1
+   74.       psip%header%a_contig = 1
+   74.       psip%header%decl_mem_handle = 0
+   74.       psip%header%locl_mem_handle = 0
+   74.       psip%header%omp_mem_handle = 0
+   74.       psip%dim_1%LB = 0
+   74.       psip%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   74.       psip%dim_1%SM = 1
+   75.       f%header%a_contig = 1
+   75.       f%header%decl_mem_handle = 0
+   75.       f%header%locl_mem_handle = 0
+   75.       f%header%omp_mem_handle = 0
+   75.       f%dim_1%LB = 0
+   75.       f%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   75.       f%dim_1%SM = 1
+   75.       jacoba%header%a_contig = 1
+   75.       jacoba%header%decl_mem_handle = 0
+   75.       jacoba%header%locl_mem_handle = 0
+   75.       jacoba%header%omp_mem_handle = 0
+   75.       jacoba%dim_1%LB = 0
+   75.       jacoba%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   75.       jacoba%dim_1%SM = 1
+   75.       t0i%header%a_contig = 1
+   75.       t0i%header%decl_mem_handle = 0
+   75.       t0i%header%locl_mem_handle = 0
+   75.       t0i%header%omp_mem_handle = 0
+   75.       t0i%dim_1%LB = 0
+   75.       t0i%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   75.       t0i%dim_1%SM = 1
+   75.       t0c%header%a_contig = 1
+   75.       t0c%header%decl_mem_handle = 0
+   75.       t0c%header%locl_mem_handle = 0
+   75.       t0c%header%omp_mem_handle = 0
+   75.       t0c%dim_1%LB = 0
+   75.       t0c%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   75.       t0c%dim_1%SM = 1
+   75.       t0e%header%a_contig = 1
+   75.       t0e%header%decl_mem_handle = 0
+   75.       t0e%header%locl_mem_handle = 0
+   75.       t0e%header%omp_mem_handle = 0
+   75.       t0e%dim_1%LB = 0
+   75.       t0e%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   75.       t0e%dim_1%SM = 1
+   75.       t0ip%header%a_contig = 1
+   75.       t0ip%header%decl_mem_handle = 0
+   75.       t0ip%header%locl_mem_handle = 0
+   75.       t0ip%header%omp_mem_handle = 0
+   75.       t0ip%dim_1%LB = 0
+   75.       t0ip%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   75.       t0ip%dim_1%SM = 1
+   76.       t0ep%header%a_contig = 1
+   76.       t0ep%header%decl_mem_handle = 0
+   76.       t0ep%header%locl_mem_handle = 0
+   76.       t0ep%header%omp_mem_handle = 0
+   76.       t0ep%dim_1%LB = 0
+   76.       t0ep%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   76.       t0ep%dim_1%SM = 1
+   76.       capti%header%a_contig = 1
+   76.       capti%header%decl_mem_handle = 0
+   76.       capti%header%locl_mem_handle = 0
+   76.       capti%header%omp_mem_handle = 0
+   76.       capti%dim_1%LB = 0
+   76.       capti%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   76.       capti%dim_1%SM = 1
+   76.       captc%header%a_contig = 1
+   76.       captc%header%decl_mem_handle = 0
+   76.       captc%header%locl_mem_handle = 0
+   76.       captc%header%omp_mem_handle = 0
+   76.       captc%dim_1%LB = 0
+   76.       captc%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   76.       captc%dim_1%SM = 1
+   76.       capte%header%a_contig = 1
+   76.       capte%header%decl_mem_handle = 0
+   76.       capte%header%locl_mem_handle = 0
+   76.       capte%header%omp_mem_handle = 0
+   76.       capte%dim_1%LB = 0
+   76.       capte%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   76.       capte%dim_1%SM = 1
+   77.       xn0e%header%a_contig = 1
+   77.       xn0e%header%decl_mem_handle = 0
+   77.       xn0e%header%locl_mem_handle = 0
+   77.       xn0e%header%omp_mem_handle = 0
+   77.       xn0e%dim_1%LB = 0
+   77.       xn0e%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   77.       xn0e%dim_1%SM = 1
+   77.       xn0i%header%a_contig = 1
+   77.       xn0i%header%decl_mem_handle = 0
+   77.       xn0i%header%locl_mem_handle = 0
+   77.       xn0i%header%omp_mem_handle = 0
+   77.       xn0i%dim_1%LB = 0
+   77.       xn0i%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   77.       xn0i%dim_1%SM = 1
+   77.       xn0c%header%a_contig = 1
+   77.       xn0c%header%decl_mem_handle = 0
+   77.       xn0c%header%locl_mem_handle = 0
+   77.       xn0c%header%omp_mem_handle = 0
+   77.       xn0c%dim_1%LB = 0
+   77.       xn0c%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   77.       xn0c%dim_1%SM = 1
+   77.       capne%header%a_contig = 1
+   77.       capne%header%decl_mem_handle = 0
+   77.       capne%header%locl_mem_handle = 0
+   77.       capne%header%omp_mem_handle = 0
+   77.       capne%dim_1%LB = 0
+   77.       capne%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   77.       capne%dim_1%SM = 1
+   77.       capni%header%a_contig = 1
+   77.       capni%header%decl_mem_handle = 0
+   77.       capni%header%locl_mem_handle = 0
+   77.       capni%header%omp_mem_handle = 0
+   77.       capni%dim_1%LB = 0
+   77.       capni%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   77.       capni%dim_1%SM = 1
+   77.       capnc%header%a_contig = 1
+   77.       capnc%header%decl_mem_handle = 0
+   77.       capnc%header%locl_mem_handle = 0
+   77.       capnc%header%omp_mem_handle = 0
+   77.       capnc%dim_1%LB = 0
+   77.       capnc%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   77.       capnc%dim_1%SM = 1
+   77.       zeff%header%a_contig = 1
+   77.       zeff%header%decl_mem_handle = 0
+   77.       zeff%header%locl_mem_handle = 0
+   77.       zeff%header%omp_mem_handle = 0
+   77.       zeff%dim_1%LB = 0
+   77.       zeff%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   77.       zeff%dim_1%SM = 1
+   77.       nue0%header%a_contig = 1
+   77.       nue0%header%decl_mem_handle = 0
+   77.       nue0%header%locl_mem_handle = 0
+   77.       nue0%header%omp_mem_handle = 0
+   77.       nue0%dim_1%LB = 0
+   77.       nue0%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   77.       nue0%dim_1%SM = 1
+   78.       vpari%header%a_contig = 1
+   78.       vpari%header%decl_mem_handle = 0
+   78.       vpari%header%locl_mem_handle = 0
+   78.       vpari%header%omp_mem_handle = 0
+   78.       vpari%dim_1%LB = 0
+   78.       vpari%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   78.       vpari%dim_1%SM = 1
+   78.       vparc%header%a_contig = 1
+   78.       vparc%header%decl_mem_handle = 0
+   78.       vparc%header%locl_mem_handle = 0
+   78.       vparc%header%omp_mem_handle = 0
+   78.       vparc%dim_1%LB = 0
+   78.       vparc%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   78.       vparc%dim_1%SM = 1
+   78.       vparb%header%a_contig = 1
+   78.       vparb%header%decl_mem_handle = 0
+   78.       vparb%header%locl_mem_handle = 0
+   78.       vparb%header%omp_mem_handle = 0
+   78.       vparb%dim_1%LB = 0
+   78.       vparb%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   78.       vparb%dim_1%SM = 1
+   78.       phinc%header%a_contig = 1
+   78.       phinc%header%decl_mem_handle = 0
+   78.       phinc%header%locl_mem_handle = 0
+   78.       phinc%header%omp_mem_handle = 0
+   78.       phinc%dim_1%LB = 0
+   78.       phinc%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   78.       phinc%dim_1%SM = 1
+   79.       vparip%header%a_contig = 1
+   79.       vparip%header%decl_mem_handle = 0
+   79.       vparip%header%locl_mem_handle = 0
+   79.       vparip%header%omp_mem_handle = 0
+   79.       vparip%dim_1%LB = 0
+   79.       vparip%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   79.       vparip%dim_1%SM = 1
+   79.       vparcp%header%a_contig = 1
+   79.       vparcp%header%decl_mem_handle = 0
+   79.       vparcp%header%locl_mem_handle = 0
+   79.       vparcp%header%omp_mem_handle = 0
+   79.       vparcp%dim_1%LB = 0
+   79.       vparcp%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   79.       vparcp%dim_1%SM = 1
+   79.       vparbp%header%a_contig = 1
+   79.       vparbp%header%decl_mem_handle = 0
+   79.       vparbp%header%locl_mem_handle = 0
+   79.       vparbp%header%omp_mem_handle = 0
+   79.       vparbp%dim_1%LB = 0
+   79.       vparbp%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   79.       vparbp%dim_1%SM = 1
+   79.       phincp%header%a_contig = 1
+   79.       phincp%header%decl_mem_handle = 0
+   79.       phincp%header%locl_mem_handle = 0
+   79.       phincp%header%omp_mem_handle = 0
+   79.       phincp%dim_1%LB = 0
+   79.       phincp%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   79.       phincp%dim_1%SM = 1
+   79.       er%header%a_contig = 1
+   79.       er%header%decl_mem_handle = 0
+   79.       er%header%locl_mem_handle = 0
+   79.       er%header%omp_mem_handle = 0
+   79.       er%dim_1%LB = 0
+   79.       er%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   79.       er%dim_1%SM = 1
+   80.       upari%header%a_contig = 1
+   80.       upari%header%decl_mem_handle = 0
+   80.       upari%header%locl_mem_handle = 0
+   80.       upari%header%omp_mem_handle = 0
+   80.       upari%dim_1%LB = 0
+   80.       upari%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   80.       upari%dim_1%SM = 1
+   80.       dipdr%header%a_contig = 1
+   80.       dipdr%header%decl_mem_handle = 0
+   80.       dipdr%header%locl_mem_handle = 0
+   80.       dipdr%header%omp_mem_handle = 0
+   80.       dipdr%dim_1%LB = 0
+   80.       dipdr%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   80.       dipdr%dim_1%SM = 1
+   73.       _alocat( __allocate, 0x26200000000001L, 0, 0, _fcd( 0, 0 ), rmaj, elon, tria, sf, psi, rmajp, selon, stria, psip, f, jacoba, t0i, t0c, t0e, t0ip, t0ep, capti, captc, capte, xn0e, xn0i, xn0c, capne, capni, capnc, zeff, nue0, vpari, vparc, vparb, phinc, vparip, vparcp, vparbp, phincp, er, upari, dipdr )
+   83.       psip2%header%a_contig = 1
+   83.       psip2%header%decl_mem_handle = 0
+   83.       psip2%header%locl_mem_handle = 0
+   83.       psip2%header%omp_mem_handle = 0
+   83.       psip2%dim_1%LB = 0
+   83.       psip2%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   83.       psip2%dim_1%SM = 1
+   83.       curvbz%header%a_contig = 1
+   83.       curvbz%header%decl_mem_handle = 0
+   83.       curvbz%header%locl_mem_handle = 0
+   83.       curvbz%header%omp_mem_handle = 0
+   83.       curvbz%dim_1%LB = 0
+   83.       curvbz%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   83.       curvbz%dim_1%SM = 1
+   83.       curvbz%dim_2%LB = 0
+   83.       curvbz%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   83.       curvbz%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   83.       srbr%header%a_contig = 1
+   83.       srbr%header%decl_mem_handle = 0
+   83.       srbr%header%locl_mem_handle = 0
+   83.       srbr%header%omp_mem_handle = 0
+   83.       srbr%dim_1%LB = 0
+   83.       srbr%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   83.       srbr%dim_1%SM = 1
+   83.       srbr%dim_2%LB = 0
+   83.       srbr%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   83.       srbr%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   83.       srbz%header%a_contig = 1
+   83.       srbz%header%decl_mem_handle = 0
+   83.       srbz%header%locl_mem_handle = 0
+   83.       srbz%header%omp_mem_handle = 0
+   83.       srbz%dim_1%LB = 0
+   83.       srbz%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   83.       srbz%dim_1%SM = 1
+   83.       srbz%dim_2%LB = 0
+   83.       srbz%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   83.       srbz%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   84.       thbr%header%a_contig = 1
+   84.       thbr%header%decl_mem_handle = 0
+   84.       thbr%header%locl_mem_handle = 0
+   84.       thbr%header%omp_mem_handle = 0
+   84.       thbr%dim_1%LB = 0
+   84.       thbr%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   84.       thbr%dim_1%SM = 1
+   84.       thbr%dim_2%LB = 0
+   84.       thbr%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   84.       thbr%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   84.       thbz%header%a_contig = 1
+   84.       thbz%header%decl_mem_handle = 0
+   84.       thbz%header%locl_mem_handle = 0
+   84.       thbz%header%omp_mem_handle = 0
+   84.       thbz%dim_1%LB = 0
+   84.       thbz%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   84.       thbz%dim_1%SM = 1
+   84.       thbz%dim_2%LB = 0
+   84.       thbz%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   84.       thbz%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   84.       bdcrvb%header%a_contig = 1
+   84.       bdcrvb%header%decl_mem_handle = 0
+   84.       bdcrvb%header%locl_mem_handle = 0
+   84.       bdcrvb%header%omp_mem_handle = 0
+   84.       bdcrvb%dim_1%LB = 0
+   84.       bdcrvb%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   84.       bdcrvb%dim_1%SM = 1
+   84.       bdcrvb%dim_2%LB = 0
+   84.       bdcrvb%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   84.       bdcrvb%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   85.       prsrbr%header%a_contig = 1
+   85.       prsrbr%header%decl_mem_handle = 0
+   85.       prsrbr%header%locl_mem_handle = 0
+   85.       prsrbr%header%omp_mem_handle = 0
+   85.       prsrbr%dim_1%LB = 0
+   85.       prsrbr%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   85.       prsrbr%dim_1%SM = 1
+   85.       prsrbr%dim_2%LB = 0
+   85.       prsrbr%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   85.       prsrbr%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   85.       prsrbz%header%a_contig = 1
+   85.       prsrbz%header%decl_mem_handle = 0
+   85.       prsrbz%header%locl_mem_handle = 0
+   85.       prsrbz%header%omp_mem_handle = 0
+   85.       prsrbz%dim_1%LB = 0
+   85.       prsrbz%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   85.       prsrbz%dim_1%SM = 1
+   85.       prsrbz%dim_2%LB = 0
+   85.       prsrbz%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   85.       prsrbz%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   86.       pthsrbr%header%a_contig = 1
+   86.       pthsrbr%header%decl_mem_handle = 0
+   86.       pthsrbr%header%locl_mem_handle = 0
+   86.       pthsrbr%header%omp_mem_handle = 0
+   86.       pthsrbr%dim_1%LB = 0
+   86.       pthsrbr%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   86.       pthsrbr%dim_1%SM = 1
+   86.       pthsrbr%dim_2%LB = 0
+   86.       pthsrbr%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   86.       pthsrbr%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   86.       pthsrbz%header%a_contig = 1
+   86.       pthsrbz%header%decl_mem_handle = 0
+   86.       pthsrbz%header%locl_mem_handle = 0
+   86.       pthsrbz%header%omp_mem_handle = 0
+   86.       pthsrbz%dim_1%LB = 0
+   86.       pthsrbz%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   86.       pthsrbz%dim_1%SM = 1
+   86.       pthsrbz%dim_2%LB = 0
+   86.       pthsrbz%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   86.       pthsrbz%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   83.       _alocat( __allocate, 0xb200000000001L, 0, 0, _fcd( 0, 0 ), psip2, curvbz, srbr, srbz, thbr, thbz, bdcrvb, prsrbr, prsrbz, pthsrbr, pthsrbz )
+   88.       cn0s%header%a_contig = 1
+   88.       cn0s%header%decl_mem_handle = 0
+   88.       cn0s%header%locl_mem_handle = 0
+   88.       cn0s%header%omp_mem_handle = 0
+   88.       cn0s%dim_1%LB = 1
+   88.       cn0s%dim_1%EX = 5
+   88.       cn0s%dim_1%SM = 1
+   88.       n0smax%header%a_contig = 1
+   88.       n0smax%header%decl_mem_handle = 0
+   88.       n0smax%header%locl_mem_handle = 0
+   88.       n0smax%header%omp_mem_handle = 0
+   88.       n0smax%dim_1%LB = 1
+   88.       n0smax%dim_1%EX = 5
+   88.       n0smax%dim_1%SM = 1
+   88.       t0s%header%a_contig = 1
+   88.       t0s%header%decl_mem_handle = 0
+   88.       t0s%header%locl_mem_handle = 0
+   88.       t0s%header%omp_mem_handle = 0
+   88.       t0s%dim_1%LB = 1
+   88.       t0s%dim_1%EX = 5
+   88.       t0s%dim_1%SM = 1
+   88.       t0s%dim_2%LB = 0
+   88.       t0s%dim_2%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   88.       t0s%dim_2%SM = 5
+   88.       xn0s%header%a_contig = 1
+   88.       xn0s%header%decl_mem_handle = 0
+   88.       xn0s%header%locl_mem_handle = 0
+   88.       xn0s%header%omp_mem_handle = 0
+   88.       xn0s%dim_1%LB = 1
+   88.       xn0s%dim_1%EX = 5
+   88.       xn0s%dim_1%SM = 1
+   88.       xn0s%dim_2%LB = 0
+   88.       xn0s%dim_2%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   88.       xn0s%dim_2%SM = 5
+   89.       capts%header%a_contig = 1
+   89.       capts%header%decl_mem_handle = 0
+   89.       capts%header%locl_mem_handle = 0
+   89.       capts%header%omp_mem_handle = 0
+   89.       capts%dim_1%LB = 1
+   89.       capts%dim_1%EX = 5
+   89.       capts%dim_1%SM = 1
+   89.       capts%dim_2%LB = 0
+   89.       capts%dim_2%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   89.       capts%dim_2%SM = 5
+   89.       capns%header%a_contig = 1
+   89.       capns%header%decl_mem_handle = 0
+   89.       capns%header%locl_mem_handle = 0
+   89.       capns%header%omp_mem_handle = 0
+   89.       capns%dim_1%LB = 1
+   89.       capns%dim_1%EX = 5
+   89.       capns%dim_1%SM = 1
+   89.       capns%dim_2%LB = 0
+   89.       capns%dim_2%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   89.       capns%dim_2%SM = 5
+   89.       vpars%header%a_contig = 1
+   89.       vpars%header%decl_mem_handle = 0
+   89.       vpars%header%locl_mem_handle = 0
+   89.       vpars%header%omp_mem_handle = 0
+   89.       vpars%dim_1%LB = 1
+   89.       vpars%dim_1%EX = 5
+   89.       vpars%dim_1%SM = 1
+   89.       vpars%dim_2%LB = 0
+   89.       vpars%dim_2%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   89.       vpars%dim_2%SM = 5
+   90.       vparsp%header%a_contig = 1
+   90.       vparsp%header%decl_mem_handle = 0
+   90.       vparsp%header%locl_mem_handle = 0
+   90.       vparsp%header%omp_mem_handle = 0
+   90.       vparsp%dim_1%LB = 1
+   90.       vparsp%dim_1%EX = 5
+   90.       vparsp%dim_1%SM = 1
+   90.       vparsp%dim_2%LB = 0
+   90.       vparsp%dim_2%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   90.       vparsp%dim_2%SM = 5
+   90.       tgis%header%a_contig = 1
+   90.       tgis%header%decl_mem_handle = 0
+   90.       tgis%header%locl_mem_handle = 0
+   90.       tgis%header%omp_mem_handle = 0
+   90.       tgis%dim_1%LB = 1
+   90.       tgis%dim_1%EX = 5
+   90.       tgis%dim_1%SM = 1
+   88.       _alocat( __allocate, 0x9200000000001L, 0, 0, _fcd( 0, 0 ), cn0s, n0smax, t0s, xn0s, capts, capns, vpars, vparsp, tgis )
+   92.       e1gx%header%a_contig = 1
+   92.       e1gx%header%decl_mem_handle = 0
+   92.       e1gx%header%locl_mem_handle = 0
+   92.       e1gx%header%omp_mem_handle = 0
+   92.       e1gx%dim_1%LB = 0
+   92.       e1gx%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   92.       e1gx%dim_1%SM = 1
+   92.       e1gx%dim_2%LB = 0
+   92.       e1gx%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   92.       e1gx%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   92.       e1gy%header%a_contig = 1
+   92.       e1gy%header%decl_mem_handle = 0
+   92.       e1gy%header%locl_mem_handle = 0
+   92.       e1gy%header%omp_mem_handle = 0
+   92.       e1gy%dim_1%LB = 0
+   92.       e1gy%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   92.       e1gy%dim_1%SM = 1
+   92.       e1gy%dim_2%LB = 0
+   92.       e1gy%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   92.       e1gy%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   92.       e2gx%header%a_contig = 1
+   92.       e2gx%header%decl_mem_handle = 0
+   92.       e2gx%header%locl_mem_handle = 0
+   92.       e2gx%header%omp_mem_handle = 0
+   92.       e2gx%dim_1%LB = 0
+   92.       e2gx%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   92.       e2gx%dim_1%SM = 1
+   92.       e2gx%dim_2%LB = 0
+   92.       e2gx%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   92.       e2gx%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   92.       e2gy%header%a_contig = 1
+   92.       e2gy%header%decl_mem_handle = 0
+   92.       e2gy%header%locl_mem_handle = 0
+   92.       e2gy%header%omp_mem_handle = 0
+   92.       e2gy%dim_1%LB = 0
+   92.       e2gy%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   92.       e2gy%dim_1%SM = 1
+   92.       e2gy%dim_2%LB = 0
+   92.       e2gy%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   92.       e2gy%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   93.       bdge1gx%header%a_contig = 1
+   93.       bdge1gx%header%decl_mem_handle = 0
+   93.       bdge1gx%header%locl_mem_handle = 0
+   93.       bdge1gx%header%omp_mem_handle = 0
+   93.       bdge1gx%dim_1%LB = 0
+   93.       bdge1gx%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   93.       bdge1gx%dim_1%SM = 1
+   93.       bdge1gx%dim_2%LB = 0
+   93.       bdge1gx%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   93.       bdge1gx%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   93.       bdge1gy%header%a_contig = 1
+   93.       bdge1gy%header%decl_mem_handle = 0
+   93.       bdge1gy%header%locl_mem_handle = 0
+   93.       bdge1gy%header%omp_mem_handle = 0
+   93.       bdge1gy%dim_1%LB = 0
+   93.       bdge1gy%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   93.       bdge1gy%dim_1%SM = 1
+   93.       bdge1gy%dim_2%LB = 0
+   93.       bdge1gy%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   93.       bdge1gy%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   93.       bdge2gx%header%a_contig = 1
+   93.       bdge2gx%header%decl_mem_handle = 0
+   93.       bdge2gx%header%locl_mem_handle = 0
+   93.       bdge2gx%header%omp_mem_handle = 0
+   93.       bdge2gx%dim_1%LB = 0
+   93.       bdge2gx%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   93.       bdge2gx%dim_1%SM = 1
+   93.       bdge2gx%dim_2%LB = 0
+   93.       bdge2gx%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   93.       bdge2gx%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   93.       bdge2gy%header%a_contig = 1
+   93.       bdge2gy%header%decl_mem_handle = 0
+   93.       bdge2gy%header%locl_mem_handle = 0
+   93.       bdge2gy%header%omp_mem_handle = 0
+   93.       bdge2gy%dim_1%LB = 0
+   93.       bdge2gy%dim_1%EX = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   93.       bdge2gy%dim_1%SM = 1
+   93.       bdge2gy%dim_2%LB = 0
+   93.       bdge2gy%dim_2%EX = merge( 0, _zla( 0, ( 1 + ntheta ) ), ntheta < 0 )
+   93.       bdge2gy%dim_2%SM = merge( 0, _zla( 0, ( 1 + nr ) ), nr < 0 )
+   92.       _alocat( __allocate, 0x8200000000001L, 0, 0, _fcd( 0, 0 ), e1gx, e1gy, e2gx, e2gy, bdge1gx, bdge1gy, bdge2gx, bdge2gy )
+   96.       $_tran_tran_T34%header%version = 5
+   96.       $_tran_tran_T34%header%operation = 10
+   96.       $_tran_tran_T34%size = 96
+   96.       $_tran_tran_T34%flags = 2240
+   96.       $_tran_tran_T34%host_ptr = cri_pointer( loc( bfld ) )
+   96.       $_tran_tran_T34%acc_ptr = cri_pointer( 0 )
+   96.       $_tran_tran_T34%acc_type_dscr = cri_pointer( 0 )
+   96.       $_tran_tran_T34%identifier = cri_pointer( loc( $_Text_Y0 ) )
+   96.       $_tran_tran_T35%header%version = 5
+   96.       $_tran_tran_T35%header%operation = 10
+   96.       $_tran_tran_T35%size = 96
+   96.       $_tran_tran_T35%flags = 2240
+   96.       $_tran_tran_T35%host_ptr = cri_pointer( loc( gr ) )
+   96.       $_tran_tran_T35%acc_ptr = cri_pointer( 0 )
+   96.       $_tran_tran_T35%acc_type_dscr = cri_pointer( 0 )
+   96.       $_tran_tran_T35%identifier = cri_pointer( loc( $_Text_Y1 ) )
+   96.       $_tran_tran_T36%header%version = 5
+   96.       $_tran_tran_T36%header%operation = 10
+   96.       $_tran_tran_T36%size = 96
+   96.       $_tran_tran_T36%flags = 2240
+   96.       $_tran_tran_T36%host_ptr = cri_pointer( loc( grcgt ) )
+   96.       $_tran_tran_T36%acc_ptr = cri_pointer( 0 )
+   96.       $_tran_tran_T36%acc_type_dscr = cri_pointer( 0 )
+   96.       $_tran_tran_T36%identifier = cri_pointer( loc( $_Text_Y2 ) )
+   96.       $_tran_tran_T37%header%version = 5
+   96.       $_tran_tran_T37%header%operation = 10
+   96.       $_tran_tran_T37%size = 96
+   96.       $_tran_tran_T37%flags = 2240
+   96.       $_tran_tran_T37%host_ptr = cri_pointer( loc( grdgt ) )
+   96.       $_tran_tran_T37%acc_ptr = cri_pointer( 0 )
+   96.       $_tran_tran_T37%acc_type_dscr = cri_pointer( 0 )
+   96.       $_tran_tran_T37%identifier = cri_pointer( loc( $_Text_Y3 ) )
+   96.       $_tran_tran_T38%header%version = 5
+   96.       $_tran_tran_T38%header%operation = 10
+   96.       $_tran_tran_T38%size = 96
+   96.       $_tran_tran_T38%flags = 2240
+   96.       $_tran_tran_T38%host_ptr = cri_pointer( loc( gth ) )
+   96.       $_tran_tran_T38%acc_ptr = cri_pointer( 0 )
+   96.       $_tran_tran_T38%acc_type_dscr = cri_pointer( 0 )
+   96.       $_tran_tran_T38%identifier = cri_pointer( loc( $_Text_Y4 ) )
+   96.       $_tran_tran_T39%header%version = 5
+   96.       $_tran_tran_T39%header%operation = 10
+   96.       $_tran_tran_T39%size = 96
+   96.       $_tran_tran_T39%flags = 2240
+   96.       $_tran_tran_T39%host_ptr = cri_pointer( loc( qhat ) )
+   96.       $_tran_tran_T39%acc_ptr = cri_pointer( 0 )
+   96.       $_tran_tran_T39%acc_type_dscr = cri_pointer( 0 )
+   96.       $_tran_tran_T39%identifier = cri_pointer( loc( $_Text_Y5 ) )
+   96.       $_tran_tran_T40%header%version = 5
+   96.       $_tran_tran_T40%header%operation = 10
+   96.       $_tran_tran_T40%size = 96
+   96.       $_tran_tran_T40%flags = 2240
+   96.       $_tran_tran_T40%host_ptr = cri_pointer( loc( radius ) )
+   96.       $_tran_tran_T40%acc_ptr = cri_pointer( 0 )
+   96.       $_tran_tran_T40%acc_type_dscr = cri_pointer( 0 )
+   96.       $_tran_tran_T40%identifier = cri_pointer( loc( $_Text_Y6 ) )
+   96.       $snt_T17 = _acc_ind_transfer_list( 18, _acc_list_entry( _acc_alloc( Null_Arg, bfld, _acc_transfer_flags( $_tran_tran_T34, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, gr, _acc_transfer_flags( $_tran_tran_T35, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, grcgt, _acc_transfer_flags( $_tran_tran_T36, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, grdgt, _acc_transfer_flags( $_tran_tran_T37, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, gth, _acc_transfer_flags( $_tran_tran_T38, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, qhat, _acc_transfer_flags( $_tran_tran_T39, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, radius, _acc_transfer_flags( $_tran_tran_T40, 0, 8321 ) ), Null_Arg ) ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+   97.       $_tran_tran_T41%header%version = 5
+   97.       $_tran_tran_T41%header%operation = 10
+   97.       $_tran_tran_T41%size = 96
+   97.       $_tran_tran_T41%flags = 2240
+   97.       $_tran_tran_T41%host_ptr = cri_pointer( loc( dbdr ) )
+   97.       $_tran_tran_T41%acc_ptr = cri_pointer( 0 )
+   97.       $_tran_tran_T41%acc_type_dscr = cri_pointer( 0 )
+   97.       $_tran_tran_T41%identifier = cri_pointer( loc( $_Text_Y7 ) )
+   97.       $_tran_tran_T42%header%version = 5
+   97.       $_tran_tran_T42%header%operation = 10
+   97.       $_tran_tran_T42%size = 96
+   97.       $_tran_tran_T42%flags = 2240
+   97.       $_tran_tran_T42%host_ptr = cri_pointer( loc( dbdth ) )
+   97.       $_tran_tran_T42%acc_ptr = cri_pointer( 0 )
+   97.       $_tran_tran_T42%acc_type_dscr = cri_pointer( 0 )
+   97.       $_tran_tran_T42%identifier = cri_pointer( loc( $_Text_Y8 ) )
+   97.       $_tran_tran_T43%header%version = 5
+   97.       $_tran_tran_T43%header%operation = 10
+   97.       $_tran_tran_T43%size = 96
+   97.       $_tran_tran_T43%flags = 2240
+   97.       $_tran_tran_T43%host_ptr = cri_pointer( loc( dqhdr ) )
+   97.       $_tran_tran_T43%acc_ptr = cri_pointer( 0 )
+   97.       $_tran_tran_T43%acc_type_dscr = cri_pointer( 0 )
+   97.       $_tran_tran_T43%identifier = cri_pointer( loc( $_Text_Y9 ) )
+   97.       $_tran_tran_T44%header%version = 5
+   97.       $_tran_tran_T44%header%operation = 10
+   97.       $_tran_tran_T44%size = 96
+   97.       $_tran_tran_T44%flags = 2240
+   97.       $_tran_tran_T44%host_ptr = cri_pointer( loc( dydr ) )
+   97.       $_tran_tran_T44%acc_ptr = cri_pointer( 0 )
+   97.       $_tran_tran_T44%acc_type_dscr = cri_pointer( 0 )
+   97.       $_tran_tran_T44%identifier = cri_pointer( loc( $_Text_Y10 ) )
+   97.       $_tran_tran_T45%header%version = 5
+   97.       $_tran_tran_T45%header%operation = 10
+   97.       $_tran_tran_T45%size = 96
+   97.       $_tran_tran_T45%flags = 2240
+   97.       $_tran_tran_T45%host_ptr = cri_pointer( loc( gxdgy ) )
+   97.       $_tran_tran_T45%acc_ptr = cri_pointer( 0 )
+   97.       $_tran_tran_T45%acc_type_dscr = cri_pointer( 0 )
+   97.       $_tran_tran_T45%identifier = cri_pointer( loc( $_Text_Y11 ) )
+   97.       $_tran_tran_T46%header%version = 5
+   97.       $_tran_tran_T46%header%operation = 10
+   97.       $_tran_tran_T46%size = 96
+   97.       $_tran_tran_T46%flags = 2240
+   97.       $_tran_tran_T46%host_ptr = cri_pointer( loc( jacob ) )
+   97.       $_tran_tran_T46%acc_ptr = cri_pointer( 0 )
+   97.       $_tran_tran_T46%acc_type_dscr = cri_pointer( 0 )
+   97.       $_tran_tran_T46%identifier = cri_pointer( loc( $_Text_Y12 ) )
+   97.       $snt_T18 = _acc_ind_transfer_list( 19, _acc_list_entry( _acc_alloc( Null_Arg, dbdr, _acc_transfer_flags( $_tran_tran_T41, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, dbdth, _acc_transfer_flags( $_tran_tran_T42, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, dqhdr, _acc_transfer_flags( $_tran_tran_T43, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, dydr, _acc_transfer_flags( $_tran_tran_T44, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, gxdgy, _acc_transfer_flags( $_tran_tran_T45, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, jacob, _acc_transfer_flags( $_tran_tran_T46, 0, 8321 ) ), Null_Arg ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+   98.       $_tran_tran_T47%header%version = 5
+   98.       $_tran_tran_T47%header%operation = 10
+   98.       $_tran_tran_T47%size = 96
+   98.       $_tran_tran_T47%flags = 2240
+   98.       $_tran_tran_T47%host_ptr = cri_pointer( loc( hght ) )
+   98.       $_tran_tran_T47%acc_ptr = cri_pointer( 0 )
+   98.       $_tran_tran_T47%acc_type_dscr = cri_pointer( 0 )
+   98.       $_tran_tran_T47%identifier = cri_pointer( loc( $_Text_Y13 ) )
+   98.       $_tran_tran_T48%header%version = 5
+   98.       $_tran_tran_T48%header%operation = 10
+   98.       $_tran_tran_T48%size = 96
+   98.       $_tran_tran_T48%flags = 2240
+   98.       $_tran_tran_T48%host_ptr = cri_pointer( loc( thflx ) )
+   98.       $_tran_tran_T48%acc_ptr = cri_pointer( 0 )
+   98.       $_tran_tran_T48%acc_type_dscr = cri_pointer( 0 )
+   98.       $_tran_tran_T48%identifier = cri_pointer( loc( $_Text_Y14 ) )
+   98.       $_tran_tran_T49%header%version = 5
+   98.       $_tran_tran_T49%header%operation = 10
+   98.       $_tran_tran_T49%size = 96
+   98.       $_tran_tran_T49%flags = 2240
+   98.       $_tran_tran_T49%host_ptr = cri_pointer( loc( yfn ) )
+   98.       $_tran_tran_T49%acc_ptr = cri_pointer( 0 )
+   98.       $_tran_tran_T49%acc_type_dscr = cri_pointer( 0 )
+   98.       $_tran_tran_T49%identifier = cri_pointer( loc( $_Text_Y15 ) )
+   98.       $snt_T19 = _acc_ind_transfer_list( 20, _acc_list_entry( _acc_alloc( Null_Arg, hght, _acc_transfer_flags( $_tran_tran_T47, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, thflx, _acc_transfer_flags( $_tran_tran_T48, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, yfn, _acc_transfer_flags( $_tran_tran_T49, 0, 8321 ) ), Null_Arg ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+   99.       $_tran_tran_T50%header%version = 5
+   99.       $_tran_tran_T50%header%operation = 10
+   99.       $_tran_tran_T50%size = 72
+   99.       $_tran_tran_T50%flags = 2240
+   99.       $_tran_tran_T50%host_ptr = cri_pointer( loc( elon ) )
+   99.       $_tran_tran_T50%acc_ptr = cri_pointer( 0 )
+   99.       $_tran_tran_T50%acc_type_dscr = cri_pointer( 0 )
+   99.       $_tran_tran_T50%identifier = cri_pointer( loc( $_Text_Y16 ) )
+   99.       $_tran_tran_T51%header%version = 5
+   99.       $_tran_tran_T51%header%operation = 10
+   99.       $_tran_tran_T51%size = 72
+   99.       $_tran_tran_T51%flags = 2240
+   99.       $_tran_tran_T51%host_ptr = cri_pointer( loc( psi ) )
+   99.       $_tran_tran_T51%acc_ptr = cri_pointer( 0 )
+   99.       $_tran_tran_T51%acc_type_dscr = cri_pointer( 0 )
+   99.       $_tran_tran_T51%identifier = cri_pointer( loc( $_Text_Y17 ) )
+   99.       $_tran_tran_T52%header%version = 5
+   99.       $_tran_tran_T52%header%operation = 10
+   99.       $_tran_tran_T52%size = 72
+   99.       $_tran_tran_T52%flags = 2240
+   99.       $_tran_tran_T52%host_ptr = cri_pointer( loc( rmaj ) )
+   99.       $_tran_tran_T52%acc_ptr = cri_pointer( 0 )
+   99.       $_tran_tran_T52%acc_type_dscr = cri_pointer( 0 )
+   99.       $_tran_tran_T52%identifier = cri_pointer( loc( $_Text_Y18 ) )
+   99.       $_tran_tran_T53%header%version = 5
+   99.       $_tran_tran_T53%header%operation = 10
+   99.       $_tran_tran_T53%size = 72
+   99.       $_tran_tran_T53%flags = 2240
+   99.       $_tran_tran_T53%host_ptr = cri_pointer( loc( rmajp ) )
+   99.       $_tran_tran_T53%acc_ptr = cri_pointer( 0 )
+   99.       $_tran_tran_T53%acc_type_dscr = cri_pointer( 0 )
+   99.       $_tran_tran_T53%identifier = cri_pointer( loc( $_Text_Y19 ) )
+   99.       $_tran_tran_T54%header%version = 5
+   99.       $_tran_tran_T54%header%operation = 10
+   99.       $_tran_tran_T54%size = 72
+   99.       $_tran_tran_T54%flags = 2240
+   99.       $_tran_tran_T54%host_ptr = cri_pointer( loc( selon ) )
+   99.       $_tran_tran_T54%acc_ptr = cri_pointer( 0 )
+   99.       $_tran_tran_T54%acc_type_dscr = cri_pointer( 0 )
+   99.       $_tran_tran_T54%identifier = cri_pointer( loc( $_Text_Y20 ) )
+   99.       $_tran_tran_T55%header%version = 5
+   99.       $_tran_tran_T55%header%operation = 10
+   99.       $_tran_tran_T55%size = 72
+   99.       $_tran_tran_T55%flags = 2240
+   99.       $_tran_tran_T55%host_ptr = cri_pointer( loc( stria ) )
+   99.       $_tran_tran_T55%acc_ptr = cri_pointer( 0 )
+   99.       $_tran_tran_T55%acc_type_dscr = cri_pointer( 0 )
+   99.       $_tran_tran_T55%identifier = cri_pointer( loc( $_Text_Y21 ) )
+   99.       $_tran_tran_T56%header%version = 5
+   99.       $_tran_tran_T56%header%operation = 10
+   99.       $_tran_tran_T56%size = 72
+   99.       $_tran_tran_T56%flags = 2240
+   99.       $_tran_tran_T56%host_ptr = cri_pointer( loc( tria ) )
+   99.       $_tran_tran_T56%acc_ptr = cri_pointer( 0 )
+   99.       $_tran_tran_T56%acc_type_dscr = cri_pointer( 0 )
+   99.       $_tran_tran_T56%identifier = cri_pointer( loc( $_Text_Y22 ) )
+   99.       $snt_T20 = _acc_ind_transfer_list( 21, _acc_list_entry( _acc_alloc( Null_Arg, elon, _acc_transfer_flags( $_tran_tran_T50, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, psi, _acc_transfer_flags( $_tran_tran_T51, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, rmaj, _acc_transfer_flags( $_tran_tran_T52, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, rmajp, _acc_transfer_flags( $_tran_tran_T53, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, selon, _acc_transfer_flags( $_tran_tran_T54, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, stria, _acc_transfer_flags( $_tran_tran_T55, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, tria, _acc_transfer_flags( $_tran_tran_T56, 0, 8321 ) ), Null_Arg ) ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  100.       $_tran_tran_T57%header%version = 5
+  100.       $_tran_tran_T57%header%operation = 10
+  100.       $_tran_tran_T57%size = 72
+  100.       $_tran_tran_T57%flags = 2240
+  100.       $_tran_tran_T57%host_ptr = cri_pointer( loc( f ) )
+  100.       $_tran_tran_T57%acc_ptr = cri_pointer( 0 )
+  100.       $_tran_tran_T57%acc_type_dscr = cri_pointer( 0 )
+  100.       $_tran_tran_T57%identifier = cri_pointer( loc( $_Text_Y23 ) )
+  100.       $_tran_tran_T58%header%version = 5
+  100.       $_tran_tran_T58%header%operation = 10
+  100.       $_tran_tran_T58%size = 72
+  100.       $_tran_tran_T58%flags = 2240
+  100.       $_tran_tran_T58%host_ptr = cri_pointer( loc( jacoba ) )
+  100.       $_tran_tran_T58%acc_ptr = cri_pointer( 0 )
+  100.       $_tran_tran_T58%acc_type_dscr = cri_pointer( 0 )
+  100.       $_tran_tran_T58%identifier = cri_pointer( loc( $_Text_Y24 ) )
+  100.       $_tran_tran_T59%header%version = 5
+  100.       $_tran_tran_T59%header%operation = 10
+  100.       $_tran_tran_T59%size = 72
+  100.       $_tran_tran_T59%flags = 2240
+  100.       $_tran_tran_T59%host_ptr = cri_pointer( loc( jfn ) )
+  100.       $_tran_tran_T59%acc_ptr = cri_pointer( 0 )
+  100.       $_tran_tran_T59%acc_type_dscr = cri_pointer( 0 )
+  100.       $_tran_tran_T59%identifier = cri_pointer( loc( $_Text_Y25 ) )
+  100.       $_tran_tran_T60%header%version = 5
+  100.       $_tran_tran_T60%header%operation = 10
+  100.       $_tran_tran_T60%size = 72
+  100.       $_tran_tran_T60%flags = 2240
+  100.       $_tran_tran_T60%host_ptr = cri_pointer( loc( psip ) )
+  100.       $_tran_tran_T60%acc_ptr = cri_pointer( 0 )
+  100.       $_tran_tran_T60%acc_type_dscr = cri_pointer( 0 )
+  100.       $_tran_tran_T60%identifier = cri_pointer( loc( $_Text_Y26 ) )
+  100.       $_tran_tran_T61%header%version = 5
+  100.       $_tran_tran_T61%header%operation = 10
+  100.       $_tran_tran_T61%size = 72
+  100.       $_tran_tran_T61%flags = 2240
+  100.       $_tran_tran_T61%host_ptr = cri_pointer( loc( sf ) )
+  100.       $_tran_tran_T61%acc_ptr = cri_pointer( 0 )
+  100.       $_tran_tran_T61%acc_type_dscr = cri_pointer( 0 )
+  100.       $_tran_tran_T61%identifier = cri_pointer( loc( $_Text_Y27 ) )
+  100.       $_tran_tran_T62%header%version = 5
+  100.       $_tran_tran_T62%header%operation = 10
+  100.       $_tran_tran_T62%size = 72
+  100.       $_tran_tran_T62%flags = 2240
+  100.       $_tran_tran_T62%host_ptr = cri_pointer( loc( thfnz ) )
+  100.       $_tran_tran_T62%acc_ptr = cri_pointer( 0 )
+  100.       $_tran_tran_T62%acc_type_dscr = cri_pointer( 0 )
+  100.       $_tran_tran_T62%identifier = cri_pointer( loc( $_Text_Y28 ) )
+  100.       $_tran_tran_T63%header%version = 5
+  100.       $_tran_tran_T63%header%operation = 10
+  100.       $_tran_tran_T63%size = 72
+  100.       $_tran_tran_T63%flags = 2240
+  100.       $_tran_tran_T63%host_ptr = cri_pointer( loc( zfnth ) )
+  100.       $_tran_tran_T63%acc_ptr = cri_pointer( 0 )
+  100.       $_tran_tran_T63%acc_type_dscr = cri_pointer( 0 )
+  100.       $_tran_tran_T63%identifier = cri_pointer( loc( $_Text_Y29 ) )
+  100.       $snt_T21 = _acc_ind_transfer_list( 22, _acc_list_entry( _acc_alloc( Null_Arg, f, _acc_transfer_flags( $_tran_tran_T57, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, jacoba, _acc_transfer_flags( $_tran_tran_T58, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, jfn, _acc_transfer_flags( $_tran_tran_T59, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, psip, _acc_transfer_flags( $_tran_tran_T60, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, sf, _acc_transfer_flags( $_tran_tran_T61, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, thfnz, _acc_transfer_flags( $_tran_tran_T62, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, zfnth, _acc_transfer_flags( $_tran_tran_T63, 0, 8321 ) ), Null_Arg ) ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  101.       $_tran_tran_T64%header%version = 5
+  101.       $_tran_tran_T64%header%operation = 10
+  101.       $_tran_tran_T64%size = 72
+  101.       $_tran_tran_T64%flags = 2240
+  101.       $_tran_tran_T64%host_ptr = cri_pointer( loc( t0b ) )
+  101.       $_tran_tran_T64%acc_ptr = cri_pointer( 0 )
+  101.       $_tran_tran_T64%acc_type_dscr = cri_pointer( 0 )
+  101.       $_tran_tran_T64%identifier = cri_pointer( loc( $_Text_Y30 ) )
+  101.       $_tran_tran_T65%header%version = 5
+  101.       $_tran_tran_T65%header%operation = 10
+  101.       $_tran_tran_T65%size = 72
+  101.       $_tran_tran_T65%flags = 2240
+  101.       $_tran_tran_T65%host_ptr = cri_pointer( loc( t0bp ) )
+  101.       $_tran_tran_T65%acc_ptr = cri_pointer( 0 )
+  101.       $_tran_tran_T65%acc_type_dscr = cri_pointer( 0 )
+  101.       $_tran_tran_T65%identifier = cri_pointer( loc( $_Text_Y31 ) )
+  101.       $_tran_tran_T66%header%version = 5
+  101.       $_tran_tran_T66%header%operation = 10
+  101.       $_tran_tran_T66%size = 72
+  101.       $_tran_tran_T66%flags = 2240
+  101.       $_tran_tran_T66%host_ptr = cri_pointer( loc( t0c ) )
+  101.       $_tran_tran_T66%acc_ptr = cri_pointer( 0 )
+  101.       $_tran_tran_T66%acc_type_dscr = cri_pointer( 0 )
+  101.       $_tran_tran_T66%identifier = cri_pointer( loc( $_Text_Y32 ) )
+  101.       $_tran_tran_T67%header%version = 5
+  101.       $_tran_tran_T67%header%operation = 10
+  101.       $_tran_tran_T67%size = 72
+  101.       $_tran_tran_T67%flags = 2240
+  101.       $_tran_tran_T67%host_ptr = cri_pointer( loc( t0cp ) )
+  101.       $_tran_tran_T67%acc_ptr = cri_pointer( 0 )
+  101.       $_tran_tran_T67%acc_type_dscr = cri_pointer( 0 )
+  101.       $_tran_tran_T67%identifier = cri_pointer( loc( $_Text_Y33 ) )
+  101.       $_tran_tran_T68%header%version = 5
+  101.       $_tran_tran_T68%header%operation = 10
+  101.       $_tran_tran_T68%size = 72
+  101.       $_tran_tran_T68%flags = 2240
+  101.       $_tran_tran_T68%host_ptr = cri_pointer( loc( t0e ) )
+  101.       $_tran_tran_T68%acc_ptr = cri_pointer( 0 )
+  101.       $_tran_tran_T68%acc_type_dscr = cri_pointer( 0 )
+  101.       $_tran_tran_T68%identifier = cri_pointer( loc( $_Text_Y34 ) )
+  101.       $_tran_tran_T69%header%version = 5
+  101.       $_tran_tran_T69%header%operation = 10
+  101.       $_tran_tran_T69%size = 72
+  101.       $_tran_tran_T69%flags = 2240
+  101.       $_tran_tran_T69%host_ptr = cri_pointer( loc( t0ep ) )
+  101.       $_tran_tran_T69%acc_ptr = cri_pointer( 0 )
+  101.       $_tran_tran_T69%acc_type_dscr = cri_pointer( 0 )
+  101.       $_tran_tran_T69%identifier = cri_pointer( loc( $_Text_Y35 ) )
+  101.       $_tran_tran_T70%header%version = 5
+  101.       $_tran_tran_T70%header%operation = 10
+  101.       $_tran_tran_T70%size = 72
+  101.       $_tran_tran_T70%flags = 2240
+  101.       $_tran_tran_T70%host_ptr = cri_pointer( loc( t0i ) )
+  101.       $_tran_tran_T70%acc_ptr = cri_pointer( 0 )
+  101.       $_tran_tran_T70%acc_type_dscr = cri_pointer( 0 )
+  101.       $_tran_tran_T70%identifier = cri_pointer( loc( $_Text_Y36 ) )
+  101.       $_tran_tran_T71%header%version = 5
+  101.       $_tran_tran_T71%header%operation = 10
+  101.       $_tran_tran_T71%size = 72
+  101.       $_tran_tran_T71%flags = 2240
+  101.       $_tran_tran_T71%host_ptr = cri_pointer( loc( t0ip ) )
+  101.       $_tran_tran_T71%acc_ptr = cri_pointer( 0 )
+  101.       $_tran_tran_T71%acc_type_dscr = cri_pointer( 0 )
+  101.       $_tran_tran_T71%identifier = cri_pointer( loc( $_Text_Y37 ) )
+  101.       $snt_T22 = _acc_ind_transfer_list( 23, _acc_list_entry( _acc_alloc( Null_Arg, t0b, _acc_transfer_flags( $_tran_tran_T64, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, t0bp, _acc_transfer_flags( $_tran_tran_T65, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, t0c, _acc_transfer_flags( $_tran_tran_T66, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, t0cp, _acc_transfer_flags( $_tran_tran_T67, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, t0e, _acc_transfer_flags( $_tran_tran_T68, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, t0ep, _acc_transfer_flags( $_tran_tran_T69, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, t0i, _acc_transfer_flags( $_tran_tran_T70, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, t0ip, _acc_transfer_flags( $_tran_tran_T71, 0, 8321 ) ), Null_Arg ) ) ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  102.       $_tran_tran_T72%header%version = 5
+  102.       $_tran_tran_T72%header%operation = 10
+  102.       $_tran_tran_T72%size = 72
+  102.       $_tran_tran_T72%flags = 2240
+  102.       $_tran_tran_T72%host_ptr = cri_pointer( loc( xn0b ) )
+  102.       $_tran_tran_T72%acc_ptr = cri_pointer( 0 )
+  102.       $_tran_tran_T72%acc_type_dscr = cri_pointer( 0 )
+  102.       $_tran_tran_T72%identifier = cri_pointer( loc( $_Text_Y38 ) )
+  102.       $_tran_tran_T73%header%version = 5
+  102.       $_tran_tran_T73%header%operation = 10
+  102.       $_tran_tran_T73%size = 72
+  102.       $_tran_tran_T73%flags = 2240
+  102.       $_tran_tran_T73%host_ptr = cri_pointer( loc( xn0bp ) )
+  102.       $_tran_tran_T73%acc_ptr = cri_pointer( 0 )
+  102.       $_tran_tran_T73%acc_type_dscr = cri_pointer( 0 )
+  102.       $_tran_tran_T73%identifier = cri_pointer( loc( $_Text_Y39 ) )
+  102.       $_tran_tran_T74%header%version = 5
+  102.       $_tran_tran_T74%header%operation = 10
+  102.       $_tran_tran_T74%size = 72
+  102.       $_tran_tran_T74%flags = 2240
+  102.       $_tran_tran_T74%host_ptr = cri_pointer( loc( xn0c ) )
+  102.       $_tran_tran_T74%acc_ptr = cri_pointer( 0 )
+  102.       $_tran_tran_T74%acc_type_dscr = cri_pointer( 0 )
+  102.       $_tran_tran_T74%identifier = cri_pointer( loc( $_Text_Y40 ) )
+  102.       $_tran_tran_T75%header%version = 5
+  102.       $_tran_tran_T75%header%operation = 10
+  102.       $_tran_tran_T75%size = 72
+  102.       $_tran_tran_T75%flags = 2240
+  102.       $_tran_tran_T75%host_ptr = cri_pointer( loc( xn0e ) )
+  102.       $_tran_tran_T75%acc_ptr = cri_pointer( 0 )
+  102.       $_tran_tran_T75%acc_type_dscr = cri_pointer( 0 )
+  102.       $_tran_tran_T75%identifier = cri_pointer( loc( $_Text_Y41 ) )
+  102.       $_tran_tran_T76%header%version = 5
+  102.       $_tran_tran_T76%header%operation = 10
+  102.       $_tran_tran_T76%size = 72
+  102.       $_tran_tran_T76%flags = 2240
+  102.       $_tran_tran_T76%host_ptr = cri_pointer( loc( xn0ep ) )
+  102.       $_tran_tran_T76%acc_ptr = cri_pointer( 0 )
+  102.       $_tran_tran_T76%acc_type_dscr = cri_pointer( 0 )
+  102.       $_tran_tran_T76%identifier = cri_pointer( loc( $_Text_Y42 ) )
+  102.       $_tran_tran_T77%header%version = 5
+  102.       $_tran_tran_T77%header%operation = 10
+  102.       $_tran_tran_T77%size = 72
+  102.       $_tran_tran_T77%flags = 2240
+  102.       $_tran_tran_T77%host_ptr = cri_pointer( loc( xn0i ) )
+  102.       $_tran_tran_T77%acc_ptr = cri_pointer( 0 )
+  102.       $_tran_tran_T77%acc_type_dscr = cri_pointer( 0 )
+  102.       $_tran_tran_T77%identifier = cri_pointer( loc( $_Text_Y43 ) )
+  102.       $_tran_tran_T78%header%version = 5
+  102.       $_tran_tran_T78%header%operation = 10
+  102.       $_tran_tran_T78%size = 72
+  102.       $_tran_tran_T78%flags = 2240
+  102.       $_tran_tran_T78%host_ptr = cri_pointer( loc( xn0ip ) )
+  102.       $_tran_tran_T78%acc_ptr = cri_pointer( 0 )
+  102.       $_tran_tran_T78%acc_type_dscr = cri_pointer( 0 )
+  102.       $_tran_tran_T78%identifier = cri_pointer( loc( $_Text_Y44 ) )
+  102.       $snt_T23 = _acc_ind_transfer_list( 24, _acc_list_entry( _acc_alloc( Null_Arg, xn0b, _acc_transfer_flags( $_tran_tran_T72, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, xn0bp, _acc_transfer_flags( $_tran_tran_T73, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, xn0c, _acc_transfer_flags( $_tran_tran_T74, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, xn0e, _acc_transfer_flags( $_tran_tran_T75, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, xn0ep, _acc_transfer_flags( $_tran_tran_T76, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, xn0i, _acc_transfer_flags( $_tran_tran_T77, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, xn0ip, _acc_transfer_flags( $_tran_tran_T78, 0, 8321 ) ), Null_Arg ) ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  103.       $_tran_tran_T79%header%version = 5
+  103.       $_tran_tran_T79%header%operation = 10
+  103.       $_tran_tran_T79%size = 72
+  103.       $_tran_tran_T79%flags = 2240
+  103.       $_tran_tran_T79%host_ptr = cri_pointer( loc( vparb ) )
+  103.       $_tran_tran_T79%acc_ptr = cri_pointer( 0 )
+  103.       $_tran_tran_T79%acc_type_dscr = cri_pointer( 0 )
+  103.       $_tran_tran_T79%identifier = cri_pointer( loc( $_Text_Y45 ) )
+  103.       $_tran_tran_T80%header%version = 5
+  103.       $_tran_tran_T80%header%operation = 10
+  103.       $_tran_tran_T80%size = 72
+  103.       $_tran_tran_T80%flags = 2240
+  103.       $_tran_tran_T80%host_ptr = cri_pointer( loc( vparc ) )
+  103.       $_tran_tran_T80%acc_ptr = cri_pointer( 0 )
+  103.       $_tran_tran_T80%acc_type_dscr = cri_pointer( 0 )
+  103.       $_tran_tran_T80%identifier = cri_pointer( loc( $_Text_Y46 ) )
+  103.       $_tran_tran_T81%header%version = 5
+  103.       $_tran_tran_T81%header%operation = 10
+  103.       $_tran_tran_T81%size = 72
+  103.       $_tran_tran_T81%flags = 2240
+  103.       $_tran_tran_T81%host_ptr = cri_pointer( loc( vpari ) )
+  103.       $_tran_tran_T81%acc_ptr = cri_pointer( 0 )
+  103.       $_tran_tran_T81%acc_type_dscr = cri_pointer( 0 )
+  103.       $_tran_tran_T81%identifier = cri_pointer( loc( $_Text_Y47 ) )
+  103.       $_tran_tran_T82%header%version = 5
+  103.       $_tran_tran_T82%header%operation = 10
+  103.       $_tran_tran_T82%size = 72
+  103.       $_tran_tran_T82%flags = 2240
+  103.       $_tran_tran_T82%host_ptr = cri_pointer( loc( xn0cp ) )
+  103.       $_tran_tran_T82%acc_ptr = cri_pointer( 0 )
+  103.       $_tran_tran_T82%acc_type_dscr = cri_pointer( 0 )
+  103.       $_tran_tran_T82%identifier = cri_pointer( loc( $_Text_Y48 ) )
+  103.       $snt_T24 = _acc_ind_transfer_list( 25, _acc_list_entry( _acc_alloc( Null_Arg, vparb, _acc_transfer_flags( $_tran_tran_T79, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, vparc, _acc_transfer_flags( $_tran_tran_T80, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, vpari, _acc_transfer_flags( $_tran_tran_T81, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, xn0cp, _acc_transfer_flags( $_tran_tran_T82, 0, 8321 ) ), Null_Arg ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  104.       $_tran_tran_T83%header%version = 5
+  104.       $_tran_tran_T83%header%operation = 10
+  104.       $_tran_tran_T83%size = 72
+  104.       $_tran_tran_T83%flags = 2240
+  104.       $_tran_tran_T83%host_ptr = cri_pointer( loc( vparbp ) )
+  104.       $_tran_tran_T83%acc_ptr = cri_pointer( 0 )
+  104.       $_tran_tran_T83%acc_type_dscr = cri_pointer( 0 )
+  104.       $_tran_tran_T83%identifier = cri_pointer( loc( $_Text_Y49 ) )
+  104.       $_tran_tran_T84%header%version = 5
+  104.       $_tran_tran_T84%header%operation = 10
+  104.       $_tran_tran_T84%size = 72
+  104.       $_tran_tran_T84%flags = 2240
+  104.       $_tran_tran_T84%host_ptr = cri_pointer( loc( vparcp ) )
+  104.       $_tran_tran_T84%acc_ptr = cri_pointer( 0 )
+  104.       $_tran_tran_T84%acc_type_dscr = cri_pointer( 0 )
+  104.       $_tran_tran_T84%identifier = cri_pointer( loc( $_Text_Y50 ) )
+  104.       $_tran_tran_T85%header%version = 5
+  104.       $_tran_tran_T85%header%operation = 10
+  104.       $_tran_tran_T85%size = 72
+  104.       $_tran_tran_T85%flags = 2240
+  104.       $_tran_tran_T85%host_ptr = cri_pointer( loc( vparip ) )
+  104.       $_tran_tran_T85%acc_ptr = cri_pointer( 0 )
+  104.       $_tran_tran_T85%acc_type_dscr = cri_pointer( 0 )
+  104.       $_tran_tran_T85%identifier = cri_pointer( loc( $_Text_Y51 ) )
+  104.       $snt_T25 = _acc_ind_transfer_list( 26, _acc_list_entry( _acc_alloc( Null_Arg, vparbp, _acc_transfer_flags( $_tran_tran_T83, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, vparcp, _acc_transfer_flags( $_tran_tran_T84, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, vparip, _acc_transfer_flags( $_tran_tran_T85, 0, 8321 ) ), Null_Arg ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  105.       $_tran_tran_T86%header%version = 5
+  105.       $_tran_tran_T86%header%operation = 10
+  105.       $_tran_tran_T86%size = 72
+  105.       $_tran_tran_T86%flags = 2240
+  105.       $_tran_tran_T86%host_ptr = cri_pointer( loc( capne ) )
+  105.       $_tran_tran_T86%acc_ptr = cri_pointer( 0 )
+  105.       $_tran_tran_T86%acc_type_dscr = cri_pointer( 0 )
+  105.       $_tran_tran_T86%identifier = cri_pointer( loc( $_Text_Y52 ) )
+  105.       $_tran_tran_T87%header%version = 5
+  105.       $_tran_tran_T87%header%operation = 10
+  105.       $_tran_tran_T87%size = 72
+  105.       $_tran_tran_T87%flags = 2240
+  105.       $_tran_tran_T87%host_ptr = cri_pointer( loc( capni ) )
+  105.       $_tran_tran_T87%acc_ptr = cri_pointer( 0 )
+  105.       $_tran_tran_T87%acc_type_dscr = cri_pointer( 0 )
+  105.       $_tran_tran_T87%identifier = cri_pointer( loc( $_Text_Y53 ) )
+  105.       $_tran_tran_T88%header%version = 5
+  105.       $_tran_tran_T88%header%operation = 10
+  105.       $_tran_tran_T88%size = 72
+  105.       $_tran_tran_T88%flags = 2240
+  105.       $_tran_tran_T88%host_ptr = cri_pointer( loc( captb ) )
+  105.       $_tran_tran_T88%acc_ptr = cri_pointer( 0 )
+  105.       $_tran_tran_T88%acc_type_dscr = cri_pointer( 0 )
+  105.       $_tran_tran_T88%identifier = cri_pointer( loc( $_Text_Y54 ) )
+  105.       $_tran_tran_T89%header%version = 5
+  105.       $_tran_tran_T89%header%operation = 10
+  105.       $_tran_tran_T89%size = 72
+  105.       $_tran_tran_T89%flags = 2240
+  105.       $_tran_tran_T89%host_ptr = cri_pointer( loc( captc ) )
+  105.       $_tran_tran_T89%acc_ptr = cri_pointer( 0 )
+  105.       $_tran_tran_T89%acc_type_dscr = cri_pointer( 0 )
+  105.       $_tran_tran_T89%identifier = cri_pointer( loc( $_Text_Y55 ) )
+  105.       $_tran_tran_T90%header%version = 5
+  105.       $_tran_tran_T90%header%operation = 10
+  105.       $_tran_tran_T90%size = 72
+  105.       $_tran_tran_T90%flags = 2240
+  105.       $_tran_tran_T90%host_ptr = cri_pointer( loc( capte ) )
+  105.       $_tran_tran_T90%acc_ptr = cri_pointer( 0 )
+  105.       $_tran_tran_T90%acc_type_dscr = cri_pointer( 0 )
+  105.       $_tran_tran_T90%identifier = cri_pointer( loc( $_Text_Y56 ) )
+  105.       $_tran_tran_T91%header%version = 5
+  105.       $_tran_tran_T91%header%operation = 10
+  105.       $_tran_tran_T91%size = 72
+  105.       $_tran_tran_T91%flags = 2240
+  105.       $_tran_tran_T91%host_ptr = cri_pointer( loc( capti ) )
+  105.       $_tran_tran_T91%acc_ptr = cri_pointer( 0 )
+  105.       $_tran_tran_T91%acc_type_dscr = cri_pointer( 0 )
+  105.       $_tran_tran_T91%identifier = cri_pointer( loc( $_Text_Y57 ) )
+  105.       $snt_T26 = _acc_ind_transfer_list( 27, _acc_list_entry( _acc_alloc( Null_Arg, capne, _acc_transfer_flags( $_tran_tran_T86, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, capni, _acc_transfer_flags( $_tran_tran_T87, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, captb, _acc_transfer_flags( $_tran_tran_T88, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, captc, _acc_transfer_flags( $_tran_tran_T89, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, capte, _acc_transfer_flags( $_tran_tran_T90, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, capti, _acc_transfer_flags( $_tran_tran_T91, 0, 8321 ) ), Null_Arg ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  106.       $_tran_tran_T92%header%version = 5
+  106.       $_tran_tran_T92%header%operation = 10
+  106.       $_tran_tran_T92%size = 72
+  106.       $_tran_tran_T92%flags = 2240
+  106.       $_tran_tran_T92%host_ptr = cri_pointer( loc( capnb ) )
+  106.       $_tran_tran_T92%acc_ptr = cri_pointer( 0 )
+  106.       $_tran_tran_T92%acc_type_dscr = cri_pointer( 0 )
+  106.       $_tran_tran_T92%identifier = cri_pointer( loc( $_Text_Y58 ) )
+  106.       $_tran_tran_T93%header%version = 5
+  106.       $_tran_tran_T93%header%operation = 10
+  106.       $_tran_tran_T93%size = 72
+  106.       $_tran_tran_T93%flags = 2240
+  106.       $_tran_tran_T93%host_ptr = cri_pointer( loc( capnc ) )
+  106.       $_tran_tran_T93%acc_ptr = cri_pointer( 0 )
+  106.       $_tran_tran_T93%acc_type_dscr = cri_pointer( 0 )
+  106.       $_tran_tran_T93%identifier = cri_pointer( loc( $_Text_Y59 ) )
+  106.       $_tran_tran_T94%header%version = 5
+  106.       $_tran_tran_T94%header%operation = 10
+  106.       $_tran_tran_T94%size = 72
+  106.       $_tran_tran_T94%flags = 2240
+  106.       $_tran_tran_T94%host_ptr = cri_pointer( loc( nue0 ) )
+  106.       $_tran_tran_T94%acc_ptr = cri_pointer( 0 )
+  106.       $_tran_tran_T94%acc_type_dscr = cri_pointer( 0 )
+  106.       $_tran_tran_T94%identifier = cri_pointer( loc( $_Text_Y60 ) )
+  106.       $_tran_tran_T95%header%version = 5
+  106.       $_tran_tran_T95%header%operation = 10
+  106.       $_tran_tran_T95%size = 72
+  106.       $_tran_tran_T95%flags = 2240
+  106.       $_tran_tran_T95%host_ptr = cri_pointer( loc( phinc ) )
+  106.       $_tran_tran_T95%acc_ptr = cri_pointer( 0 )
+  106.       $_tran_tran_T95%acc_type_dscr = cri_pointer( 0 )
+  106.       $_tran_tran_T95%identifier = cri_pointer( loc( $_Text_Y61 ) )
+  106.       $_tran_tran_T96%header%version = 5
+  106.       $_tran_tran_T96%header%operation = 10
+  106.       $_tran_tran_T96%size = 72
+  106.       $_tran_tran_T96%flags = 2240
+  106.       $_tran_tran_T96%host_ptr = cri_pointer( loc( phincp ) )
+  106.       $_tran_tran_T96%acc_ptr = cri_pointer( 0 )
+  106.       $_tran_tran_T96%acc_type_dscr = cri_pointer( 0 )
+  106.       $_tran_tran_T96%identifier = cri_pointer( loc( $_Text_Y62 ) )
+  106.       $_tran_tran_T97%header%version = 5
+  106.       $_tran_tran_T97%header%operation = 10
+  106.       $_tran_tran_T97%size = 72
+  106.       $_tran_tran_T97%flags = 2240
+  106.       $_tran_tran_T97%host_ptr = cri_pointer( loc( zeff ) )
+  106.       $_tran_tran_T97%acc_ptr = cri_pointer( 0 )
+  106.       $_tran_tran_T97%acc_type_dscr = cri_pointer( 0 )
+  106.       $_tran_tran_T97%identifier = cri_pointer( loc( $_Text_Y63 ) )
+  106.       $snt_T27 = _acc_ind_transfer_list( 28, _acc_list_entry( _acc_alloc( Null_Arg, capnb, _acc_transfer_flags( $_tran_tran_T92, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, capnc, _acc_transfer_flags( $_tran_tran_T93, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, nue0, _acc_transfer_flags( $_tran_tran_T94, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, phinc, _acc_transfer_flags( $_tran_tran_T95, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, phincp, _acc_transfer_flags( $_tran_tran_T96, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, zeff, _acc_transfer_flags( $_tran_tran_T97, 0, 8321 ) ), Null_Arg ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  107.       $_tran_tran_T98%header%version = 5
+  107.       $_tran_tran_T98%header%operation = 10
+  107.       $_tran_tran_T98%size = 72
+  107.       $_tran_tran_T98%flags = 2240
+  107.       $_tran_tran_T98%host_ptr = cri_pointer( loc( dipdr ) )
+  107.       $_tran_tran_T98%acc_ptr = cri_pointer( 0 )
+  107.       $_tran_tran_T98%acc_type_dscr = cri_pointer( 0 )
+  107.       $_tran_tran_T98%identifier = cri_pointer( loc( $_Text_Y64 ) )
+  107.       $_tran_tran_T99%header%version = 5
+  107.       $_tran_tran_T99%header%operation = 10
+  107.       $_tran_tran_T99%size = 72
+  107.       $_tran_tran_T99%flags = 2240
+  107.       $_tran_tran_T99%host_ptr = cri_pointer( loc( er ) )
+  107.       $_tran_tran_T99%acc_ptr = cri_pointer( 0 )
+  107.       $_tran_tran_T99%acc_type_dscr = cri_pointer( 0 )
+  107.       $_tran_tran_T99%identifier = cri_pointer( loc( $_Text_Y65 ) )
+  107.       $_tran_tran_T100%header%version = 5
+  107.       $_tran_tran_T100%header%operation = 10
+  107.       $_tran_tran_T100%size = 72
+  107.       $_tran_tran_T100%flags = 2240
+  107.       $_tran_tran_T100%host_ptr = cri_pointer( loc( upari ) )
+  107.       $_tran_tran_T100%acc_ptr = cri_pointer( 0 )
+  107.       $_tran_tran_T100%acc_type_dscr = cri_pointer( 0 )
+  107.       $_tran_tran_T100%identifier = cri_pointer( loc( $_Text_Y66 ) )
+  107.       $snt_T28 = _acc_ind_transfer_list( 29, _acc_list_entry( _acc_alloc( Null_Arg, dipdr, _acc_transfer_flags( $_tran_tran_T98, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, er, _acc_transfer_flags( $_tran_tran_T99, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, upari, _acc_transfer_flags( $_tran_tran_T100, 0, 8321 ) ), Null_Arg ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  108.       $_tran_tran_T101%header%version = 5
+  108.       $_tran_tran_T101%header%operation = 10
+  108.       $_tran_tran_T101%size = 96
+  108.       $_tran_tran_T101%flags = 2240
+  108.       $_tran_tran_T101%host_ptr = cri_pointer( loc( bdge1gx ) )
+  108.       $_tran_tran_T101%acc_ptr = cri_pointer( 0 )
+  108.       $_tran_tran_T101%acc_type_dscr = cri_pointer( 0 )
+  108.       $_tran_tran_T101%identifier = cri_pointer( loc( $_Text_Y67 ) )
+  108.       $_tran_tran_T102%header%version = 5
+  108.       $_tran_tran_T102%header%operation = 10
+  108.       $_tran_tran_T102%size = 96
+  108.       $_tran_tran_T102%flags = 2240
+  108.       $_tran_tran_T102%host_ptr = cri_pointer( loc( bdge1gy ) )
+  108.       $_tran_tran_T102%acc_ptr = cri_pointer( 0 )
+  108.       $_tran_tran_T102%acc_type_dscr = cri_pointer( 0 )
+  108.       $_tran_tran_T102%identifier = cri_pointer( loc( $_Text_Y68 ) )
+  108.       $_tran_tran_T103%header%version = 5
+  108.       $_tran_tran_T103%header%operation = 10
+  108.       $_tran_tran_T103%size = 96
+  108.       $_tran_tran_T103%flags = 2240
+  108.       $_tran_tran_T103%host_ptr = cri_pointer( loc( bdge2gx ) )
+  108.       $_tran_tran_T103%acc_ptr = cri_pointer( 0 )
+  108.       $_tran_tran_T103%acc_type_dscr = cri_pointer( 0 )
+  108.       $_tran_tran_T103%identifier = cri_pointer( loc( $_Text_Y69 ) )
+  108.       $_tran_tran_T104%header%version = 5
+  108.       $_tran_tran_T104%header%operation = 10
+  108.       $_tran_tran_T104%size = 96
+  108.       $_tran_tran_T104%flags = 2240
+  108.       $_tran_tran_T104%host_ptr = cri_pointer( loc( bdge2gy ) )
+  108.       $_tran_tran_T104%acc_ptr = cri_pointer( 0 )
+  108.       $_tran_tran_T104%acc_type_dscr = cri_pointer( 0 )
+  108.       $_tran_tran_T104%identifier = cri_pointer( loc( $_Text_Y70 ) )
+  108.       $_tran_tran_T105%header%version = 5
+  108.       $_tran_tran_T105%header%operation = 10
+  108.       $_tran_tran_T105%size = 96
+  108.       $_tran_tran_T105%flags = 2240
+  108.       $_tran_tran_T105%host_ptr = cri_pointer( loc( e1gx ) )
+  108.       $_tran_tran_T105%acc_ptr = cri_pointer( 0 )
+  108.       $_tran_tran_T105%acc_type_dscr = cri_pointer( 0 )
+  108.       $_tran_tran_T105%identifier = cri_pointer( loc( $_Text_Y71 ) )
+  108.       $_tran_tran_T106%header%version = 5
+  108.       $_tran_tran_T106%header%operation = 10
+  108.       $_tran_tran_T106%size = 96
+  108.       $_tran_tran_T106%flags = 2240
+  108.       $_tran_tran_T106%host_ptr = cri_pointer( loc( e1gy ) )
+  108.       $_tran_tran_T106%acc_ptr = cri_pointer( 0 )
+  108.       $_tran_tran_T106%acc_type_dscr = cri_pointer( 0 )
+  108.       $_tran_tran_T106%identifier = cri_pointer( loc( $_Text_Y72 ) )
+  108.       $_tran_tran_T107%header%version = 5
+  108.       $_tran_tran_T107%header%operation = 10
+  108.       $_tran_tran_T107%size = 96
+  108.       $_tran_tran_T107%flags = 2240
+  108.       $_tran_tran_T107%host_ptr = cri_pointer( loc( e2gx ) )
+  108.       $_tran_tran_T107%acc_ptr = cri_pointer( 0 )
+  108.       $_tran_tran_T107%acc_type_dscr = cri_pointer( 0 )
+  108.       $_tran_tran_T107%identifier = cri_pointer( loc( $_Text_Y73 ) )
+  108.       $_tran_tran_T108%header%version = 5
+  108.       $_tran_tran_T108%header%operation = 10
+  108.       $_tran_tran_T108%size = 96
+  108.       $_tran_tran_T108%flags = 2240
+  108.       $_tran_tran_T108%host_ptr = cri_pointer( loc( e2gy ) )
+  108.       $_tran_tran_T108%acc_ptr = cri_pointer( 0 )
+  108.       $_tran_tran_T108%acc_type_dscr = cri_pointer( 0 )
+  108.       $_tran_tran_T108%identifier = cri_pointer( loc( $_Text_Y74 ) )
+  108.       $snt_T29 = _acc_ind_transfer_list( 30, _acc_list_entry( _acc_alloc( Null_Arg, bdge1gx, _acc_transfer_flags( $_tran_tran_T101, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, bdge1gy, _acc_transfer_flags( $_tran_tran_T102, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, bdge2gx, _acc_transfer_flags( $_tran_tran_T103, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, bdge2gy, _acc_transfer_flags( $_tran_tran_T104, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, e1gx, _acc_transfer_flags( $_tran_tran_T105, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, e1gy, _acc_transfer_flags( $_tran_tran_T106, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, e2gx, _acc_transfer_flags( $_tran_tran_T107, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, e2gy, _acc_transfer_flags( $_tran_tran_T108, 0, 8321 ) ), Null_Arg ) ) ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  109.       $_tran_tran_T109%header%version = 5
+  109.       $_tran_tran_T109%header%operation = 10
+  109.       $_tran_tran_T109%size = 72
+  109.       $_tran_tran_T109%flags = 2240
+  109.       $_tran_tran_T109%host_ptr = cri_pointer( loc( psip2 ) )
+  109.       $_tran_tran_T109%acc_ptr = cri_pointer( 0 )
+  109.       $_tran_tran_T109%acc_type_dscr = cri_pointer( 0 )
+  109.       $_tran_tran_T109%identifier = cri_pointer( loc( $_Text_Y75 ) )
+  109.       $snt_T30 = _acc_ind_transfer_list( 31, _acc_list_entry( _acc_alloc( Null_Arg, psip2, _acc_transfer_flags( $_tran_tran_T109, 0, 8321 ) ), Null_Arg ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  110.       $_tran_tran_T110%header%version = 5
+  110.       $_tran_tran_T110%header%operation = 10
+  110.       $_tran_tran_T110%size = 96
+  110.       $_tran_tran_T110%flags = 2240
+  110.       $_tran_tran_T110%host_ptr = cri_pointer( loc( bdcrvb ) )
+  110.       $_tran_tran_T110%acc_ptr = cri_pointer( 0 )
+  110.       $_tran_tran_T110%acc_type_dscr = cri_pointer( 0 )
+  110.       $_tran_tran_T110%identifier = cri_pointer( loc( $_Text_Y76 ) )
+  110.       $_tran_tran_T111%header%version = 5
+  110.       $_tran_tran_T111%header%operation = 10
+  110.       $_tran_tran_T111%size = 96
+  110.       $_tran_tran_T111%flags = 2240
+  110.       $_tran_tran_T111%host_ptr = cri_pointer( loc( curvbz ) )
+  110.       $_tran_tran_T111%acc_ptr = cri_pointer( 0 )
+  110.       $_tran_tran_T111%acc_type_dscr = cri_pointer( 0 )
+  110.       $_tran_tran_T111%identifier = cri_pointer( loc( $_Text_Y77 ) )
+  110.       $_tran_tran_T112%header%version = 5
+  110.       $_tran_tran_T112%header%operation = 10
+  110.       $_tran_tran_T112%size = 96
+  110.       $_tran_tran_T112%flags = 2240
+  110.       $_tran_tran_T112%host_ptr = cri_pointer( loc( prsrbr ) )
+  110.       $_tran_tran_T112%acc_ptr = cri_pointer( 0 )
+  110.       $_tran_tran_T112%acc_type_dscr = cri_pointer( 0 )
+  110.       $_tran_tran_T112%identifier = cri_pointer( loc( $_Text_Y78 ) )
+  110.       $_tran_tran_T113%header%version = 5
+  110.       $_tran_tran_T113%header%operation = 10
+  110.       $_tran_tran_T113%size = 96
+  110.       $_tran_tran_T113%flags = 2240
+  110.       $_tran_tran_T113%host_ptr = cri_pointer( loc( prsrbz ) )
+  110.       $_tran_tran_T113%acc_ptr = cri_pointer( 0 )
+  110.       $_tran_tran_T113%acc_type_dscr = cri_pointer( 0 )
+  110.       $_tran_tran_T113%identifier = cri_pointer( loc( $_Text_Y79 ) )
+  110.       $_tran_tran_T114%header%version = 5
+  110.       $_tran_tran_T114%header%operation = 10
+  110.       $_tran_tran_T114%size = 96
+  110.       $_tran_tran_T114%flags = 2240
+  110.       $_tran_tran_T114%host_ptr = cri_pointer( loc( pthsrbr ) )
+  110.       $_tran_tran_T114%acc_ptr = cri_pointer( 0 )
+  110.       $_tran_tran_T114%acc_type_dscr = cri_pointer( 0 )
+  110.       $_tran_tran_T114%identifier = cri_pointer( loc( $_Text_Y80 ) )
+  110.       $_tran_tran_T115%header%version = 5
+  110.       $_tran_tran_T115%header%operation = 10
+  110.       $_tran_tran_T115%size = 96
+  110.       $_tran_tran_T115%flags = 2240
+  110.       $_tran_tran_T115%host_ptr = cri_pointer( loc( pthsrbz ) )
+  110.       $_tran_tran_T115%acc_ptr = cri_pointer( 0 )
+  110.       $_tran_tran_T115%acc_type_dscr = cri_pointer( 0 )
+  110.       $_tran_tran_T115%identifier = cri_pointer( loc( $_Text_Y81 ) )
+  110.       $_tran_tran_T116%header%version = 5
+  110.       $_tran_tran_T116%header%operation = 10
+  110.       $_tran_tran_T116%size = 96
+  110.       $_tran_tran_T116%flags = 2240
+  110.       $_tran_tran_T116%host_ptr = cri_pointer( loc( srbr ) )
+  110.       $_tran_tran_T116%acc_ptr = cri_pointer( 0 )
+  110.       $_tran_tran_T116%acc_type_dscr = cri_pointer( 0 )
+  110.       $_tran_tran_T116%identifier = cri_pointer( loc( $_Text_Y82 ) )
+  110.       $_tran_tran_T117%header%version = 5
+  110.       $_tran_tran_T117%header%operation = 10
+  110.       $_tran_tran_T117%size = 96
+  110.       $_tran_tran_T117%flags = 2240
+  110.       $_tran_tran_T117%host_ptr = cri_pointer( loc( srbz ) )
+  110.       $_tran_tran_T117%acc_ptr = cri_pointer( 0 )
+  110.       $_tran_tran_T117%acc_type_dscr = cri_pointer( 0 )
+  110.       $_tran_tran_T117%identifier = cri_pointer( loc( $_Text_Y83 ) )
+  110.       $_tran_tran_T118%header%version = 5
+  110.       $_tran_tran_T118%header%operation = 10
+  110.       $_tran_tran_T118%size = 96
+  110.       $_tran_tran_T118%flags = 2240
+  110.       $_tran_tran_T118%host_ptr = cri_pointer( loc( thbr ) )
+  110.       $_tran_tran_T118%acc_ptr = cri_pointer( 0 )
+  110.       $_tran_tran_T118%acc_type_dscr = cri_pointer( 0 )
+  110.       $_tran_tran_T118%identifier = cri_pointer( loc( $_Text_Y84 ) )
+  110.       $_tran_tran_T119%header%version = 5
+  110.       $_tran_tran_T119%header%operation = 10
+  110.       $_tran_tran_T119%size = 96
+  110.       $_tran_tran_T119%flags = 2240
+  110.       $_tran_tran_T119%host_ptr = cri_pointer( loc( thbz ) )
+  110.       $_tran_tran_T119%acc_ptr = cri_pointer( 0 )
+  110.       $_tran_tran_T119%acc_type_dscr = cri_pointer( 0 )
+  110.       $_tran_tran_T119%identifier = cri_pointer( loc( $_Text_Y85 ) )
+  110.       $snt_T31 = _acc_ind_transfer_list( 32, _acc_list_entry( _acc_alloc( Null_Arg, bdcrvb, _acc_transfer_flags( $_tran_tran_T110, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, curvbz, _acc_transfer_flags( $_tran_tran_T111, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, prsrbr, _acc_transfer_flags( $_tran_tran_T112, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, prsrbz, _acc_transfer_flags( $_tran_tran_T113, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, pthsrbr, _acc_transfer_flags( $_tran_tran_T114, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, pthsrbz, _acc_transfer_flags( $_tran_tran_T115, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, srbr, _acc_transfer_flags( $_tran_tran_T116, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, srbz, _acc_transfer_flags( $_tran_tran_T117, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, thbr, _acc_transfer_flags( $_tran_tran_T118, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, thbz, _acc_transfer_flags( $_tran_tran_T119, 0, 8321 ) ), Null_Arg ) ) ) ) ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  111.       $_tran_tran_T120%header%version = 5
+  111.       $_tran_tran_T120%header%operation = 10
+  111.       $_tran_tran_T120%size = 96
+  111.       $_tran_tran_T120%flags = 2240
+  111.       $_tran_tran_T120%host_ptr = cri_pointer( loc( capns ) )
+  111.       $_tran_tran_T120%acc_ptr = cri_pointer( 0 )
+  111.       $_tran_tran_T120%acc_type_dscr = cri_pointer( 0 )
+  111.       $_tran_tran_T120%identifier = cri_pointer( loc( $_Text_Y86 ) )
+  111.       $_tran_tran_T121%header%version = 5
+  111.       $_tran_tran_T121%header%operation = 10
+  111.       $_tran_tran_T121%size = 96
+  111.       $_tran_tran_T121%flags = 2240
+  111.       $_tran_tran_T121%host_ptr = cri_pointer( loc( capts ) )
+  111.       $_tran_tran_T121%acc_ptr = cri_pointer( 0 )
+  111.       $_tran_tran_T121%acc_type_dscr = cri_pointer( 0 )
+  111.       $_tran_tran_T121%identifier = cri_pointer( loc( $_Text_Y87 ) )
+  111.       $_tran_tran_T122%header%version = 5
+  111.       $_tran_tran_T122%header%operation = 10
+  111.       $_tran_tran_T122%size = 96
+  111.       $_tran_tran_T122%flags = 2240
+  111.       $_tran_tran_T122%host_ptr = cri_pointer( loc( t0s ) )
+  111.       $_tran_tran_T122%acc_ptr = cri_pointer( 0 )
+  111.       $_tran_tran_T122%acc_type_dscr = cri_pointer( 0 )
+  111.       $_tran_tran_T122%identifier = cri_pointer( loc( $_Text_Y88 ) )
+  111.       $_tran_tran_T123%header%version = 5
+  111.       $_tran_tran_T123%header%operation = 10
+  111.       $_tran_tran_T123%size = 96
+  111.       $_tran_tran_T123%flags = 2240
+  111.       $_tran_tran_T123%host_ptr = cri_pointer( loc( vpars ) )
+  111.       $_tran_tran_T123%acc_ptr = cri_pointer( 0 )
+  111.       $_tran_tran_T123%acc_type_dscr = cri_pointer( 0 )
+  111.       $_tran_tran_T123%identifier = cri_pointer( loc( $_Text_Y89 ) )
+  111.       $_tran_tran_T124%header%version = 5
+  111.       $_tran_tran_T124%header%operation = 10
+  111.       $_tran_tran_T124%size = 96
+  111.       $_tran_tran_T124%flags = 2240
+  111.       $_tran_tran_T124%host_ptr = cri_pointer( loc( vparsp ) )
+  111.       $_tran_tran_T124%acc_ptr = cri_pointer( 0 )
+  111.       $_tran_tran_T124%acc_type_dscr = cri_pointer( 0 )
+  111.       $_tran_tran_T124%identifier = cri_pointer( loc( $_Text_Y90 ) )
+  111.       $_tran_tran_T125%header%version = 5
+  111.       $_tran_tran_T125%header%operation = 10
+  111.       $_tran_tran_T125%size = 96
+  111.       $_tran_tran_T125%flags = 2240
+  111.       $_tran_tran_T125%host_ptr = cri_pointer( loc( xn0s ) )
+  111.       $_tran_tran_T125%acc_ptr = cri_pointer( 0 )
+  111.       $_tran_tran_T125%acc_type_dscr = cri_pointer( 0 )
+  111.       $_tran_tran_T125%identifier = cri_pointer( loc( $_Text_Y91 ) )
+  111.       $snt_T32 = _acc_ind_transfer_list( 33, _acc_list_entry( _acc_alloc( Null_Arg, capns, _acc_transfer_flags( $_tran_tran_T120, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, capts, _acc_transfer_flags( $_tran_tran_T121, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, t0s, _acc_transfer_flags( $_tran_tran_T122, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, vpars, _acc_transfer_flags( $_tran_tran_T123, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, vparsp, _acc_transfer_flags( $_tran_tran_T124, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, xn0s, _acc_transfer_flags( $_tran_tran_T125, 0, 8321 ) ), Null_Arg ) ) ) ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  112.       $_tran_tran_T126%header%version = 5
+  112.       $_tran_tran_T126%header%operation = 10
+  112.       $_tran_tran_T126%size = 72
+  112.       $_tran_tran_T126%flags = 2240
+  112.       $_tran_tran_T126%host_ptr = cri_pointer( loc( cn0s ) )
+  112.       $_tran_tran_T126%acc_ptr = cri_pointer( 0 )
+  112.       $_tran_tran_T126%acc_type_dscr = cri_pointer( 0 )
+  112.       $_tran_tran_T126%identifier = cri_pointer( loc( $_Text_Y92 ) )
+  112.       $_tran_tran_T127%header%version = 5
+  112.       $_tran_tran_T127%header%operation = 10
+  112.       $_tran_tran_T127%size = 72
+  112.       $_tran_tran_T127%flags = 2240
+  112.       $_tran_tran_T127%host_ptr = cri_pointer( loc( n0smax ) )
+  112.       $_tran_tran_T127%acc_ptr = cri_pointer( 0 )
+  112.       $_tran_tran_T127%acc_type_dscr = cri_pointer( 0 )
+  112.       $_tran_tran_T127%identifier = cri_pointer( loc( $_Text_Y93 ) )
+  112.       $_tran_tran_T128%header%version = 5
+  112.       $_tran_tran_T128%header%operation = 10
+  112.       $_tran_tran_T128%size = 72
+  112.       $_tran_tran_T128%flags = 2240
+  112.       $_tran_tran_T128%host_ptr = cri_pointer( loc( tgis ) )
+  112.       $_tran_tran_T128%acc_ptr = cri_pointer( 0 )
+  112.       $_tran_tran_T128%acc_type_dscr = cri_pointer( 0 )
+  112.       $_tran_tran_T128%identifier = cri_pointer( loc( $_Text_Y94 ) )
+  112.       $snt_T33 = _acc_ind_transfer_list( 34, _acc_list_entry( _acc_alloc( Null_Arg, cn0s, _acc_transfer_flags( $_tran_tran_T126, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, n0smax, _acc_transfer_flags( $_tran_tran_T127, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, tgis, _acc_transfer_flags( $_tran_tran_T128, 0, 8321 ) ), Null_Arg ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  127.       rmaj0 = 706.7101614781327
+  128.       a = 254.41565813212776
+  131.       beta = 5.0126707385599999e-3
+  133.       rin = 254.41565813212776 * rina
+  134.       rout = 254.41565813212776 * routa
+  135.       r0 = 254.41565813212776 * r0a
+  136.       elonp0 = ( elon0 * selon0 * 1.0/( 254.41565813212776 * r0a ) )
+  137.       triap0 = ( _sqrt( 1.0 + -( tria0 * tria0 ) ) * 1.0/( 254.41565813212776 * r0a ) ) * stria0
+  139.       dr = ( ( ( 254.41565813212776 * routa ) + -( 254.41565813212776 * rina ) ) * 1.0/( real( nr ) ) )
+  140.       dth = ( 6.2831853071795862 * 1.0/( real( ntheta ) ) )
+  145.       if ( nr >= 0 ) then
+  145.          $I_L145_0 = 0
+  145. !dir$ ivdep
+  145.          do
+  147.             (f%base_addr)($I_L145_0, 0) = real( isgnf ) * rmaj0
+  152.             $r_S3 = rin + real( $I_L145_0 ) * dr
+  153.             (rmaj%base_addr)($I_L145_0, 0) = rmaj0 + -( ( 5.0e-1 * rmaj0p ) * ( 1.0 + -( ( ( rin + real( $I_L145_0 ) * dr ) * 1.0/a ) * ( ( rin + real( $I_L145_0 ) * dr ) * 1.0/a ) ) ) * a )
+  154.             (rmajp%base_addr)($I_L145_0, 0) = ( rmaj0p * $r_S3 * 1.0/a )
+  159.             $r_S6 = rin + real( $I_L145_0 ) * dr
+  160.             $elon_WR0_R0 = ( -1.0000000000000001e-1 + elon0 ) + ( ( ( rin + real( $I_L145_0 ) * dr ) * 1.0/a ) * ( ( rin + real( $I_L145_0 ) * dr ) * 1.0/a ) ) * ( ( ( rin + real( $I_L145_0 ) * dr ) * 1.0/a ) * ( ( rin + real( $I_L145_0 ) * dr ) * 1.0/a ) ) * 1.0000000000000001e-1
+  160.             (elon%base_addr)($I_L145_0, 0) = ( ( -1.0000000000000001e-1 + elon0 ) + ( ( ( rin + real( $I_L145_0 ) * dr ) * 1.0/a ) * ( ( rin + real( $I_L145_0 ) * dr ) * 1.0/a ) ) * ( ( ( rin + real( $I_L145_0 ) * dr ) * 1.0/a ) * ( ( rin + real( $I_L145_0 ) * dr ) * 1.0/a ) ) * 1.0000000000000001e-1 )
+  161.             (selon%base_addr)($I_L145_0, 0) = ( ( ( $r_S6 * 1.0/a ) * ( $r_S6 * 1.0/a ) * ( $r_S6 * 1.0/a ) * $r_S6 * 1.0/a * 4.0000000000000002e-1 ) * 1.0/$elon_WR0_R0 )
+  148.             $I_L145_0 = 1 + $I_L145_0
+  148.             if ( $I_L145_0 >= ( 1 + nr ) ) exit
+  148.          enddo
+  148.       endif
+  163.       if ( 1.0 == elon0 ) then
+  164.          if ( merge( 0, _zla( 0, 1 + nr ), nr < 0 ) > 0 ) then
+  164.             $I_L164_138 = 0
+  164. !dir$ ivdep
+  164.             do
+  164.                (elon%base_addr)($I_L164_138, 0) = 1.0
+  165.                (selon%base_addr)($I_L164_138, 0) = 0.0
+  164.                $I_L164_138 = 1 + $I_L164_138
+  164.                if ( $I_L164_138 >= merge( 0, _zla( 0, 1 + nr ), nr < 0 ) ) exit
+  164.             enddo
+  164.          endif
+  164.       endif
+  169.       if ( nr >= 0 ) then
+  169.          $I_L169_6 = 0
+  169. !dir$ ivdep
+  169.          do
+  170.             $r_S9 = rin + real( $I_L169_6 ) * dr
+  171.             $tria_WR0_R1 = ( ( rin + real( $I_L169_6 ) * dr ) * 1.0/a ) * ( ( rin + real( $I_L169_6 ) * dr ) * 1.0/a ) * tria0
+  171.             (tria%base_addr)($I_L169_6, 0) = ( ( ( rin + real( $I_L169_6 ) * dr ) * 1.0/a ) * ( ( rin + real( $I_L169_6 ) * dr ) * 1.0/a ) * tria0 )
+  172.             (stria%base_addr)($I_L169_6, 0) = ( ( $r_S9 * tria0 * ( $r_S9 * 1.0/a ) * 1.0/a * 2.0 ) * _recip_sqrt( 1.0 + -( $tria_WR0_R1 * $tria_WR0_R1 ) ) )
+  173.             $I_L169_6 = 1 + $I_L169_6
+  173.             if ( $I_L169_6 >= ( 1 + nr ) ) exit
+  173.          enddo
+  178.          if ( ntheta >= 0 ) then
+  176.             $I_L176_108 = 0
+  176. !dir$ ivdep
+  176.             do
+  177.                $r_S13 = rin + real( $I_L176_108 ) * dr
+  178.                $I_L178_8 = 0
+  178.                do
+  179.                   $th_S14 = -3.1415926535897931 + dth * real( $I_L178_8 )
+  180.                   (radius%base_addr)($I_L176_108, $I_L178_8, 0) = (rmaj%base_addr)($I_L176_108, 0) + $r_S13 * cos( ( -3.1415926535897931 + dth * real( $I_L178_8 ) ) + asin( (tria%base_addr)($I_L176_108, 0) ) * sin( ( -3.1415926535897931 + dth * real( $I_L178_8 ) ) ) )
+  181.                   (hght%base_addr)($I_L176_108, $I_L178_8, 0) = $r_S13 * (elon%base_addr)($I_L176_108, 0) * sin( $th_S14 )
+  182.                   $I_L178_8 = 1 + $I_L178_8
+  182.                   if ( $I_L178_8 >= ( 1 + ntheta ) ) exit
+  182.                enddo
+  183.                $I_L176_108 = 1 + $I_L176_108
+  183.                if ( $I_L176_108 >= 1 + nr ) exit
+  183.             enddo
+  183.          endif
+  183.       endif
+  186.       if ( nr >= 0 ) then
+  192.          if ( ntheta >= 0 ) then
+  186.             $I_L186_110 = 0
+  186.             do
+  187.                $r_S18 = rin + real( $I_L186_110 ) * dr
+  188.                $x_S19 = asin( (tria%base_addr)($I_L186_110, 0) )
+  189.                xp = ( (stria%base_addr)($I_L186_110, 0) * 1.0/( rin + real( $I_L186_110 ) * dr ) )
+  190.                elonp($I_L186_110) = ( (selon%base_addr)($I_L186_110, 0) * (elon%base_addr)($I_L186_110, 0) * 1.0/( rin + real( $I_L186_110 ) * dr ) )
+  191.                triap($I_L186_110) = ( (stria%base_addr)($I_L186_110, 0) * _sqrt( 1.0 + -( (tria%base_addr)($I_L186_110, 0) * (tria%base_addr)($I_L186_110, 0) ) ) * 1.0/( rin + real( $I_L186_110 ) * dr ) )
+  192.                $I_L192_10 = 0
+  192.                do
+  193.                   $th_S24 = -3.1415926535897931 + real( $I_L192_10 ) * dth
+  194.                   $dum1_S21 = (elon%base_addr)($I_L186_110, 0) * $r_S18 * real( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) )
+  195.                   $dum2_S23 = -( $r_S18 * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) + $x_S19 * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) ) ) ) * ( 1.0 + $x_S19 * real( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) ) ) )
+  196.                   $dum3_S20 = elonp($I_L186_110) * $r_S18 * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) ) + (elon%base_addr)($I_L186_110, 0) * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) )
+  197.                   $dum4_S22 = (rmajp%base_addr)($I_L186_110, 0) + real( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) + $x_S19 * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) ) ) ) + -( $r_S18 * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) + $x_S19 * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) ) ) ) * xp * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) ) )
+  199.                   denom = $dum4_S22 * $dum1_S21 + -( $dum3_S20 * ( -( $r_S18 * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) + $x_S19 * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) ) ) ) * ( 1.0 + $x_S19 * real( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) ) ) ) ) )
+  201.                   (srbr%base_addr)($I_L186_110, $I_L192_10, 0) = ( $dum1_S21 * 1.0/( $dum4_S22 * $dum1_S21 + -( $dum3_S20 * ( -( $r_S18 * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) + $x_S19 * cimag( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) ) ) ) * ( 1.0 + $x_S19 * real( coss( ( -3.1415926535897931 + real( $I_L192_10 ) * dth ) ) ) ) ) ) ) ) )
+  202.                   (srbz%base_addr)($I_L186_110, $I_L192_10, 0) = -( ( -( $r_S18 * sin( $th_S24 + $x_S19 * cimag( coss( $th_S24 ) ) ) * ( 1.0 + $x_S19 * real( coss( $th_S24 ) ) ) ) ) * 1.0/( $dum4_S22 * $dum1_S21 + -( $dum3_S20 * $dum2_S23 ) ) )
+  203.                   (thbr%base_addr)($I_L186_110, $I_L192_10, 0) = -( $dum3_S20 * 1.0/( $dum4_S22 * $dum1_S21 + -( $dum3_S20 * $dum2_S23 ) ) )
+  204.                   (thbz%base_addr)($I_L186_110, $I_L192_10, 0) = ( $dum4_S22 * 1.0/( $dum4_S22 * $dum1_S21 + -( $dum3_S20 * $dum2_S23 ) ) )
+  205.                   if ( ( $dum4_S22 * $dum1_S21 + -( $dum3_S20 * ( -( $r_S18 * sin( $th_S24 + $x_S19 * cimag( coss( $th_S24 ) ) ) * ( 1.0 + $x_S19 * real( coss( $th_S24 ) ) ) ) ) ) ) < 0.0 ) then
+  205.                      $_IOitem_P0(0) = elonp($I_L186_110)
+  205.                      $_IOitem_P0(1) = triap($I_L186_110)
+  205.                      $_IOitem_P0(2) = xp
+  205.                      $_IOitem_P0(3) = denom
+  205.                      _fwrite( _clist( 0, 0, 3, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, 0, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg ), _iolist( _iotype( $_IOitem_P0(:( 0, 3, 1 )), 0x804060300000000L ) ) )
+  205.                   endif
+  206.                   (gr%base_addr)($I_L186_110, $I_L192_10, 0) = ( _sqrt( $dum1_S21 * $dum1_S21 + $dum2_S23 * $dum2_S23 ) * 1.0/denom )
+  207.                   (gth%base_addr)($I_L186_110, $I_L192_10, 0) = ( _sqrt( $dum3_S20 * $dum3_S20 + $dum4_S22 * $dum4_S22 ) * 1.0/denom )
+  208.                   (grdgt%base_addr)($I_L186_110, $I_L192_10, 0) = ( ( -( $dum1_S21 * $dum3_S20 ) + -( $dum2_S23 * $dum4_S22 ) ) * 1.0/( denom * denom ) )
+  209.                   (grcgt%base_addr)($I_L186_110, $I_L192_10, 0) = 1.0/denom
+  210.                   $I_L192_10 = 1 + $I_L192_10
+  210.                   if ( $I_L192_10 >= ( 1 + ntheta ) ) exit
+  210.                enddo
+  211.                $I_L186_110 = 1 + $I_L186_110
+  211.                if ( $I_L186_110 >= 1 + nr ) exit
+  211.             enddo
+  211.          endif
+  215.          $I_L215_12 = 0
+  215. !dir$ ivdep
+  215.          do
+  216.             $r_S28 = rin + real( $I_L215_12 ) * dr
+  219.             (sf%base_addr)($I_L215_12, 0) = ( ( ( ( rin + real( $I_L215_12 ) * dr ) * 1.0/a ) * ( ( rin + real( $I_L215_12 ) * dr ) * 1.0/a ) * 2.52 + -1.6e-1 * ( ( rin + real( $I_L215_12 ) * dr ) * 1.0/a ) + 8.5999999999999999e-1 ) * real( isgnq ) )
+  220.             (t0i%base_addr)($I_L215_12, 0) = _expn( -( ( 2.9545351316766196e-3 * a ) * tanh( ( 1.0/a * ( $r_S28 + -r0 ) * 3.3333333333333335 ) ) ) )
+  221.             (t0e%base_addr)($I_L215_12, 0) = _expn( -( ( 2.9545351316766196e-3 * a ) * tanh( ( 1.0/a * ( $r_S28 + -r0 ) * 3.3333333333333335 ) ) ) )
+  222.             $xn0e_WR0_R3 = _expn( -( ( 9.4663984822397423e-4 * a ) * tanh( ( 1.0/a * ( $r_S28 + -r0 ) * 3.3333333333333335 ) ) ) )
+  222.             (xn0e%base_addr)($I_L215_12, 0) = _expn( -( ( 9.4663984822397423e-4 * a ) * tanh( ( 1.0/a * ( $r_S28 + -r0 ) * 3.3333333333333335 ) ) ) )
+  223.             (xn0i%base_addr)($I_L215_12, 0) = $xn0e_WR0_R3
+  224.             (xn0c%base_addr)($I_L215_12, 0) = 0.0
+  225.             (phincp%base_addr)($I_L215_12, 0) = 0.0
+  226.             (nue0%base_addr)($I_L215_12, 0) = 1.0
+  227.             (zeff%base_addr)($I_L215_12, 0) = 1.0
+  228.             $I_L215_12 = 1 + $I_L215_12
+  228.             if ( $I_L215_12 >= ( 1 + nr ) ) exit
+  228.          enddo
+  228.       endif
+  229.       q0 = (sf%base_addr)(nr / 2, 0)
+  230.       q0abs = abs( q0 )
+  232.       if ( -1 + nr > 0 ) then
+  232.          $I_L232_14 = 0
+  232. !dir$ ivdep
+  232.          do
+  235.             $cutoff_S31 = -_expn( -( ( 20.0 * ( ( ( rin + real( 1 + $I_L232_14 ) * dr ) * 1.0/a ) + -rina ) ) * ( 20.0 * ( ( ( rin + real( 1 + $I_L232_14 ) * dr ) * 1.0/a ) + -rina ) ) ) ) + -_expn( -( ( 20.0 * ( routa + -( ( rin + real( 1 + $I_L232_14 ) * dr ) * 1.0/a ) ) ) * ( 20.0 * ( routa + -( ( rin + real( 1 + $I_L232_14 ) * dr ) * 1.0/a ) ) ) ) ) + 1.0
+  237.             $t0ip_WR0_R4 = ( 1.0/dr * ( (t0i%base_addr)(2 + $I_L232_14, 0) + -(t0i%base_addr)($I_L232_14, 0) ) * 5.0e-1 )
+  237.             (t0ip%base_addr)(1 + $I_L232_14, 0) = $t0ip_WR0_R4
+  238.             $t0ep_WR0_R5 = ( 1.0/dr * ( (t0e%base_addr)(2 + $I_L232_14, 0) + -(t0e%base_addr)($I_L232_14, 0) ) * 5.0e-1 )
+  238.             (t0ep%base_addr)(1 + $I_L232_14, 0) = $t0ep_WR0_R5
+  239.             (capti%base_addr)(1 + $I_L232_14, 0) = -( ( $t0ip_WR0_R4 * 1.0/(t0i%base_addr)(1 + $I_L232_14, 0) ) * $cutoff_S31 )
+  240.             (capte%base_addr)(1 + $I_L232_14, 0) = -( ( $t0ep_WR0_R5 * 1.0/(t0e%base_addr)(1 + $I_L232_14, 0) ) * $cutoff_S31 )
+  241.             $dum_S32 = ( 1.0/dr * ( (xn0e%base_addr)(2 + $I_L232_14, 0) + -(xn0e%base_addr)($I_L232_14, 0) ) * 5.0e-1 )
+  242.             (capne%base_addr)(1 + $I_L232_14, 0) = -( ( $dum_S32 * 1.0/(xn0e%base_addr)(1 + $I_L232_14, 0) ) * $cutoff_S31 )
+  243.             $dum_S33 = ( 1.0/dr * ( (xn0i%base_addr)(2 + $I_L232_14, 0) + -(xn0i%base_addr)($I_L232_14, 0) ) * 5.0e-1 )
+  244.             (capni%base_addr)(1 + $I_L232_14, 0) = -( ( $dum_S33 * 1.0/(xn0i%base_addr)(1 + $I_L232_14, 0) ) * $cutoff_S31 )
+  245.             $I_L232_14 = 1 + $I_L232_14
+  245.             if ( $I_L232_14 >= ( -1 + nr ) ) exit
+  245.          enddo
+  245.       endif
+  248.       if ( nr >= 0 ) then
+  250.          if ( ntheta > 0 ) then
+  248.             $I_L248_112 = 0
+  248. !dir$ ivdep
+  248.             do
+  249.                dum = 0.0
+  250.                $I_L250_16 = 0
+  250. !dir$ unroll 4
+  250.                do
+  251.                   dum = dum + ( ( dth * 1.0/(radius%base_addr)($I_L248_112, $I_L250_16, 0) ) * 1.0/(grcgt%base_addr)($I_L248_112, $I_L250_16, 0) )
+  252.                   $I_L250_16 = 1 + $I_L250_16
+  252.                   if ( $I_L250_16 >= ntheta ) exit
+  252.                enddo
+  253.                (psip%base_addr)($I_L248_112, 0) = ( ( 1.5915494309189535e-1 * (f%base_addr)($I_L248_112, 0) ) * 1.0/(sf%base_addr)($I_L248_112, 0) ) * dum
+  254.                $I_L248_112 = 1 + $I_L248_112
+  254.                if ( $I_L248_112 >= 1 + nr ) exit
+  254.             enddo
+  254.          else
+  248.             $I_L248_92 = 0
+  248. !dir$ ivdep
+  248.             do
+  253.                (psip%base_addr)($I_L248_92, 0) = 0.0
+  254.                $I_L248_92 = 1 + $I_L248_92
+  254.                if ( $I_L248_92 >= 1 + nr ) exit
+  254.             enddo
+  254.          endif
+  254.       endif
+  258.       (psi%base_addr)(0, 0) = 0.0
+  259.       if ( nr > 0 ) then
+  259.          $psi_WR0_R6 = 0.0
+  259.          $I_L259_18 = 0
+  259. !dir$ unroll 4
+  259.          do
+  260.             $psi_WR0_R6 = $psi_WR0_R6 + ( 5.0e-1 * ( dr * ( (psip%base_addr)($I_L259_18, 0) + (psip%base_addr)(1 + $I_L259_18, 0) ) ) )
+  260.             (psi%base_addr)(1 + $I_L259_18, 0) = $psi_WR0_R6
+  261.             $I_L259_18 = 1 + $I_L259_18
+  261.             if ( $I_L259_18 >= nr ) exit
+  261.          enddo
+  261.       endif
+  264.       if ( nr >= 0 ) then
+  270.          if ( ntheta >= 0 ) then
+  264.             $I_L264_114 = 0
+  264. !dir$ ivdep
+  264.             do
+  265.                $r_S44 = rin + real( $I_L264_114 ) * dr
+  266.                $x_S43 = asin( (tria%base_addr)($I_L264_114, 0) )
+  267.                $xp_S45 = ( (stria%base_addr)($I_L264_114, 0) * 1.0/( rin + real( $I_L264_114 ) * dr ) )
+  270.                $I_L270_20 = 0
+  270.                do
+  271.                   $th_S42 = -3.1415926535897931 + real( $I_L270_20 ) * dth
+  272.                   (bfld%base_addr)($I_L264_114, $I_L270_20, 0) = _sqrt( ( (f%base_addr)($I_L264_114, 0) * 1.0/(radius%base_addr)($I_L264_114, $I_L270_20, 0) ) * ( (f%base_addr)($I_L264_114, 0) * 1.0/(radius%base_addr)($I_L264_114, $I_L270_20, 0) ) + ( ( (psip%base_addr)($I_L264_114, 0) * 1.0/(radius%base_addr)($I_L264_114, $I_L270_20, 0) ) * (gr%base_addr)($I_L264_114, $I_L270_20, 0) ) * ( ( (psip%base_addr)($I_L264_114, 0) * 1.0/(radius%base_addr)($I_L264_114, $I_L270_20, 0) ) * (gr%base_addr)($I_L264_114, $I_L270_20, 0) ) )
+  274.                   $dum2_S47 = -( $r_S44 * cimag( coss( $th_S42 + $x_S43 * cimag( coss( $th_S42 ) ) ) ) * ( 1.0 + $x_S43 * real( coss( $th_S42 ) ) ) )
+  275.                   $dum4_S46 = (rmajp%base_addr)($I_L264_114, 0) + real( coss( $th_S42 + $x_S43 * cimag( coss( $th_S42 ) ) ) ) + -( $r_S44 * cimag( coss( $th_S42 + $x_S43 * cimag( coss( $th_S42 ) ) ) ) * $xp_S45 * cimag( coss( $th_S42 ) ) )
+  277.                   (dbdr%base_addr)($I_L264_114, $I_L270_20, 0) = -( ( abs( (f%base_addr)($I_L264_114, 0) ) * 1.0/( (radius%base_addr)($I_L264_114, $I_L270_20, 0) * (radius%base_addr)($I_L264_114, $I_L270_20, 0) ) ) * $dum4_S46 )
+  278.                   (dbdth%base_addr)($I_L264_114, $I_L270_20, 0) = -( ( abs( (f%base_addr)($I_L264_114, 0) ) * 1.0/( (radius%base_addr)($I_L264_114, $I_L270_20, 0) * (radius%base_addr)($I_L264_114, $I_L270_20, 0) ) ) * $dum2_S47 )
+  279.                   (qhat%base_addr)($I_L264_114, $I_L270_20, 0) = ( ( (f%base_addr)($I_L264_114, 0) * 1.0/(radius%base_addr)($I_L264_114, $I_L270_20, 0) ) * 1.0/( (psip%base_addr)($I_L264_114, 0) * (grcgt%base_addr)($I_L264_114, $I_L270_20, 0) ) )
+  281.                   $I_L270_20 = 1 + $I_L270_20
+  281.                   if ( $I_L270_20 >= ( 1 + ntheta ) ) exit
+  281.                enddo
+  282.                $I_L264_114 = 1 + $I_L264_114
+  282.                if ( $I_L264_114 >= 1 + nr ) exit
+  282.             enddo
+  282.          endif
+  282.       endif
+  284.       if ( -1 + nr > 0 ) then
+  285.          if ( -1 + ntheta > 0 ) then
+  285.             $I_L285_22 = 0
+  285.             if ( -3 + ntheta >= 0 ) then
+  285.                $I_L285_178 = 0
+  285.                do
+  284.                   $I_L284_116 = 0
+  284. !dir$ ivdep
+  284.                   do
+  286.                      (dbdr%base_addr)(1 + $I_L284_116, 1 + 2 * $I_L285_178, 0) = ( 1.0/dr * ( (bfld%base_addr)(2 + $I_L284_116, 1 + 2 * $I_L285_178, 0) + -(bfld%base_addr)($I_L284_116, 1 + 2 * $I_L285_178, 0) ) * 5.0e-1 )
+  287.                      (dbdth%base_addr)(1 + $I_L284_116, 1 + 2 * $I_L285_178, 0) = ( 1.0/dth * ( (bfld%base_addr)(1 + $I_L284_116, 2 + 2 * $I_L285_178, 0) + -(bfld%base_addr)(1 + $I_L284_116, 2 * $I_L285_178, 0) ) * 5.0e-1 )
+  286.                      (dbdr%base_addr)(1 + $I_L284_116, 2 + 2 * $I_L285_178, 0) = ( 1.0/dr * ( (bfld%base_addr)(2 + $I_L284_116, 2 + 2 * $I_L285_178, 0) + -(bfld%base_addr)($I_L284_116, 2 + 2 * $I_L285_178, 0) ) * 5.0e-1 )
+  287.                      (dbdth%base_addr)(1 + $I_L284_116, 2 + 2 * $I_L285_178, 0) = ( 1.0/dth * ( (bfld%base_addr)(1 + $I_L284_116, 3 + 2 * $I_L285_178, 0) + -(bfld%base_addr)(1 + $I_L284_116, 1 + 2 * $I_L285_178, 0) ) * 5.0e-1 )
+  293.                      $I_L284_116 = 1 + $I_L284_116
+  293.                      if ( $I_L284_116 >= -1 + nr ) exit
+  293.                   enddo
+  288.                   $I_L285_178 = 1 + $I_L285_178
+  288.                   if ( $I_L285_178 >= _rsh( -1 + ntheta, 1 ) ) exit
+  288.                enddo
+  288.                $I_L285_22 = and( -2, -1 + ntheta )
+  288.             endif
+  285.             if ( $I_L285_22 < -1 + ntheta ) then
+  284.                $I_L284_116 = 0
+  284. !dir$ ivdep
+  284.                do
+  286.                   (dbdr%base_addr)(1 + $I_L284_116, 1 + $I_L285_22, 0) = ( 1.0/dr * ( (bfld%base_addr)(2 + $I_L284_116, 1 + $I_L285_22, 0) + -(bfld%base_addr)($I_L284_116, 1 + $I_L285_22, 0) ) * 5.0e-1 )
+  287.                   (dbdth%base_addr)(1 + $I_L284_116, 1 + $I_L285_22, 0) = ( 1.0/dth * ( (bfld%base_addr)(1 + $I_L284_116, 2 + $I_L285_22, 0) + -(bfld%base_addr)(1 + $I_L284_116, $I_L285_22, 0) ) * 5.0e-1 )
+  293.                   $I_L284_116 = 1 + $I_L284_116
+  293.                   if ( $I_L284_116 >= -1 + nr ) exit
+  293.                enddo
+  293.             endif
+  284.             $I_L284_116 = 0
+  284. !dir$ ivdep
+  284.             do
+  289.                $dbdr_WR0_R7 = ( 1.0/dr * ( (bfld%base_addr)(2 + $I_L284_116, 0, 0) + -(bfld%base_addr)($I_L284_116, 0, 0) ) * 5.0e-1 )
+  289.                (dbdr%base_addr)(1 + $I_L284_116, 0, 0) = $dbdr_WR0_R7
+  290.                (dbdr%base_addr)(1 + $I_L284_116, ntheta, 0) = $dbdr_WR0_R7
+  291.                $dbdth_WR0_R8 = ( 1.0/dth * ( (bfld%base_addr)(1 + $I_L284_116, 1, 0) + -(bfld%base_addr)(1 + $I_L284_116, -1 + ntheta, 0) ) * 5.0e-1 )
+  291.                (dbdth%base_addr)(1 + $I_L284_116, 0, 0) = $dbdth_WR0_R8
+  292.                (dbdth%base_addr)(1 + $I_L284_116, ntheta, 0) = $dbdth_WR0_R8
+  293.                $I_L284_116 = 1 + $I_L284_116
+  293.                if ( $I_L284_116 >= -1 + nr ) exit
+  293.             enddo
+  293.          else
+  284.             $I_L284_94 = 0
+  284. !dir$ ivdep
+  284.             do
+  289.                (dbdr%base_addr)(1 + $I_L284_94, 0, 0) = ( 1.0/dr * ( (bfld%base_addr)(2 + $I_L284_94, 0, 0) + -(bfld%base_addr)($I_L284_94, 0, 0) ) * 5.0e-1 )
+  290.                (dbdr%base_addr)(1 + $I_L284_94, ntheta, 0) = (dbdr%base_addr)(1 + $I_L284_94, 0, 0)
+  291.                (dbdth%base_addr)(1 + $I_L284_94, 0, 0) = ( 1.0/dth * ( (bfld%base_addr)(1 + $I_L284_94, 1, 0) + -(bfld%base_addr)(1 + $I_L284_94, -1 + ntheta, 0) ) * 5.0e-1 )
+  292.                (dbdth%base_addr)(1 + $I_L284_94, ntheta, 0) = (dbdth%base_addr)(1 + $I_L284_94, 0, 0)
+  293.                $I_L284_94 = 1 + $I_L284_94
+  293.                if ( $I_L284_94 >= -1 + nr ) exit
+  293.             enddo
+  293.          endif
+  293.       endif
+  294.       if ( ntheta >= 0 ) then
+  294.          $I_L294_24 = 0
+  294. !dir$ ivdep
+  294.          do
+  295.             (dbdr%base_addr)(0, $I_L294_24, 0) = (dbdr%base_addr)(1, $I_L294_24, 0)
+  296.             (dbdr%base_addr)(nr, $I_L294_24, 0) = (dbdr%base_addr)(-1 + nr, $I_L294_24, 0)
+  297.             (dbdth%base_addr)(0, $I_L294_24, 0) = (dbdth%base_addr)(1, $I_L294_24, 0)
+  298.             (dbdth%base_addr)(nr, $I_L294_24, 0) = (dbdth%base_addr)(-1 + nr, $I_L294_24, 0)
+  299.             $I_L294_24 = 1 + $I_L294_24
+  299.             if ( $I_L294_24 >= ( 1 + ntheta ) ) exit
+  299.          enddo
+  299.       endif
+  302.       if ( -1 + nr > 0 ) then
+  303.          if ( ntheta >= 0 ) then
+  303.             $I_L303_26 = 0
+  303.             do
+  302.                $I_L302_118 = 0
+  302. !dir$ ivdep
+  302.                do
+  304.                   (dqhdr%base_addr)(1 + $I_L302_118, $I_L303_26, 0) = ( 1.0/dr * ( (qhat%base_addr)(2 + $I_L302_118, $I_L303_26, 0) + -(qhat%base_addr)($I_L302_118, $I_L303_26, 0) ) * 5.0e-1 )
+  306.                   $I_L302_118 = 1 + $I_L302_118
+  306.                   if ( $I_L302_118 >= -1 + nr ) exit
+  306.                enddo
+  305.                $I_L303_26 = 1 + $I_L303_26
+  305.                if ( $I_L303_26 >= ( 1 + ntheta ) ) exit
+  305.             enddo
+  305.          endif
+  305.       endif
+  307.       if ( ntheta >= 0 ) then
+  307.          $I_L307_28 = 0
+  307. !dir$ ivdep
+  307.          do
+  308.             (dqhdr%base_addr)(0, $I_L307_28, 0) = ( ( (qhat%base_addr)(1, $I_L307_28, 0) + -(qhat%base_addr)(0, $I_L307_28, 0) ) * 1.0/dr )
+  309.             (dqhdr%base_addr)(nr, $I_L307_28, 0) = ( ( (qhat%base_addr)(nr, $I_L307_28, 0) + -(qhat%base_addr)(-1 + nr, $I_L307_28, 0) ) * 1.0/dr )
+  310.             $I_L307_28 = 1 + $I_L307_28
+  310.             if ( $I_L307_28 >= ( 1 + ntheta ) ) exit
+  310.          enddo
+  310.       endif
+  312.       if ( nr >= 0 ) then
+  317.          if ( ntheta + -( ntheta / 2 ) > 0 ) then
+  312.             $I_L312_120 = 0
+  312. !dir$ ivdep
+  312.             do
+  313.                (yfn%base_addr)($I_L312_120, ntheta / 2, 0) = 0.0
+  314.                (dydr%base_addr)($I_L312_120, ntheta / 2, 0) = 0.0
+  315.                dum = 0.0
+  316.                dum1 = 0.0
+  317.                $I_L317_30 = 0
+  317.                do
+  318.                   dum = dum + ( 5.0e-1 * ( ( (dqhdr%base_addr)($I_L312_120, $I_L317_30 + ntheta / 2, 0) + (dqhdr%base_addr)($I_L312_120, $I_L317_30 + ntheta / 2 + 1, 0) ) * dth ) )
+  319.                   (dydr%base_addr)($I_L312_120, $I_L317_30 + ntheta / 2 + 1, 0) = ( r0 * 1.0/q0 ) * dum
+  320.                   (dydr%base_addr)($I_L312_120, ntheta + -( ntheta / 2 ) + -( $I_L317_30 ) + -1, 0) = -(dydr%base_addr)($I_L312_120, $I_L317_30 + ntheta / 2 + 1, 0)
+  321.                   dum1 = dum1 + ( 5.0e-1 * ( dth * ( ( r0 * 1.0/q0 ) * ( (qhat%base_addr)($I_L312_120, $I_L317_30 + ntheta / 2, 0) + (qhat%base_addr)($I_L312_120, $I_L317_30 + ntheta / 2 + 1, 0) ) ) ) )
+  322.                   (yfn%base_addr)($I_L312_120, $I_L317_30 + ntheta / 2 + 1, 0) = dum1
+  323.                   (yfn%base_addr)($I_L312_120, ntheta + -( ntheta / 2 ) + -( $I_L317_30 ) + -1, 0) = -dum1
+  324.                   $I_L317_30 = 1 + $I_L317_30
+  324.                   if ( $I_L317_30 >= ( ntheta + -( ntheta / 2 ) ) ) exit
+  324.                enddo
+  325.                $I_L312_120 = 1 + $I_L312_120
+  325.                if ( $I_L312_120 >= 1 + nr ) exit
+  325.             enddo
+  328.             $I_L328_122 = 0
+  328. !dir$ ivdep
+  328.             do
+  329.                (thflx%base_addr)($I_L328_122, ntheta / 2, 0) = 0.0
+  330.                dum = 0.0
+  331.                $I_L331_32 = 0
+  331. !dir$ unroll 4
+  331.                do
+  332.                   dum = dum + ( 5.0e-1 * ( ( (qhat%base_addr)($I_L328_122, $I_L331_32 + ntheta / 2, 0) + (qhat%base_addr)($I_L328_122, $I_L331_32 + ntheta / 2 + 1, 0) ) * dth ) )
+  333.                   (thflx%base_addr)($I_L328_122, $I_L331_32 + ntheta / 2 + 1, 0) = ( dum * 1.0/(sf%base_addr)($I_L328_122, 0) )
+  334.                   (thflx%base_addr)($I_L328_122, ntheta + -( ntheta / 2 ) + -( $I_L331_32 ) + -1, 0) = -(thflx%base_addr)($I_L328_122, $I_L331_32 + ntheta / 2 + 1, 0)
+  335.                   $I_L331_32 = 1 + $I_L331_32
+  335.                   if ( $I_L331_32 >= ( ntheta + -( ntheta / 2 ) ) ) exit
+  335.                enddo
+  336.                $I_L328_122 = 1 + $I_L328_122
+  336.                if ( $I_L328_122 >= 1 + nr ) exit
+  336.             enddo
+  336.          else
+  312.             $I_L312_96 = 0
+  312. !dir$ ivdep
+  312.             do
+  313.                (yfn%base_addr)($I_L312_96, ntheta / 2, 0) = 0.0
+  314.                (dydr%base_addr)($I_L312_96, ntheta / 2, 0) = 0.0
+  329.                (thflx%base_addr)($I_L312_96, ntheta / 2, 0) = 0.0
+  325.                $I_L312_96 = 1 + $I_L312_96
+  325.                if ( $I_L312_96 >= 1 + nr ) exit
+  325.             enddo
+  325.          endif
+  325.       endif
+  339.       jacmax = 0.0
+  340.       if ( nr >= 0 ) then
+  342.          if ( ntheta >= 0 ) then
+  340.             $I_L340_124 = 0
+  340. !dir$ ivdep
+  340.             do
+  341.                dum = 0.0
+  342.                $I_L342_34 = 0
+  342.                do
+  343.                   (gxdgy%base_addr)($I_L340_124, $I_L342_34, 0) = (gr%base_addr)($I_L340_124, $I_L342_34, 0) * (gr%base_addr)($I_L340_124, $I_L342_34, 0) * (dydr%base_addr)($I_L340_124, $I_L342_34, 0) + ( r0 * 1.0/q0 ) * (qhat%base_addr)($I_L340_124, $I_L342_34, 0) * (grdgt%base_addr)($I_L340_124, $I_L342_34, 0)
+  344.                   $jacob_WR0_R9 = 1.0/( ( r0 * rmaj0 * 1.0/(radius%base_addr)($I_L340_124, $I_L342_34, 0) ) * (grcgt%base_addr)($I_L340_124, $I_L342_34, 0) )
+  344.                   (jacob%base_addr)($I_L340_124, $I_L342_34, 0) = $jacob_WR0_R9
+  345.                   jacmax = max( jacmax, $jacob_WR0_R9 )
+  346.                   if ( $I_L342_34 < ntheta ) then
+  346.                      dum = dum + $jacob_WR0_R9
+  346.                   endif
+  347.                   $I_L342_34 = 1 + $I_L342_34
+  347.                   if ( $I_L342_34 >= ( 1 + ntheta ) ) exit
+  347.                enddo
+  348.                (jacoba%base_addr)($I_L340_124, 0) = ( dum * 1.0/( real( ntheta ) ) )
+  349.                $I_L340_124 = 1 + $I_L340_124
+  349.                if ( $I_L340_124 >= 1 + nr ) exit
+  349.             enddo
+  349.          else
+  340.             $I_L340_100 = 0
+  340. !dir$ ivdep
+  340.             do
+  348.                (jacoba%base_addr)($I_L340_100, 0) = 0.0
+  349.                $I_L340_100 = 1 + $I_L340_100
+  349.                if ( $I_L340_100 >= 1 + nr ) exit
+  349.             enddo
+  349.          endif
+  349.       endif
+  352.       cn0e = 0.0
+  353.       cn0i = 0.0
+  354.       cn0c = 0.0
+  355.       dum = 0.0
+  356.       if ( nr > 0 ) then
+  356.          $I_L356_36 = 0
+  356. !dir$ ivdep
+  356.          do
+  357.             dum = dum + ( 5.0e-1 * ( (jacoba%base_addr)($I_L356_36, 0) + (jacoba%base_addr)(1 + $I_L356_36, 0) ) )
+  360.             cn0e = cn0e + ( ( 5.0e-1 * ( (xn0e%base_addr)($I_L356_36, 0) + (xn0e%base_addr)(1 + $I_L356_36, 0) ) ) * ( (jacoba%base_addr)($I_L356_36, 0) + (jacoba%base_addr)(1 + $I_L356_36, 0) ) * 5.0e-1 )
+  361.             cn0i = cn0i + ( ( 5.0e-1 * ( (xn0i%base_addr)($I_L356_36, 0) + (xn0i%base_addr)(1 + $I_L356_36, 0) ) ) * ( (jacoba%base_addr)($I_L356_36, 0) + (jacoba%base_addr)(1 + $I_L356_36, 0) ) * 5.0e-1 )
+  362.             cn0c = cn0c + ( ( 5.0e-1 * ( (xn0c%base_addr)($I_L356_36, 0) + (xn0c%base_addr)(1 + $I_L356_36, 0) ) ) * ( (jacoba%base_addr)($I_L356_36, 0) + (jacoba%base_addr)(1 + $I_L356_36, 0) ) * 5.0e-1 )
+  358.             $I_L356_36 = 1 + $I_L356_36
+  358.             if ( $I_L356_36 >= nr ) exit
+  358.          enddo
+  358.       endif
+  364.       cn0e = ( cn0e * 1.0/dum )
+  365.       cn0i = ( cn0i * 1.0/dum )
+  366.       cn0c = ( cn0c * 1.0/dum )
+  367.       if ( nr >= 0 ) then
+  367.          $I_L367_40 = 0
+  367. !dir$ ivdep
+  367.          do
+  368.             (xn0e%base_addr)($I_L367_40, 0) = ( (xn0e%base_addr)($I_L367_40, 0) * 1.0/cn0e )
+  369.             (xn0i%base_addr)($I_L367_40, 0) = ( (xn0i%base_addr)($I_L367_40, 0) * 1.0/cn0i )
+  370.             (xn0c%base_addr)($I_L367_40, 0) = ( (xn0c%base_addr)($I_L367_40, 0) * 1.0/cn0c )
+  371.             $I_L367_40 = 1 + $I_L367_40
+  371.             if ( $I_L367_40 >= ( 1 + nr ) ) exit
+  371.          enddo
+  371.       endif
+  374.       if ( merge( 0, _zla( 0, 1 + nr ), nr < 0 ) > 0 ) then
+  374.          $I_L374_142 = 0
+  374. !dir$ ivdep
+  374.          do
+  374.             (xn0s%base_addr)(1, $I_L374_142, 0) = (xn0i%base_addr)($I_L374_142, 0)
+  375.             (xn0s%base_addr)(2, $I_L374_142, 0) = (xn0c%base_addr)($I_L374_142, 0)
+  378.             (t0s%base_addr)(1, $I_L374_142, 0) = (t0i%base_addr)($I_L374_142, 0)
+  379.             (t0s%base_addr)(2, $I_L374_142, 0) = (t0c%base_addr)($I_L374_142, 0)
+  374.             $I_L374_142 = 1 + $I_L374_142
+  374.             if ( $I_L374_142 >= merge( 0, _zla( 0, 1 + nr ), nr < 0 ) ) exit
+  374.          enddo
+  374.       endif
+  382.       (tgis%base_addr)(1, 0) = (t0s%base_addr)(1, 1, 0)
+  383.       (tgis%base_addr)(2, 0) = (t0s%base_addr)(2, 1, 0)
+  384.       (tgis%base_addr)(3, 0) = (t0s%base_addr)(3, 1, 0)
+  385.       tge = (t0e%base_addr)(1, 0)
+  392.       if ( merge( 0, _zla( 0, 1 + nr ), nr < 0 ) > 0 ) then
+  392.          $I_L392_150 = 0
+  392. !dir$ ivdep
+  392.          do
+  392.             (capts%base_addr)(1, $I_L392_150, 0) = (capti%base_addr)($I_L392_150, 0)
+  393.             (capts%base_addr)(2, $I_L392_150, 0) = (captc%base_addr)($I_L392_150, 0)
+  396.             (capns%base_addr)(1, $I_L392_150, 0) = (capni%base_addr)($I_L392_150, 0)
+  397.             (capns%base_addr)(2, $I_L392_150, 0) = (capnc%base_addr)($I_L392_150, 0)
+  392.             $I_L392_150 = 1 + $I_L392_150
+  392.             if ( $I_L392_150 >= merge( 0, _zla( 0, 1 + nr ), nr < 0 ) ) exit
+  392.          enddo
+  392.       endif
+  400.       (cn0s%base_addr)(1, 0) = cn0i
+  401.       (cn0s%base_addr)(2, 0) = cn0c
+  402.       (cn0s%base_addr)(3, 0) = cn0b
+  404.       if ( merge( 0, _zla( 0, 1 + nr ), nr < 0 ) > 0 ) then
+  404.          $I_L404_158 = 0
+  404. !dir$ ivdep
+  404.          do
+  404.             (vpars%base_addr)(1, $I_L404_158, 0) = 0.0
+  405.             (vpars%base_addr)(2, $I_L404_158, 0) = 0.0
+  408.             (vparsp%base_addr)(1, $I_L404_158, 0) = 0.0
+  409.             (vparsp%base_addr)(2, $I_L404_158, 0) = 0.0
+  404.             $I_L404_158 = 1 + $I_L404_158
+  404.             if ( $I_L404_158 >= merge( 0, _zla( 0, 1 + nr ), nr < 0 ) ) exit
+  404.          enddo
+  404.       endif
+  414.       if ( ntheta >= 0 ) then
+  416.          if ( nr > 0 ) then
+  414.             $I_L414_126 = 0
+  414.             do
+  415.                dum = 0.0
+  416.                $I_L416_42 = 0
+  416. !dir$ ivdep
+  416.                do
+  417.                   dum = dum + ( 5.0e-1 * ( (jacob%base_addr)($I_L416_42, $I_L414_126, 0) + (jacob%base_addr)(1 + $I_L416_42, $I_L414_126, 0) ) )
+  418.                   $I_L416_42 = 1 + $I_L416_42
+  418.                   if ( $I_L416_42 >= nr ) exit
+  418.                enddo
+  419.                (jfn%base_addr)($I_L414_126, 0) = ( dum * 1.0/( real( nr ) ) )
+  420.                $I_L414_126 = 1 + $I_L414_126
+  420.                if ( $I_L414_126 >= 1 + ntheta ) exit
+  420.             enddo
+  420.          else
+  414.             $I_L414_102 = 0
+  414. !dir$ ivdep
+  414.             do
+  419.                (jfn%base_addr)($I_L414_102, 0) = 0.0
+  420.                $I_L414_102 = 1 + $I_L414_102
+  420.                if ( $I_L414_102 >= 1 + ntheta ) exit
+  420.             enddo
+  420.          endif
+  420.       endif
+  421.       dum = 0.0
+  422.       if ( ntheta > 0 ) then
+  422.          $I_L422_44 = 0
+  422. !dir$ ivdep
+  422.          do
+  423.             dum = dum + ( 5.0e-1 * ( (jfn%base_addr)($I_L422_44, 0) + (jfn%base_addr)(1 + $I_L422_44, 0) ) )
+  424.             $I_L422_44 = 1 + $I_L422_44
+  424.             if ( $I_L422_44 >= ntheta ) exit
+  424.          enddo
+  424.       endif
+  425.       $dum_S85 = ( dum * 1.0/( real( ntheta ) ) )
+  426.       if ( ntheta >= 0 ) then
+  426.          $I_L426_46 = 0
+  426. !dir$ ivdep
+  426.          do
+  427.             (jfn%base_addr)($I_L426_46, 0) = ( $dum_S85 * 1.0/(jfn%base_addr)($I_L426_46, 0) )
+  428.             $I_L426_46 = 1 + $I_L426_46
+  428.             if ( $I_L426_46 >= ( 1 + ntheta ) ) exit
+  428.          enddo
+  428.       endif
+  433.       if ( -1 + nr > 0 ) then
+  433.          $I_L433_48 = 0
+  433. !dir$ ivdep
+  433.          do
+  434.             (psip2%base_addr)(1 + $I_L433_48, 0) = ( 1.0/dr * ( (psip%base_addr)(2 + $I_L433_48, 0) + -(psip%base_addr)($I_L433_48, 0) ) * 5.0e-1 )
+  435.             $I_L433_48 = 1 + $I_L433_48
+  435.             if ( $I_L433_48 >= ( -1 + nr ) ) exit
+  435.          enddo
+  435.       endif
+  436.       (psip2%base_addr)(0, 0) = (psip2%base_addr)(1, 0)
+  437.       (psip2%base_addr)(nr, 0) = (psip2%base_addr)(-1 + nr, 0)
+  440.       if ( ntheta >= 0 ) then
+  441.          if ( -1 + nr > 0 ) then
+  440.             $I_L440_128 = 0
+  440.             do
+  441.                $I_L441_50 = 0
+  441. !dir$ ivdep
+  441.                do
+  442.                   (prsrbr%base_addr)(1 + $I_L441_50, $I_L440_128, 0) = ( 1.0/dr * ( (srbr%base_addr)(2 + $I_L441_50, $I_L440_128, 0) + -(srbr%base_addr)($I_L441_50, $I_L440_128, 0) ) * 5.0e-1 )
+  443.                   (prsrbz%base_addr)(1 + $I_L441_50, $I_L440_128, 0) = ( 1.0/dr * ( (srbz%base_addr)(2 + $I_L441_50, $I_L440_128, 0) + -(srbz%base_addr)($I_L441_50, $I_L440_128, 0) ) * 5.0e-1 )
+  444.                   $I_L441_50 = 1 + $I_L441_50
+  444.                   if ( $I_L441_50 >= ( -1 + nr ) ) exit
+  444.                enddo
+  449.                $I_L440_128 = 1 + $I_L440_128
+  449.                if ( $I_L440_128 >= 1 + ntheta ) exit
+  449.             enddo
+  440.             $I_L440_128 = 0
+  440. !dir$ ivdep
+  440.             do
+  445.                (prsrbr%base_addr)(0, $I_L440_128, 0) = ( ( (srbr%base_addr)(1, $I_L440_128, 0) + -(srbr%base_addr)(0, $I_L440_128, 0) ) * 1.0/dr )
+  446.                (prsrbr%base_addr)(nr, $I_L440_128, 0) = ( ( (srbr%base_addr)(nr, $I_L440_128, 0) + -(srbr%base_addr)(-1 + nr, $I_L440_128, 0) ) * 1.0/dr )
+  447.                (prsrbz%base_addr)(0, $I_L440_128, 0) = ( ( (srbz%base_addr)(1, $I_L440_128, 0) + -(srbz%base_addr)(0, $I_L440_128, 0) ) * 1.0/dr )
+  448.                (prsrbz%base_addr)(nr, $I_L440_128, 0) = ( ( (srbz%base_addr)(nr, $I_L440_128, 0) + -(srbz%base_addr)(-1 + nr, $I_L440_128, 0) ) * 1.0/dr )
+  449.                $I_L440_128 = 1 + $I_L440_128
+  449.                if ( $I_L440_128 >= 1 + ntheta ) exit
+  449.             enddo
+  449.          else
+  440.             $I_L440_104 = 0
+  440. !dir$ ivdep
+  440.             do
+  445.                (prsrbr%base_addr)(0, $I_L440_104, 0) = ( ( (srbr%base_addr)(1, $I_L440_104, 0) + -(srbr%base_addr)(0, $I_L440_104, 0) ) * 1.0/dr )
+  446.                (prsrbr%base_addr)(nr, $I_L440_104, 0) = ( ( (srbr%base_addr)(nr, $I_L440_104, 0) + -(srbr%base_addr)(-1 + nr, $I_L440_104, 0) ) * 1.0/dr )
+  447.                (prsrbz%base_addr)(0, $I_L440_104, 0) = ( ( (srbz%base_addr)(1, $I_L440_104, 0) + -(srbz%base_addr)(0, $I_L440_104, 0) ) * 1.0/dr )
+  448.                (prsrbz%base_addr)(nr, $I_L440_104, 0) = ( ( (srbz%base_addr)(nr, $I_L440_104, 0) + -(srbz%base_addr)(-1 + nr, $I_L440_104, 0) ) * 1.0/dr )
+  449.                $I_L440_104 = 1 + $I_L440_104
+  449.                if ( $I_L440_104 >= 1 + ntheta ) exit
+  449.             enddo
+  449.          endif
+  449.       endif
+  450.       if ( nr >= 0 ) then
+  451.          if ( -1 + ntheta > 0 ) then
+  451.             $I_L451_52 = 0
+  451.             if ( -3 + ntheta >= 0 ) then
+  451.                $I_L451_180 = 0
+  451.                do
+  450.                   $I_L450_130 = 0
+  450. !dir$ ivdep
+  450.                   do
+  452.                      (pthsrbr%base_addr)($I_L450_130, 1 + 2 * $I_L451_180, 0) = ( 1.0/dth * ( (srbr%base_addr)($I_L450_130, 2 + 2 * $I_L451_180, 0) + -(srbr%base_addr)($I_L450_130, 2 * $I_L451_180, 0) ) * 5.0e-1 )
+  453.                      (pthsrbz%base_addr)($I_L450_130, 1 + 2 * $I_L451_180, 0) = ( 1.0/dth * ( (srbz%base_addr)($I_L450_130, 2 + 2 * $I_L451_180, 0) + -(srbz%base_addr)($I_L450_130, 2 * $I_L451_180, 0) ) * 5.0e-1 )
+  452.                      (pthsrbr%base_addr)($I_L450_130, 2 + 2 * $I_L451_180, 0) = ( 1.0/dth * ( (srbr%base_addr)($I_L450_130, 3 + 2 * $I_L451_180, 0) + -(srbr%base_addr)($I_L450_130, 1 + 2 * $I_L451_180, 0) ) * 5.0e-1 )
+  453.                      (pthsrbz%base_addr)($I_L450_130, 2 + 2 * $I_L451_180, 0) = ( 1.0/dth * ( (srbz%base_addr)($I_L450_130, 3 + 2 * $I_L451_180, 0) + -(srbz%base_addr)($I_L450_130, 1 + 2 * $I_L451_180, 0) ) * 5.0e-1 )
+  459.                      $I_L450_130 = 1 + $I_L450_130
+  459.                      if ( $I_L450_130 >= 1 + nr ) exit
+  459.                   enddo
+  454.                   $I_L451_180 = 1 + $I_L451_180
+  454.                   if ( $I_L451_180 >= _rsh( -1 + ntheta, 1 ) ) exit
+  454.                enddo
+  454.                $I_L451_52 = and( -2, -1 + ntheta )
+  454.             endif
+  451.             if ( $I_L451_52 < -1 + ntheta ) then
+  450.                $I_L450_130 = 0
+  450. !dir$ ivdep
+  450.                do
+  452.                   (pthsrbr%base_addr)($I_L450_130, 1 + $I_L451_52, 0) = ( 1.0/dth * ( (srbr%base_addr)($I_L450_130, 2 + $I_L451_52, 0) + -(srbr%base_addr)($I_L450_130, $I_L451_52, 0) ) * 5.0e-1 )
+  453.                   (pthsrbz%base_addr)($I_L450_130, 1 + $I_L451_52, 0) = ( 1.0/dth * ( (srbz%base_addr)($I_L450_130, 2 + $I_L451_52, 0) + -(srbz%base_addr)($I_L450_130, $I_L451_52, 0) ) * 5.0e-1 )
+  459.                   $I_L450_130 = 1 + $I_L450_130
+  459.                   if ( $I_L450_130 >= 1 + nr ) exit
+  459.                enddo
+  459.             endif
+  450.             $I_L450_130 = 0
+  450. !dir$ ivdep
+  450.             do
+  455.                (pthsrbr%base_addr)($I_L450_130, 0, 0) = ( ( (srbr%base_addr)($I_L450_130, 1, 0) + -(srbr%base_addr)($I_L450_130, 0, 0) ) * 1.0/dth )
+  456.                (pthsrbr%base_addr)($I_L450_130, ntheta, 0) = ( ( (srbr%base_addr)($I_L450_130, ntheta, 0) + -(srbr%base_addr)($I_L450_130, -1 + ntheta, 0) ) * 1.0/dth )
+  457.                (pthsrbz%base_addr)($I_L450_130, 0, 0) = ( ( (srbz%base_addr)($I_L450_130, 1, 0) + -(srbz%base_addr)($I_L450_130, 0, 0) ) * 1.0/dth )
+  458.                (pthsrbz%base_addr)($I_L450_130, ntheta, 0) = ( ( (srbz%base_addr)($I_L450_130, ntheta, 0) + -(srbz%base_addr)($I_L450_130, -1 + ntheta, 0) ) * 1.0/dth )
+  459.                $I_L450_130 = 1 + $I_L450_130
+  459.                if ( $I_L450_130 >= 1 + nr ) exit
+  459.             enddo
+  459.          else
+  450.             $I_L450_106 = 0
+  450. !dir$ ivdep
+  450.             do
+  455.                (pthsrbr%base_addr)($I_L450_106, 0, 0) = ( ( (srbr%base_addr)($I_L450_106, 1, 0) + -(srbr%base_addr)($I_L450_106, 0, 0) ) * 1.0/dth )
+  456.                (pthsrbr%base_addr)($I_L450_106, ntheta, 0) = ( ( (srbr%base_addr)($I_L450_106, ntheta, 0) + -(srbr%base_addr)($I_L450_106, -1 + ntheta, 0) ) * 1.0/dth )
+  457.                (pthsrbz%base_addr)($I_L450_106, 0, 0) = ( ( (srbz%base_addr)($I_L450_106, 1, 0) + -(srbz%base_addr)($I_L450_106, 0, 0) ) * 1.0/dth )
+  458.                (pthsrbz%base_addr)($I_L450_106, ntheta, 0) = ( ( (srbz%base_addr)($I_L450_106, ntheta, 0) + -(srbz%base_addr)($I_L450_106, -1 + ntheta, 0) ) * 1.0/dth )
+  459.                $I_L450_106 = 1 + $I_L450_106
+  459.                if ( $I_L450_106 >= 1 + nr ) exit
+  459.             enddo
+  459.          endif
+  463.          if ( ntheta >= 0 ) then
+  463.             $I_L463_54 = 0
+  463.             do
+  462.                $I_L462_132 = 0
+  462. !dir$ ivdep
+  462.                do
+  464.                   $dum1_S99 = (prsrbz%base_addr)($I_L462_132, $I_L463_54, 0) * (srbz%base_addr)($I_L462_132, $I_L463_54, 0) + (pthsrbz%base_addr)($I_L462_132, $I_L463_54, 0) * (thbz%base_addr)($I_L462_132, $I_L463_54, 0)
+  465.                   $dum2_S100 = (prsrbr%base_addr)($I_L462_132, $I_L463_54, 0) * (srbr%base_addr)($I_L462_132, $I_L463_54, 0) + (pthsrbr%base_addr)($I_L462_132, $I_L463_54, 0) * (thbr%base_addr)($I_L462_132, $I_L463_54, 0)
+  466.                   $curvbz_WR0_R10 = (psip%base_addr)($I_L462_132, 0) * ( ( $dum1_S99 * 1.0/(radius%base_addr)($I_L462_132, $I_L463_54, 0) ) + -( (srbr%base_addr)($I_L462_132, $I_L463_54, 0) * 1.0/( (radius%base_addr)($I_L462_132, $I_L463_54, 0) * (radius%base_addr)($I_L462_132, $I_L463_54, 0) ) ) + ( $dum2_S100 * 1.0/(radius%base_addr)($I_L462_132, $I_L463_54, 0) ) )
+  466.                   (curvbz%base_addr)($I_L462_132, $I_L463_54, 0) = $curvbz_WR0_R10
+  468.                   (bdcrvb%base_addr)($I_L462_132, $I_L463_54, 0) = ( (f%base_addr)($I_L462_132, 0) * 1.0/( (bfld%base_addr)($I_L462_132, $I_L463_54, 0) * (bfld%base_addr)($I_L462_132, $I_L463_54, 0) * (radius%base_addr)($I_L462_132, $I_L463_54, 0) ) ) * ( ( (gr%base_addr)($I_L462_132, $I_L463_54, 0) * (gr%base_addr)($I_L462_132, $I_L463_54, 0) * (psip2%base_addr)($I_L462_132, 0) * 1.0/(radius%base_addr)($I_L462_132, $I_L463_54, 0) ) + $curvbz_WR0_R10 )
+  470.                   $I_L462_132 = 1 + $I_L462_132
+  470.                   if ( $I_L462_132 >= 1 + nr ) exit
+  470.                enddo
+  472.                $I_L472_134 = 0
+  472. !dir$ ivdep
+  472.                do
+  474.                   $dum_S105 = _sqrt( (srbr%base_addr)($I_L472_134, $I_L463_54, 0) * (srbr%base_addr)($I_L472_134, $I_L463_54, 0) + (srbz%base_addr)($I_L472_134, $I_L463_54, 0) * (srbz%base_addr)($I_L472_134, $I_L463_54, 0) )
+  475.                   $e1r_WR0_R11 = ( (srbr%base_addr)($I_L472_134, $I_L463_54, 0) * 1.0/$dum_S105 )
+  475.                   e1r($I_L472_134, $I_L463_54) = $e1r_WR0_R11
+  476.                   $e1z_WR0_R12 = ( (srbz%base_addr)($I_L472_134, $I_L463_54, 0) * 1.0/$dum_S105 )
+  476.                   e1z($I_L472_134, $I_L463_54) = $e1z_WR0_R12
+  477.                   e2r($I_L472_134, $I_L463_54) = -( $e1z_WR0_R12 * (f%base_addr)($I_L472_134, 0) * 1.0/( (radius%base_addr)($I_L472_134, $I_L463_54, 0) * (bfld%base_addr)($I_L472_134, $I_L463_54, 0) ) )
+  478.                   e2z($I_L472_134, $I_L463_54) = ( $e1r_WR0_R11 * (f%base_addr)($I_L472_134, 0) * 1.0/( (radius%base_addr)($I_L472_134, $I_L463_54, 0) * (bfld%base_addr)($I_L472_134, $I_L463_54, 0) ) )
+  479.                   e2zet($I_L472_134, $I_L463_54) = ( ( -( $e1r_WR0_R11 * (srbr%base_addr)($I_L472_134, $I_L463_54, 0) ) + -( $e1z_WR0_R12 * (srbz%base_addr)($I_L472_134, $I_L463_54, 0) ) ) * (psip%base_addr)($I_L472_134, 0) * 1.0/( (radius%base_addr)($I_L472_134, $I_L463_54, 0) * (bfld%base_addr)($I_L472_134, $I_L463_54, 0) ) )
+  481.                   $I_L472_134 = 1 + $I_L472_134
+  481.                   if ( $I_L472_134 >= 1 + nr ) exit
+  481.                enddo
+  469.                $I_L463_54 = 1 + $I_L463_54
+  469.                if ( $I_L463_54 >= ( 1 + ntheta ) ) exit
+  469.             enddo
+  469.          endif
+  469.       endif
+  482.       call bdgrad( e1r(0, 0), bdge1r(0, 0) )
+  483.       call bdgrad( e1z(0, 0), bdge1z(0, 0) )
+  484.       call bdgrad( e2r(0, 0), bdge2r(0, 0) )
+  485.       call bdgrad( e2z(0, 0), bdge2z(0, 0) )
+  486.       call bdgrad( e2zet(0, 0), bdge2zet(0, 0) )
+  488.       if ( nr >= 0 ) then
+  489.          if ( ntheta >= 0 ) then
+  489.             $I_L489_58 = 0
+  489.             do
+  488.                $I_L488_136 = 0
+  488. !dir$ ivdep
+  488.                do
+  490.                   $e1gx_WR0_R13 = _sqrt( (srbr%base_addr)($I_L488_136, $I_L489_58, 0) * (srbr%base_addr)($I_L488_136, $I_L489_58, 0) + (srbz%base_addr)($I_L488_136, $I_L489_58, 0) * (srbz%base_addr)($I_L488_136, $I_L489_58, 0) )
+  490.                   (e1gx%base_addr)($I_L488_136, $I_L489_58, 0) = $e1gx_WR0_R13
+  491.                   (e1gy%base_addr)($I_L488_136, $I_L489_58, 0) = (dydr%base_addr)($I_L488_136, $I_L489_58, 0) * $e1gx_WR0_R13 + ( ( r0 * 1.0/q0 ) * (qhat%base_addr)($I_L488_136, $I_L489_58, 0) * (grdgt%base_addr)($I_L488_136, $I_L489_58, 0) * 1.0/$e1gx_WR0_R13 )
+  492.                   $e2gx_WR0_R14 = e2r($I_L488_136, $I_L489_58) * (srbr%base_addr)($I_L488_136, $I_L489_58, 0) + e2z($I_L488_136, $I_L489_58) * (srbz%base_addr)($I_L488_136, $I_L489_58, 0)
+  492.                   (e2gx%base_addr)($I_L488_136, $I_L489_58, 0) = $e2gx_WR0_R14
+  493.                   $dum_S108 = e2r($I_L488_136, $I_L489_58) * (thbr%base_addr)($I_L488_136, $I_L489_58, 0) + e2z($I_L488_136, $I_L489_58) * (thbz%base_addr)($I_L488_136, $I_L489_58, 0)
+  494.                   (e2gy%base_addr)($I_L488_136, $I_L489_58, 0) = (dydr%base_addr)($I_L488_136, $I_L489_58, 0) * $e2gx_WR0_R14 + ( r0 * 1.0/q0 ) * (qhat%base_addr)($I_L488_136, $I_L489_58, 0) * $dum_S108 + -( e2zet($I_L488_136, $I_L489_58) * r0 * 1.0/( q0 * (radius%base_addr)($I_L488_136, $I_L489_58, 0) ) )
+  495.                   $bdge1gx_WR0_R15 = bdge1r($I_L488_136, $I_L489_58) * (srbr%base_addr)($I_L488_136, $I_L489_58, 0) + bdge1z($I_L488_136, $I_L489_58) * (srbz%base_addr)($I_L488_136, $I_L489_58, 0)
+  495.                   (bdge1gx%base_addr)($I_L488_136, $I_L489_58, 0) = $bdge1gx_WR0_R15
+  496.                   $dum_S109 = bdge1r($I_L488_136, $I_L489_58) * (thbr%base_addr)($I_L488_136, $I_L489_58, 0) + bdge1z($I_L488_136, $I_L489_58) * (thbz%base_addr)($I_L488_136, $I_L489_58, 0)
+  497.                   (bdge1gy%base_addr)($I_L488_136, $I_L489_58, 0) = (dydr%base_addr)($I_L488_136, $I_L489_58, 0) * $bdge1gx_WR0_R15 + ( r0 * 1.0/q0 ) * (qhat%base_addr)($I_L488_136, $I_L489_58, 0) * $dum_S109 + -( ( r0 * 1.0/q0 ) * e1r($I_L488_136, $I_L489_58) * (f%base_addr)($I_L488_136, 0) * 1.0/( (radius%base_addr)($I_L488_136, $I_L489_58, 0) * (radius%base_addr)($I_L488_136, $I_L489_58, 0) * (radius%base_addr)($I_L488_136, $I_L489_58, 0) * (bfld%base_addr)($I_L488_136, $I_L489_58, 0) ) )
+  498.                   $bdge2gx_WR0_R16 = ( bdge2r($I_L488_136, $I_L489_58) + -( e2zet($I_L488_136, $I_L489_58) * (f%base_addr)($I_L488_136, 0) * 1.0/( (radius%base_addr)($I_L488_136, $I_L489_58, 0) * (radius%base_addr)($I_L488_136, $I_L489_58, 0) * (bfld%base_addr)($I_L488_136, $I_L489_58, 0) ) ) ) * (srbr%base_addr)($I_L488_136, $I_L489_58, 0) + bdge2z($I_L488_136, $I_L489_58) * (srbz%base_addr)($I_L488_136, $I_L489_58, 0)
+  498.                   (bdge2gx%base_addr)($I_L488_136, $I_L489_58, 0) = $bdge2gx_WR0_R16
+  499.                   $dum_S110 = ( bdge2r($I_L488_136, $I_L489_58) + -( e2zet($I_L488_136, $I_L489_58) * (f%base_addr)($I_L488_136, 0) * 1.0/( (radius%base_addr)($I_L488_136, $I_L489_58, 0) * (radius%base_addr)($I_L488_136, $I_L489_58, 0) * (bfld%base_addr)($I_L488_136, $I_L489_58, 0) ) ) ) * (thbr%base_addr)($I_L488_136, $I_L489_58, 0) + bdge2z($I_L488_136, $I_L489_58) * (thbz%base_addr)($I_L488_136, $I_L489_58, 0)
+  500.                   (bdge2gy%base_addr)($I_L488_136, $I_L489_58, 0) = (dydr%base_addr)($I_L488_136, $I_L489_58, 0) * $bdge2gx_WR0_R16 + ( r0 * 1.0/q0 ) * (qhat%base_addr)($I_L488_136, $I_L489_58, 0) * $dum_S110 + -( ( bdge2zet($I_L488_136, $I_L489_58) + ( e2r($I_L488_136, $I_L489_58) * (f%base_addr)($I_L488_136, 0) * 1.0/( (radius%base_addr)($I_L488_136, $I_L489_58, 0) * (radius%base_addr)($I_L488_136, $I_L489_58, 0) * (bfld%base_addr)($I_L488_136, $I_L489_58, 0) ) ) ) * r0 * 1.0/( q0 * (radius%base_addr)($I_L488_136, $I_L489_58, 0) ) )
+  502.                   $I_L488_136 = 1 + $I_L488_136
+  502.                   if ( $I_L488_136 >= 1 + nr ) exit
+  502.                enddo
+  501.                $I_L489_58 = 1 + $I_L489_58
+  501.                if ( $I_L489_58 >= ( 1 + ntheta ) ) exit
+  501.             enddo
+  501.          endif
+  501.       endif
+  504.       if ( dipdr%dim_1%EX > 0 ) then
+  504.          $I_L504_166 = 0
+  504. !dir$ ivdep
+  504.          do
+  504.             (dipdr%base_addr)(dipdr%dim_1%LB + $I_L504_166, 0) = 0.0
+  504.             $I_L504_166 = 1 + $I_L504_166
+  504.             if ( $I_L504_166 >= dipdr%dim_1%EX ) exit
+  504.          enddo
+  504.       endif
+  505.       if ( and( -bdcrvb%dim_2%EX, -bdcrvb%dim_1%EX ) < 0 ) then
+  505.          $I_L505_168 = 0
+  505. !dir$ ivdep
+  505.          do
+  505.             (bdcrvb%base_addr)(bdcrvb%dim_1%LB + $I_L505_168, bdcrvb%dim_2%LB, 0) = 0.0
+  505.             $I_L505_168 = 1 + $I_L505_168
+  505.             if ( $I_L505_168 >= bdcrvb%dim_1%EX * bdcrvb%dim_2%EX ) exit
+  505.          enddo
+  505.       endif
+  506.       if ( and( -curvbz%dim_2%EX, -curvbz%dim_1%EX ) < 0 ) then
+  506.          $I_L506_170 = 0
+  506. !dir$ ivdep
+  506.          do
+  506.             (curvbz%base_addr)(curvbz%dim_1%LB + $I_L506_170, curvbz%dim_2%LB, 0) = 0.0
+  506.             $I_L506_170 = 1 + $I_L506_170
+  506.             if ( $I_L506_170 >= curvbz%dim_1%EX * curvbz%dim_2%EX ) exit
+  506.          enddo
+  506.       endif
+  507.       if ( psip2%dim_1%EX > 0 ) then
+  507.          $I_L507_172 = 0
+  507. !dir$ ivdep
+  507.          do
+  507.             (psip2%base_addr)(psip2%dim_1%LB + $I_L507_172, 0) = 0.0
+  507.             $I_L507_172 = 1 + $I_L507_172
+  507.             if ( $I_L507_172 >= psip2%dim_1%EX ) exit
+  507.          enddo
+  507.       endif
+  509.       if ( 0 == myid ) then
+  510.          t$243 = 11
+  510.           _substr(t$244,1,4) = 'xpp'
+  510.           _substr(t$245,1,7) = 'REPLACE'
+  510.          t$246(1) = 0x300000000000000L
+  510. !dir$ suppress t$243
+  510.          t$246(2) = int( loc( t$243 ), 8 )
+  510.          t$246(3) = 0
+  510.          t$246(4) = 0
+  510. !dir$ suppress  _substr(t$244,1,3)
+  510.          t$246(5) = int( loc(  _substr(t$244,1,3) ), 8 )
+  510.          t$246(6) = 3
+  510. !dir$ suppress  _substr(t$245,1,7)
+  510.          t$246(7) = int( loc(  _substr(t$245,1,7) ), 8 )
+  510.          t$246(8) = 7
+  510.          t$246(9) = 0
+  510.          t$246(11) = 0
+  510.          t$246(13) = 0
+  510.          t$246(14) = 0
+  510.          t$246(16) = 0
+  510.          t$246(18) = 0
+  510.          t$246(20) = 0
+  510.          t$246(22) = 0
+  510.          t$246(24) = 0
+  510.          t$246(25) = 0
+  510.          t$246(27) = 0
+  510.          t$246(29) = 0
+  510.          t$246(31) = 0
+  510.          t$246(33) = 0
+  510.          t$246(35) = 0
+  510.          t$246(37) = 0
+  510.          t$246(38) = 0
+  510.          t$246(39) = 0
+  510.          t$242 = _open( t$246 )
+  511.          $_IOitem_P1(0) = 2.3630621024425071e-3
+  511.          $_IOitem_P1(1) = 191616766.46706584
+  511.          $_IOitem_P1(2) = 452802.3190308995
+  511.          _fwrite( _clist( 0, 0, 3, 11, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, 0, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg ), _iolist( _iotype( 'xu,omegau,vu = ', 0x800600000000L ), _iotype( $_IOitem_P1(:( 0, 2, 1 )), 0x804060300000000L ) ) )
+  512.          $_IOitem_P2(0) = q0
+  512.          $_IOitem_P2(1) = q0p
+  512.          _fwrite( _clist( 0, 0, 3, 11, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, 0, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg ), _iolist( _iotype( 'q0,q0p,psia=', 0x800600000000L ), _iotype( $_IOitem_P2(:( 0, 1, 1 )), 0x4000300000000L ) ) )
+  513.          _fwrite( _clist( 0, 0, 3, 11, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, 0, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg ), _iolist( _iotype( 'beta=', 0x800600000000L ), _iotype( beta, 0x4000300000000L ) ) )
+  516.          if ( nr >= 0 ) then
+  516.             $I_L516_60 = 0
+  516.             do
+  518.                $IOitem_O0 = ( ( rin + real( $I_L516_60 ) * dr ) * 1.0/a )
+  518.                _fwrite( _clist( 0, 0, 3, 11, Null_Arg, Null_Arg, t$31,  _substr(t$30,1,22), Null_Arg, Null_Arg, Null_Arg, Null_Arg, 0, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg ), _iolist( _iotype( $I_L516_60, 0x2000200000000L ), _iotype( $IOitem_O0, 0x4000300000000L ), _iotype( (sf%base_addr)($I_L516_60, 0), 0x4000300000000L ), _iotype( (f%base_addr)($I_L516_60, 0), 0x4000300000000L ), _iotype( (t0e%base_addr)($I_L516_60, 0), 0x4000300000000L ), _iotype( (t0i%base_addr)($I_L516_60, 0), 0x4000300000000L ), _iotype( (xn0e%base_addr)($I_L516_60, 0), 0x4000300000000L ), _iotype( (xn0i%base_addr)($I_L516_60, 0), 0x4000300000000L ), _iotype( (dbdth%base_addr)($I_L516_60, ntheta / 4, 0), 0x4000300000000L ), _iotype( (dbdth%base_addr)($I_L516_60, ntheta / 2, 0), 0x4000300000000L ), _iotype( (dbdth%base_addr)($I_L516_60, ntheta, 0), 0x4000300000000L ), _iotype( (psip%base_addr)($I_L516_60, 0), 0x4000300000000L ) ) )
+  519.                $I_L516_60 = 1 + $I_L516_60
+  519.                if ( $I_L516_60 >= ( 1 + nr ) ) exit
+  519.             enddo
+  519.          endif
+  519.       endif
+   46.       _free( t$44 )
+  521.       return
+  521.       end
+  521.       
+  523.       
+  523.       subroutine bdgrad( u, v )
+  523.       t$32 = nr
+  523.       t$33 = ntheta
+  523.       t$96 = 1 + nr
+  528.       t$97 = _zla( 0, 1 + nr )
+  523.       t$98 = _zla( 0, 1 + nr )
+  523.       t$99 = 1 + ntheta
+  528.       t$100 = _zla( 0, 1 + ntheta )
+  523.       t$101 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta )
+  528.       t$104 = _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 8
+  523.       t$102 = int( _alloc( _zla( 0, 1 + nr ) * _zla( 0, 1 + ntheta ) * 8 ), 8 )
+  528.       t$103 = t$102
+  531.       if ( nr >= 0 ) then
+  532.          if ( -1 + ntheta > 0 ) then
+  532.             $I_L532_0 = 0
+  532.             if ( -5 + ntheta >= 0 ) then
+  532.                $I_L532_20 = 0
+  532.                do
+  531.                   $I_L531_10 = 0
+  531. !dir$ ivdep
+  531.                   do
+  533.                      w($I_L531_10, 1 + 4 * $I_L532_20) = ( 1.0/dth * ( u($I_L531_10, 2 + 4 * $I_L532_20) + -u($I_L531_10, 4 * $I_L532_20) ) * 5.0e-1 )
+  533.                      w($I_L531_10, 2 + 4 * $I_L532_20) = ( 1.0/dth * ( u($I_L531_10, 3 + 4 * $I_L532_20) + -u($I_L531_10, 1 + 4 * $I_L532_20) ) * 5.0e-1 )
+  533.                      w($I_L531_10, 3 + 4 * $I_L532_20) = ( 1.0/dth * ( u($I_L531_10, 4 + 4 * $I_L532_20) + -u($I_L531_10, 2 + 4 * $I_L532_20) ) * 5.0e-1 )
+  533.                      w($I_L531_10, 4 + 4 * $I_L532_20) = ( 1.0/dth * ( u($I_L531_10, 5 + 4 * $I_L532_20) + -u($I_L531_10, 3 + 4 * $I_L532_20) ) * 5.0e-1 )
+  537.                      $I_L531_10 = 1 + $I_L531_10
+  537.                      if ( $I_L531_10 >= 1 + nr ) exit
+  537.                   enddo
+  534.                   $I_L532_20 = 1 + $I_L532_20
+  534.                   if ( $I_L532_20 >= _rsh( -1 + ntheta, 2 ) ) exit
+  534.                enddo
+  534.                $I_L532_0 = and( -4, -1 + ntheta )
+  534.             endif
+  532.             if ( $I_L532_0 < -1 + ntheta ) then
+  532.                $I_L532_17 = 0
+  532.                do
+  531.                   $I_L531_10 = 0
+  531. !dir$ ivdep
+  531.                   do
+  533.                      w($I_L531_10, $I_L532_0 + $I_L532_17 + 1) = ( 1.0/dth * ( u($I_L531_10, $I_L532_0 + $I_L532_17 + 2) + -u($I_L531_10, $I_L532_0 + $I_L532_17) ) * 5.0e-1 )
+  537.                      $I_L531_10 = 1 + $I_L531_10
+  537.                      if ( $I_L531_10 >= 1 + nr ) exit
+  537.                   enddo
+  534.                   $I_L532_17 = 1 + $I_L532_17
+  534.                   if ( $I_L532_17 >= ntheta + -$I_L532_0 + -1 ) exit
+  534.                enddo
+  534.             endif
+  531.             $I_L531_10 = 0
+  531. !dir$ ivdep
+  531.             do
+  535.                $w_WR0_R0 = ( 1.0/dth * ( u($I_L531_10, 1) + -u($I_L531_10, -1 + ntheta) ) * 5.0e-1 )
+  535.                w($I_L531_10, 0) = $w_WR0_R0
+  536.                w($I_L531_10, ntheta) = $w_WR0_R0
+  537.                $I_L531_10 = 1 + $I_L531_10
+  537.                if ( $I_L531_10 >= 1 + nr ) exit
+  537.             enddo
+  537.          else
+  531.             $I_L531_8 = 0
+  531. !dir$ ivdep
+  531.             do
+  535.                w($I_L531_8, 0) = ( 1.0/dth * ( u($I_L531_8, 1) + -u($I_L531_8, -1 + ntheta) ) * 5.0e-1 )
+  536.                w($I_L531_8, ntheta) = w($I_L531_8, 0)
+  537.                $I_L531_8 = 1 + $I_L531_8
+  537.                if ( $I_L531_8 >= 1 + nr ) exit
+  537.             enddo
+  537.          endif
+  540.          if ( ntheta >= 0 ) then
+  540.             $I_L540_2 = 0
+  540.             if ( -3 + ntheta >= 0 ) then
+  540.                $I_L540_22 = 0
+  540.                do
+  539.                   $I_L539_12 = 0
+  539. !dir$ ivdep
+  539.                   do
+  541.                      v($I_L539_12, 4 * $I_L540_22) = ( (psip%base_addr)($I_L539_12, 0) * 1.0/( (bfld%base_addr)($I_L539_12, 4 * $I_L540_22, 0) * (radius%base_addr)($I_L539_12, 4 * $I_L540_22, 0) ) ) * w($I_L539_12, 4 * $I_L540_22) * (grcgt%base_addr)($I_L539_12, 4 * $I_L540_22, 0)
+  541.                      v($I_L539_12, 1 + 4 * $I_L540_22) = ( (psip%base_addr)($I_L539_12, 0) * 1.0/( (bfld%base_addr)($I_L539_12, 1 + 4 * $I_L540_22, 0) * (radius%base_addr)($I_L539_12, 1 + 4 * $I_L540_22, 0) ) ) * w($I_L539_12, 1 + 4 * $I_L540_22) * (grcgt%base_addr)($I_L539_12, 1 + 4 * $I_L540_22, 0)
+  541.                      v($I_L539_12, 2 + 4 * $I_L540_22) = ( (psip%base_addr)($I_L539_12, 0) * 1.0/( (bfld%base_addr)($I_L539_12, 2 + 4 * $I_L540_22, 0) * (radius%base_addr)($I_L539_12, 2 + 4 * $I_L540_22, 0) ) ) * w($I_L539_12, 2 + 4 * $I_L540_22) * (grcgt%base_addr)($I_L539_12, 2 + 4 * $I_L540_22, 0)
+  541.                      v($I_L539_12, 3 + 4 * $I_L540_22) = ( (psip%base_addr)($I_L539_12, 0) * 1.0/( (bfld%base_addr)($I_L539_12, 3 + 4 * $I_L540_22, 0) * (radius%base_addr)($I_L539_12, 3 + 4 * $I_L540_22, 0) ) ) * w($I_L539_12, 3 + 4 * $I_L540_22) * (grcgt%base_addr)($I_L539_12, 3 + 4 * $I_L540_22, 0)
+  543.                      $I_L539_12 = 1 + $I_L539_12
+  543.                      if ( $I_L539_12 >= 1 + nr ) exit
+  543.                   enddo
+  542.                   $I_L540_22 = 1 + $I_L540_22
+  542.                   if ( $I_L540_22 >= _rsh( 1 + ntheta, 2 ) ) exit
+  542.                enddo
+  542.                $I_L540_2 = and( -4, 1 + ntheta )
+  542.             endif
+  540.             if ( $I_L540_2 < 1 + ntheta ) then
+  540.                $I_L540_14 = 0
+  540.                do
+  539.                   $I_L539_12 = 0
+  539. !dir$ ivdep
+  539.                   do
+  541.                      v($I_L539_12, $I_L540_2 + $I_L540_14) = ( (psip%base_addr)($I_L539_12, 0) * 1.0/( (bfld%base_addr)($I_L539_12, $I_L540_2 + $I_L540_14, 0) * (radius%base_addr)($I_L539_12, $I_L540_2 + $I_L540_14, 0) ) ) * w($I_L539_12, $I_L540_2 + $I_L540_14) * (grcgt%base_addr)($I_L539_12, $I_L540_2 + $I_L540_14, 0)
+  543.                      $I_L539_12 = 1 + $I_L539_12
+  543.                      if ( $I_L539_12 >= 1 + nr ) exit
+  543.                   enddo
+  542.                   $I_L540_14 = 1 + $I_L540_14
+  542.                   if ( $I_L540_14 >= ntheta + -$I_L540_2 + 1 ) exit
+  542.                enddo
+  542.             endif
+  542.          endif
+  542.       endif
+  523.       _free( t$102 )
+  544.       return
+  544.       end
+  544.       
+    1.       
+    1.       module gem_equil
+  547.       return
+  547.       end
+  547.       

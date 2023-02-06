@@ -1,0 +1,41 @@
+SRCS =	gem_com.f90 gem_equil.f90 gem_main.f90 gem_fcnt.f90 gem_fft_wrapper.f90
+OBJS =	gem_com.o gem_equil.o gem_main.o gem_fcnt.o gem_fft_wrapper.o
+#LIBS = ~/installed/dfftpack_cray/libdfftpack.a -lfftw3_threads -lfftw3  -lfftw3f_threads -lfftw3f
+#LIBS = /ccs/home/qihengcai/GEM-cublas-feature-makrides-spock-support_0127/dfftpack/libdfftpack.a
+#LIBS = /gpfs/alpine/world-shared/fus123/qihengcai/GEM_Crusher_0908/GEM_OMPGPU_SUMMIT_0720-cce_fixes/dfftpack/libdfftpack.a
+LIBS = ./dfftpack/libdfftpack.a
+PLIB = gem_pputil.o
+
+###:= -DOPENMP
+OPEN_OPT := -DOPENACC
+#OPEN_OPT := -DOPENMP
+F90 = ftn -s real64 -hlist=ad -e Zz $(OPEN_OPT)
+# Possible de-opt 
+OPT = -homp -hacc -munsafe-fp-atomics -hacc_model=auto_async_none
+LDFLAGS = 
+
+#all : gem
+
+gem_main: gem_equil.o gem_main.o gem_fcnt.o gem_pputil.o gem_com.o gem_fft_wrapper.o
+	$(F90)  -o gem_main $(OPT) $(OBJS) $(PLIB) $(LIBS) 
+
+gem_pputil.o: gem_pputil.f90
+	$(F90) -c $(OPT) gem_pputil.f90
+
+gem_com.o: gem_com.f90 gem_pputil.o
+	$(F90) -c $(OPT) gem_com.f90
+
+gem_equil.o: gem_equil.f90 gem_pputil.o gem_com.o
+	$(F90) -c $(OPT) gem_equil.f90
+
+gem_main.o: gem_main.f90 gem_fft_wrapper.o gem_pputil.o gem_com.o gem_equil.o 
+	$(F90) -c $(OPT) gem_main.f90
+
+gem_fcnt.o: gem_fcnt.f90
+	$(F90) -c $(OPT) gem_fcnt.f90
+
+gem_fft_wrapper.o: gem_fft_wrapper.f90
+	$(F90) -c $(OPT) gem_fft_wrapper.f90
+
+clean:
+	rm -f *.o *.lst *.mod gem_main

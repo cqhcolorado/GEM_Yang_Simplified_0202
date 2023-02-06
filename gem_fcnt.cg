@@ -1,0 +1,61 @@
+       !        
+       !        Hewlett Packard Enterprise Decompilation
+       !        Notice - This output is provided for information only.
+       !        
+       !        Hewlett Packard Enterprise reserves the right to change the
+       !        format of this information at any time and does not
+       !        guarantee the readability or accuracy of this information.
+       !        
+       !        This information may not be compilable and corresponds to
+       !        the internal representation of the program during the
+       !        optimization phase of the compilation process.
+       !        
+       !        Source                :  gem_fcnt.f90
+       !        File                  :  /gpfs/alpine/fus123/world-shared/qihengcai/GEM_Yang_Simplified_0202/gem_fcnt.cg
+       !        Network               :  Slingshot10 interconnect
+       !        Target                :  Heterogeneous
+       !              Cpu             :  x86-trento :: avx2, fma
+       !              Accel           :  amdgcn-gfx90a
+       !        
+   10.       
+   10.       real
+   10.       function revers( num, n )
+   15.       $rev_S6 = 0.0
+   16.       $inum_S4 = 0[loc( num ),0]
+   17.       $power_S5 = 1.0
+   20.       $GVN_n_2 = 0[loc( n ),0]
+   22.       $LIS_b1 = 1.0 / real( $GVN_n_2 )
+   19.       do
+   20.          $iquot_S2 = $inum_S4 / $GVN_n_2
+   22.          $power_S5 = ( $power_S5 * $LIS_b1 )
+   23.          $rev_S6 = _fmadd( real( $inum_S4 - $iquot_S2 * $GVN_n_2 ), $power_S5, $rev_S6 )
+   24.          $inum_S4 = $iquot_S2
+   24.          if ( $iquot_S2 <= 0 ) exit
+   24.       enddo
+   29.       revers = $rev_S6
+   29.       return
+   29.       end
+   29.       
+   33.       
+   33.       subroutine srcbes( biz, gam0, gam1 )
+   38.       $GVN_biz_6 = 0[loc( biz ),0].L
+   38.       $GVN_3_8 = 3.75
+   38.       if ( $GVN_biz_6 <= $GVN_3_8 ) then
+   41.          $GVN_0 = _expn( -$GVN_biz_6 )
+   41.          $GVN_biz_5 = ( 2.6666666666666666e-1 * $GVN_biz_6 )
+   41.          $GVN_1 = ( $GVN_biz_5 * $GVN_biz_5 )
+   41.          0[loc( gam0 ),0].L = $GVN_0 * ( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( 4.5813e-3, $GVN_1, 3.6076799999999999e-2 ), $GVN_1, 2.6597320000000002e-1 ), $GVN_1, 1.2067492 ), $GVN_1, 3.0899424 ), $GVN_1, 3.5156228999999999 ), $GVN_1, 1.0 ) )
+   43.          0[loc( gam1 ),0].L = $GVN_0 * $GVN_biz_6 * ( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( 3.2411000000000001e-4, $GVN_1, 3.0153200000000002e-3 ), $GVN_1, 2.6587329999999999e-2 ), $GVN_1, 1.5084934e-1 ), $GVN_1, 5.1498869000000003e-1 ), $GVN_1, 8.7890594e-1 ), $GVN_1, 5.0e-1 ) )
+   43.       else
+   48.          $BLV_0[0:2:1].L = { $GVN_biz_6, _sqrt( $GVN_biz_6 ) }
+   48.          $BLV_1[0:2:1].L = _bcst( 1.0, 2 ) / $BLV_0[0:2:1].L
+   48.          $GVN_3 = $BLV_1[0].L
+   48.          $GVN_4 = $BLV_1[1].L
+   48.          $GVN_3_2 = ( $GVN_3_8 * $GVN_3 )
+   48.          $GVN_3_9894227999999998eM1_7 = 3.9894227999999998e-1
+   48.          0[loc( gam0 ),0].L = $GVN_4 * ( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( 1.47141375e-2, $GVN_3, -1.6476330000000001e-2 ), $GVN_3_2, 2.6355369999999999e-2 ), $GVN_3_2, -2.0577060000000001e-2 ), $GVN_3_2, 9.1628100000000004e-3 ), $GVN_3_2, -1.5756500000000001e-3 ), $GVN_3_2, 2.25319e-3 ), $GVN_3_2, 1.328592e-2 ), $GVN_3_2, $GVN_3_9894227999999998eM1_7 ) )
+   51.          0[loc( gam1 ),0].L = $GVN_4 * ( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( _fmadd( -1.5752212499999998e-2, $GVN_3, 1.787654e-2 ), $GVN_3_2, -2.8953119999999999e-2 ), $GVN_3_2, 2.282967e-2 ), $GVN_3_2, -1.031555e-2 ), $GVN_3_2, 1.6380100000000001e-3 ), $GVN_3_2, -3.6201800000000002e-3 ), $GVN_3_2, -3.9880239999999997e-2 ), $GVN_3_2, $GVN_3_9894227999999998eM1_7 ) )
+   51.       endif
+   56.       return
+   56.       end
+   56.       

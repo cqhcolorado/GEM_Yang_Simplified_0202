@@ -1,0 +1,279 @@
+       !        
+       !        Hewlett Packard Enterprise Decompilation
+       !        Notice - This output is provided for information only.
+       !        
+       !        Hewlett Packard Enterprise reserves the right to change the
+       !        format of this information at any time and does not
+       !        guarantee the readability or accuracy of this information.
+       !        
+       !        This information may not be compilable and corresponds to
+       !        the internal representation of the program during the
+       !        optimization phase of the compilation process.
+       !        
+       !        Source                :  gem_fft_wrapper.f90
+       !        File                  :  /gpfs/alpine/fus123/world-shared/qihengcai/GEM_Yang_Simplified_0202/gem_fft_wrapper.opt
+       !        Network               :  Slingshot10 interconnect
+       !        Target                :  Heterogeneous
+       !              Cpu             :  x86-trento :: avx2, fma
+       !              Accel           :  amdgcn-gfx90a
+       !        
+   12.       
+   12.       subroutine ccfft( c, isign, n, scale, x, table, work, isys )
+   12.       x%dim_1%LB = 0
+   12.       table%dim_1%LB = 1
+   12.       work%dim_1%LB = 1
+   21.       if ( 0 == isign ) then
+   22.          if ( 120 == int(  _substr(c,1,1) ) ) then
+   24.             call zffti( n, coefxn(1) )
+   26.             call zffti( n, coefxp(1) )
+   26.          endif
+   28.          if ( 121 == int(  _substr(c,1,1) ) ) then
+   30.             call zffti( n, coefyn(1) )
+   32.             call zffti( n, coefyp(1) )
+   32.          endif
+   34.          if ( 122 == int(  _substr(c,1,1) ) ) then
+   36.             call zffti( n, coefzn(1) )
+   38.             call zffti( n, coefzp(1) )
+   38.          endif
+   38.       endif
+   42.       if ( 1 == isign ) then
+   43.          if ( 120 == int(  _substr(c,1,1) ) ) then
+   45.             t$1 = x%dim_1%EX
+   45.             t$2 = _zla( 0, x%dim_1%EX )
+   45.             if ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) then
+   45. !dir$ suppress (x%base_addr)(0, 0)
+   45.                t$4 = int( loc( (x%base_addr)(0, 0) ), 8 )
+   45.             else
+   45.                t$4 = int( _alloc( 16 * _zla( 0, x%dim_1%EX ) ), 8 )
+   45.                if ( x%dim_1%EX > 0 ) then
+   45.                   $I_L45_0 = 0
+   45. !dir$ ivdep
+   45.                   do
+   45.                      t$3(1 + $I_L45_0) = (x%base_addr)($I_L45_0, 0)
+   45.                      $I_L45_0 = 1 + $I_L45_0
+   45.                      if ( $I_L45_0 >= x%dim_1%EX ) exit
+   45.                   enddo
+   45.                endif
+   45.             endif
+   45.             call zfftb( n, t$3(1), coefxp(1) )
+   45.             if ( 0 == ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) ) then
+   45.                if ( x%dim_1%EX > 0 ) then
+   45.                   $I_L45_2 = 0
+   45. !dir$ ivdep
+   45.                   do
+   45.                      (x%base_addr)($I_L45_2, 0) = t$3(1 + $I_L45_2)
+   45.                      $I_L45_2 = 1 + $I_L45_2
+   45.                      if ( $I_L45_2 >= x%dim_1%EX ) exit
+   45.                   enddo
+   45.                endif
+   45.                _free( t$4 )
+   45.             else
+   45. !dir$ suppress t$3, t$4
+   45.             endif
+   45.          endif
+   47.          if ( 121 == int(  _substr(c,1,1) ) ) then
+   49.             t$5 = x%dim_1%EX
+   49.             t$6 = _zla( 0, x%dim_1%EX )
+   49.             if ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) then
+   49. !dir$ suppress (x%base_addr)(0, 0)
+   49.                t$8 = int( loc( (x%base_addr)(0, 0) ), 8 )
+   49.             else
+   49.                t$8 = int( _alloc( 16 * _zla( 0, x%dim_1%EX ) ), 8 )
+   49.                if ( x%dim_1%EX > 0 ) then
+   49.                   $I_L49_4 = 0
+   49. !dir$ ivdep
+   49.                   do
+   49.                      t$7(1 + $I_L49_4) = (x%base_addr)($I_L49_4, 0)
+   49.                      $I_L49_4 = 1 + $I_L49_4
+   49.                      if ( $I_L49_4 >= x%dim_1%EX ) exit
+   49.                   enddo
+   49.                endif
+   49.             endif
+   49.             call zfftb( n, t$7(1), coefyp(1) )
+   49.             if ( 0 == ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) ) then
+   49.                if ( x%dim_1%EX > 0 ) then
+   49.                   $I_L49_6 = 0
+   49. !dir$ ivdep
+   49.                   do
+   49.                      (x%base_addr)($I_L49_6, 0) = t$7(1 + $I_L49_6)
+   49.                      $I_L49_6 = 1 + $I_L49_6
+   49.                      if ( $I_L49_6 >= x%dim_1%EX ) exit
+   49.                   enddo
+   49.                endif
+   49.                _free( t$8 )
+   49.             else
+   49. !dir$ suppress t$7, t$8
+   49.             endif
+   49.          endif
+   51.          if ( 122 == int(  _substr(c,1,1) ) ) then
+   53.             t$9 = x%dim_1%EX
+   53.             t$10 = _zla( 0, x%dim_1%EX )
+   53.             if ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) then
+   53. !dir$ suppress (x%base_addr)(0, 0)
+   53.                t$12 = int( loc( (x%base_addr)(0, 0) ), 8 )
+   53.             else
+   53.                t$12 = int( _alloc( 16 * _zla( 0, x%dim_1%EX ) ), 8 )
+   53.                if ( x%dim_1%EX > 0 ) then
+   53.                   $I_L53_8 = 0
+   53. !dir$ ivdep
+   53.                   do
+   53.                      t$11(1 + $I_L53_8) = (x%base_addr)($I_L53_8, 0)
+   53.                      $I_L53_8 = 1 + $I_L53_8
+   53.                      if ( $I_L53_8 >= x%dim_1%EX ) exit
+   53.                   enddo
+   53.                endif
+   53.             endif
+   53.             call zfftb( n, t$11(1), coefzp(1) )
+   53.             if ( 0 == ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) ) then
+   53.                if ( x%dim_1%EX > 0 ) then
+   53.                   $I_L53_10 = 0
+   53. !dir$ ivdep
+   53.                   do
+   53.                      (x%base_addr)($I_L53_10, 0) = t$11(1 + $I_L53_10)
+   53.                      $I_L53_10 = 1 + $I_L53_10
+   53.                      if ( $I_L53_10 >= x%dim_1%EX ) exit
+   53.                   enddo
+   53.                endif
+   53.                _free( t$12 )
+   53.             else
+   53. !dir$ suppress t$11, t$12
+   53.             endif
+   53.          endif
+   53.       endif
+   57.       if ( -1 == isign ) then
+   58.          if ( 120 == int(  _substr(c,1,1) ) ) then
+   60.             t$13 = x%dim_1%EX
+   60.             t$14 = _zla( 0, x%dim_1%EX )
+   60.             if ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) then
+   60. !dir$ suppress (x%base_addr)(0, 0)
+   60.                t$16 = int( loc( (x%base_addr)(0, 0) ), 8 )
+   60.             else
+   60.                t$16 = int( _alloc( 16 * _zla( 0, x%dim_1%EX ) ), 8 )
+   60.                if ( x%dim_1%EX > 0 ) then
+   60.                   $I_L60_12 = 0
+   60. !dir$ ivdep
+   60.                   do
+   60.                      t$15(1 + $I_L60_12) = (x%base_addr)($I_L60_12, 0)
+   60.                      $I_L60_12 = 1 + $I_L60_12
+   60.                      if ( $I_L60_12 >= x%dim_1%EX ) exit
+   60.                   enddo
+   60.                endif
+   60.             endif
+   60.             call zfftf( n, t$15(1), coefxn(1) )
+   60.             if ( 0 == ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) ) then
+   60.                if ( x%dim_1%EX > 0 ) then
+   60.                   $I_L60_14 = 0
+   60. !dir$ ivdep
+   60.                   do
+   60.                      (x%base_addr)($I_L60_14, 0) = t$15(1 + $I_L60_14)
+   60.                      $I_L60_14 = 1 + $I_L60_14
+   60.                      if ( $I_L60_14 >= x%dim_1%EX ) exit
+   60.                   enddo
+   60.                endif
+   60.                _free( t$16 )
+   60.             else
+   60. !dir$ suppress t$15, t$16
+   60.             endif
+   60.          endif
+   62.          if ( 121 == int(  _substr(c,1,1) ) ) then
+   64.             t$17 = x%dim_1%EX
+   64.             t$18 = _zla( 0, x%dim_1%EX )
+   64.             if ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) then
+   64. !dir$ suppress (x%base_addr)(0, 0)
+   64.                t$20 = int( loc( (x%base_addr)(0, 0) ), 8 )
+   64.             else
+   64.                t$20 = int( _alloc( 16 * _zla( 0, x%dim_1%EX ) ), 8 )
+   64.                if ( x%dim_1%EX > 0 ) then
+   64.                   $I_L64_16 = 0
+   64. !dir$ ivdep
+   64.                   do
+   64.                      t$19(1 + $I_L64_16) = (x%base_addr)($I_L64_16, 0)
+   64.                      $I_L64_16 = 1 + $I_L64_16
+   64.                      if ( $I_L64_16 >= x%dim_1%EX ) exit
+   64.                   enddo
+   64.                endif
+   64.             endif
+   64.             call zfftf( n, t$19(1), coefyn(1) )
+   64.             if ( 0 == ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) ) then
+   64.                if ( x%dim_1%EX > 0 ) then
+   64.                   $I_L64_18 = 0
+   64. !dir$ ivdep
+   64.                   do
+   64.                      (x%base_addr)($I_L64_18, 0) = t$19(1 + $I_L64_18)
+   64.                      $I_L64_18 = 1 + $I_L64_18
+   64.                      if ( $I_L64_18 >= x%dim_1%EX ) exit
+   64.                   enddo
+   64.                endif
+   64.                _free( t$20 )
+   64.             else
+   64. !dir$ suppress t$19, t$20
+   64.             endif
+   64.          endif
+   66.          if ( 122 == int(  _substr(c,1,1) ) ) then
+   68.             t$21 = x%dim_1%EX
+   68.             t$22 = _zla( 0, x%dim_1%EX )
+   68.             if ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) then
+   68. !dir$ suppress (x%base_addr)(0, 0)
+   68.                t$24 = int( loc( (x%base_addr)(0, 0) ), 8 )
+   68.             else
+   68.                t$24 = int( _alloc( 16 * _zla( 0, x%dim_1%EX ) ), 8 )
+   68.                if ( x%dim_1%EX > 0 ) then
+   68.                   $I_L68_20 = 0
+   68. !dir$ ivdep
+   68.                   do
+   68.                      t$23(1 + $I_L68_20) = (x%base_addr)($I_L68_20, 0)
+   68.                      $I_L68_20 = 1 + $I_L68_20
+   68.                      if ( $I_L68_20 >= x%dim_1%EX ) exit
+   68.                   enddo
+   68.                endif
+   68.             endif
+   68.             call zfftf( n, t$23(1), coefzn(1) )
+   68.             if ( 0 == ( 1 == x%header%a_contig .or. 0 == x%header%assoc ) ) then
+   68.                if ( x%dim_1%EX > 0 ) then
+   68.                   $I_L68_22 = 0
+   68. !dir$ ivdep
+   68.                   do
+   68.                      (x%base_addr)($I_L68_22, 0) = t$23(1 + $I_L68_22)
+   68.                      $I_L68_22 = 1 + $I_L68_22
+   68.                      if ( $I_L68_22 >= x%dim_1%EX ) exit
+   68.                   enddo
+   68.                endif
+   68.                _free( t$24 )
+   68.             else
+   68. !dir$ suppress t$23, t$24
+   68.             endif
+   68.          endif
+   68.       endif
+   73.       return
+   73.       end
+   73.       
+   75.       
+   75.       subroutine dsinf( init, x, inc1x, inc2x, inc1y, inc2y, n, m, scale, aux1, naux1, aux2, naux2 )
+   75.       x%dim_1%LB = 1
+   75.       aux1%dim_1%LB = 1
+   75.       aux2%dim_1%LB = 1
+   80.       n2 = -1 + n / 2
+   82.       if ( 0 /= init ) then
+   83.          call dsinti( n2, wsave(1) )
+   83.       endif
+   86.       if ( 0 == init ) then
+   87.          call dsint( n2, (x%base_addr)(2, 0), wsave(1) )
+   88.          if ( n2 > 0 ) then
+   88.             $I_L88_0 = 0
+   88. !dir$ ivdep
+   88.             do
+   89.                (x%base_addr)(2 + $I_L88_0, 0) = 5.0e-1 * (x%base_addr)(2 + $I_L88_0, 0)
+   90.                $I_L88_0 = 1 + $I_L88_0
+   90.                if ( $I_L88_0 >= n2 ) exit
+   90.             enddo
+   90.          endif
+   91.          (x%base_addr)(1, 0) = 0.0
+   91.       endif
+   95.       return
+   95.       end
+   95.       
+    1.       
+    1.       module gem_fft_wrapper
+   97.       return
+   97.       end
+   97.       

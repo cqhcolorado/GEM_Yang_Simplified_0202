@@ -1,0 +1,780 @@
+       !        
+       !        Hewlett Packard Enterprise Decompilation
+       !        Notice - This output is provided for information only.
+       !        
+       !        Hewlett Packard Enterprise reserves the right to change the
+       !        format of this information at any time and does not
+       !        guarantee the readability or accuracy of this information.
+       !        
+       !        This information may not be compilable and corresponds to
+       !        the internal representation of the program during the
+       !        optimization phase of the compilation process.
+       !        
+       !        Source                :  gem_com.f90
+       !        File                  :  /gpfs/alpine/fus123/world-shared/qihengcai/GEM_Yang_Simplified_0202/gem_com.opt
+       !        Network               :  Slingshot10 interconnect
+       !        Target                :  Heterogeneous
+       !              Cpu             :  x86-trento :: avx2, fma
+       !              Accel           :  amdgcn-gfx90a
+       !        
+  139.       
+  139.       subroutine new_gem_com
+  140.       nxpp = imx
+  141.       workx%header%a_contig = 1
+  141.       workx%header%decl_mem_handle = 0
+  141.       workx%header%locl_mem_handle = 0
+  141.       workx%header%omp_mem_handle = 0
+  141.       workx%dim_1%LB = 1
+  141.       workx%dim_1%EX = _zla( 0, ( 4 * imx ) )
+  141.       workx%dim_1%SM = 1
+  141.       worky%header%a_contig = 1
+  141.       worky%header%decl_mem_handle = 0
+  141.       worky%header%locl_mem_handle = 0
+  141.       worky%header%omp_mem_handle = 0
+  141.       worky%dim_1%LB = 1
+  141.       worky%dim_1%EX = _zla( 0, ( 4 * jmx ) )
+  141.       worky%dim_1%SM = 1
+  141.       workz%header%a_contig = 1
+  141.       workz%header%decl_mem_handle = 0
+  141.       workz%header%locl_mem_handle = 0
+  141.       workz%header%omp_mem_handle = 0
+  141.       workz%dim_1%LB = 1
+  141.       workz%dim_1%EX = _zla( 0, ( 4 * kmx ) )
+  141.       workz%dim_1%SM = 1
+  141.       xsinin%header%a_contig = 1
+  141.       xsinin%header%decl_mem_handle = 0
+  141.       xsinin%header%locl_mem_handle = 0
+  141.       xsinin%header%omp_mem_handle = 0
+  141.       xsinin%dim_1%LB = 1
+  141.       xsinin%dim_1%EX = _zla( 0, imx )
+  141.       xsinin%dim_1%SM = 1
+  141.       xsinout%header%a_contig = 1
+  141.       xsinout%header%decl_mem_handle = 0
+  141.       xsinout%header%locl_mem_handle = 0
+  141.       xsinout%header%omp_mem_handle = 0
+  141.       xsinout%dim_1%LB = 1
+  141.       xsinout%dim_1%EX = _zla( 0, imx )
+  141.       xsinout%dim_1%SM = 1
+  141.       _alocat( __allocate, 0x5200000000001L, 0, 0, _fcd( 0, 0 ), workx, worky, workz, xsinin, xsinout )
+  142.       tmpx%header%a_contig = 1
+  142.       tmpx%header%decl_mem_handle = 0
+  142.       tmpx%header%locl_mem_handle = 0
+  142.       tmpx%header%omp_mem_handle = 0
+  142.       tmpx%dim_1%LB = 0
+  142.       tmpx%dim_1%EX = merge( 0, _zla( 0, imx ), imx <= 0 )
+  142.       tmpx%dim_1%SM = 2
+  142.       xin%header%a_contig = 1
+  142.       xin%header%decl_mem_handle = 0
+  142.       xin%header%locl_mem_handle = 0
+  142.       xin%header%omp_mem_handle = 0
+  142.       xin%dim_1%LB = 1
+  142.       xin%dim_1%EX = _zla( 0, imx )
+  142.       xin%dim_1%SM = 2
+  142.       xout%header%a_contig = 1
+  142.       xout%header%decl_mem_handle = 0
+  142.       xout%header%locl_mem_handle = 0
+  142.       xout%header%omp_mem_handle = 0
+  142.       xout%dim_1%LB = 1
+  142.       xout%dim_1%EX = _zla( 0, imx )
+  142.       xout%dim_1%SM = 2
+  142.       yin%header%a_contig = 1
+  142.       yin%header%decl_mem_handle = 0
+  142.       yin%header%locl_mem_handle = 0
+  142.       yin%header%omp_mem_handle = 0
+  142.       yin%dim_1%LB = 1
+  142.       yin%dim_1%EX = _zla( 0, jmx )
+  142.       yin%dim_1%SM = 2
+  142.       yout%header%a_contig = 1
+  142.       yout%header%decl_mem_handle = 0
+  142.       yout%header%locl_mem_handle = 0
+  142.       yout%header%omp_mem_handle = 0
+  142.       yout%dim_1%LB = 1
+  142.       yout%dim_1%EX = _zla( 0, jmx )
+  142.       yout%dim_1%SM = 2
+  142.       zin%header%a_contig = 1
+  142.       zin%header%decl_mem_handle = 0
+  142.       zin%header%locl_mem_handle = 0
+  142.       zin%header%omp_mem_handle = 0
+  142.       zin%dim_1%LB = 1
+  142.       zin%dim_1%EX = _zla( 0, kmx )
+  142.       zin%dim_1%SM = 2
+  142.       zout%header%a_contig = 1
+  142.       zout%header%decl_mem_handle = 0
+  142.       zout%header%locl_mem_handle = 0
+  142.       zout%header%omp_mem_handle = 0
+  142.       zout%dim_1%LB = 1
+  142.       zout%dim_1%EX = _zla( 0, kmx )
+  142.       zout%dim_1%SM = 2
+  142.       _alocat( __allocate, 0x7200000000001L, 0, 0, _fcd( 0, 0 ), tmpx, xin, xout, yin, yout, zin, zout )
+  143.       tmpy%header%a_contig = 1
+  143.       tmpy%header%decl_mem_handle = 0
+  143.       tmpy%header%locl_mem_handle = 0
+  143.       tmpy%header%omp_mem_handle = 0
+  143.       tmpy%dim_1%LB = 0
+  143.       tmpy%dim_1%EX = merge( 0, _zla( 0, jmx ), jmx <= 0 )
+  143.       tmpy%dim_1%SM = 2
+  143.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), tmpy )
+  144.       tmpz%header%a_contig = 1
+  144.       tmpz%header%decl_mem_handle = 0
+  144.       tmpz%header%locl_mem_handle = 0
+  144.       tmpz%header%omp_mem_handle = 0
+  144.       tmpz%dim_1%LB = 0
+  144.       tmpz%dim_1%EX = merge( 0, _zla( 0, kmx ), kmx <= 0 )
+  144.       tmpz%dim_1%SM = 2
+  144.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), tmpz )
+  145.       tmpxyin%header%a_contig = 1
+  145.       tmpxyin%header%decl_mem_handle = 0
+  145.       tmpxyin%header%locl_mem_handle = 0
+  145.       tmpxyin%header%omp_mem_handle = 0
+  145.       tmpxyin%dim_1%LB = 1
+  145.       tmpxyin%dim_1%EX = merge( 0, _zla( 0, imx ), imx <= 0 )
+  145.       tmpxyin%dim_1%SM = 2
+  145.       tmpxyin%dim_2%LB = 1
+  145.       tmpxyin%dim_2%EX = merge( 0, _zla( 0, jmx ), jmx <= 0 )
+  145.       tmpxyin%dim_2%SM = 2 * merge( 0, _zla( 0, imx ), imx <= 0 )
+  145.       tmpxyout%header%a_contig = 1
+  145.       tmpxyout%header%decl_mem_handle = 0
+  145.       tmpxyout%header%locl_mem_handle = 0
+  145.       tmpxyout%header%omp_mem_handle = 0
+  145.       tmpxyout%dim_1%LB = 1
+  145.       tmpxyout%dim_1%EX = merge( 0, _zla( 0, imx ), imx <= 0 )
+  145.       tmpxyout%dim_1%SM = 2
+  145.       tmpxyout%dim_2%LB = 1
+  145.       tmpxyout%dim_2%EX = merge( 0, _zla( 0, jmx ), jmx <= 0 )
+  145.       tmpxyout%dim_2%SM = 2 * merge( 0, _zla( 0, imx ), imx <= 0 )
+  145.       _alocat( __allocate, 0x2200000000001L, 0, 0, _fcd( 0, 0 ), tmpxyin, tmpxyout )
+  147.       rwx%header%a_contig = 1
+  147.       rwx%header%decl_mem_handle = 0
+  147.       rwx%header%locl_mem_handle = 0
+  147.       rwx%header%omp_mem_handle = 0
+  147.       rwx%dim_1%LB = 1
+  147.       rwx%dim_1%EX = 5
+  147.       rwx%dim_1%SM = 1
+  147.       rwx%dim_2%LB = 1
+  147.       rwx%dim_2%EX = 4
+  147.       rwx%dim_2%SM = 5
+  147.       rwy%header%a_contig = 1
+  147.       rwy%header%decl_mem_handle = 0
+  147.       rwy%header%locl_mem_handle = 0
+  147.       rwy%header%omp_mem_handle = 0
+  147.       rwy%dim_1%LB = 1
+  147.       rwy%dim_1%EX = 5
+  147.       rwy%dim_1%SM = 1
+  147.       rwy%dim_2%LB = 1
+  147.       rwy%dim_2%EX = 4
+  147.       rwy%dim_2%SM = 5
+  147.       _alocat( __allocate, 0x2200000000001L, 0, 0, _fcd( 0, 0 ), rwx, rwy )
+  148.       mm%header%a_contig = 1
+  148.       mm%header%decl_mem_handle = 0
+  148.       mm%header%locl_mem_handle = 0
+  148.       mm%header%omp_mem_handle = 0
+  148.       mm%dim_1%LB = 1
+  148.       mm%dim_1%EX = 5
+  148.       mm%dim_1%SM = 1
+  148.       tmm%header%a_contig = 1
+  148.       tmm%header%decl_mem_handle = 0
+  148.       tmm%header%locl_mem_handle = 0
+  148.       tmm%header%omp_mem_handle = 0
+  148.       tmm%dim_1%LB = 1
+  148.       tmm%dim_1%EX = 5
+  148.       tmm%dim_1%SM = 1
+  148.       lr%header%a_contig = 1
+  148.       lr%header%decl_mem_handle = 0
+  148.       lr%header%locl_mem_handle = 0
+  148.       lr%header%omp_mem_handle = 0
+  148.       lr%dim_1%LB = 1
+  148.       lr%dim_1%EX = 5
+  148.       lr%dim_1%SM = 1
+  148.       _alocat( __allocate, 0x3200000000001L, 0, 0, _fcd( 0, 0 ), mm, tmm, lr )
+  149.       tets%header%a_contig = 1
+  149.       tets%header%decl_mem_handle = 0
+  149.       tets%header%locl_mem_handle = 0
+  149.       tets%header%omp_mem_handle = 0
+  149.       tets%dim_1%LB = 1
+  149.       tets%dim_1%EX = 5
+  149.       tets%dim_1%SM = 1
+  149.       mims%header%a_contig = 1
+  149.       mims%header%decl_mem_handle = 0
+  149.       mims%header%locl_mem_handle = 0
+  149.       mims%header%omp_mem_handle = 0
+  149.       mims%dim_1%LB = 1
+  149.       mims%dim_1%EX = 5
+  149.       mims%dim_1%SM = 1
+  149.       q%header%a_contig = 1
+  149.       q%header%decl_mem_handle = 0
+  149.       q%header%locl_mem_handle = 0
+  149.       q%header%omp_mem_handle = 0
+  149.       q%dim_1%LB = 1
+  149.       q%dim_1%EX = 5
+  149.       q%dim_1%SM = 1
+  149.       _alocat( __allocate, 0x3200000000001L, 0, 0, _fcd( 0, 0 ), tets, mims, q )
+  152.       $_tran_tran_T2%header%version = 5
+  152.       $_tran_tran_T2%header%operation = 10
+  152.       $_tran_tran_T2%size = 72
+  152.       $_tran_tran_T2%flags = 2240
+  152.       $_tran_tran_T2%host_ptr = cri_pointer( loc( lr ) )
+  152.       $_tran_tran_T2%acc_ptr = cri_pointer( 0 )
+  152.       $_tran_tran_T2%acc_type_dscr = cri_pointer( 0 )
+  152.       $_tran_tran_T2%identifier = cri_pointer( loc( $_Text_Y0 ) )
+  152.       $_tran_tran_T3%header%version = 5
+  152.       $_tran_tran_T3%header%operation = 10
+  152.       $_tran_tran_T3%size = 72
+  152.       $_tran_tran_T3%flags = 2240
+  152.       $_tran_tran_T3%host_ptr = cri_pointer( loc( mims ) )
+  152.       $_tran_tran_T3%acc_ptr = cri_pointer( 0 )
+  152.       $_tran_tran_T3%acc_type_dscr = cri_pointer( 0 )
+  152.       $_tran_tran_T3%identifier = cri_pointer( loc( $_Text_Y1 ) )
+  152.       $_tran_tran_T4%header%version = 5
+  152.       $_tran_tran_T4%header%operation = 10
+  152.       $_tran_tran_T4%size = 72
+  152.       $_tran_tran_T4%flags = 2240
+  152.       $_tran_tran_T4%host_ptr = cri_pointer( loc( q ) )
+  152.       $_tran_tran_T4%acc_ptr = cri_pointer( 0 )
+  152.       $_tran_tran_T4%acc_type_dscr = cri_pointer( 0 )
+  152.       $_tran_tran_T4%identifier = cri_pointer( loc( $_Text_Y2 ) )
+  152.       $snt_T1 = _acc_ind_transfer_list( 2, _acc_list_entry( _acc_alloc( Null_Arg, lr, _acc_transfer_flags( $_tran_tran_T2, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, mims, _acc_transfer_flags( $_tran_tran_T3, 0, 8321 ) ), _acc_list_entry( _acc_alloc( Null_Arg, q, _acc_transfer_flags( $_tran_tran_T4, 0, 8321 ) ), Null_Arg ) ) ), _acc_control_info( _annot( Null_Arg, Null_Arg ), Null_Arg, Null_Arg ) )
+  158.       kapn%header%a_contig = 1
+  158.       kapn%header%decl_mem_handle = 0
+  158.       kapn%header%locl_mem_handle = 0
+  158.       kapn%header%omp_mem_handle = 0
+  158.       kapn%dim_1%LB = 1
+  158.       kapn%dim_1%EX = 5
+  158.       kapn%dim_1%SM = 1
+  158.       kapt%header%a_contig = 1
+  158.       kapt%header%decl_mem_handle = 0
+  158.       kapt%header%locl_mem_handle = 0
+  158.       kapt%header%omp_mem_handle = 0
+  158.       kapt%dim_1%LB = 1
+  158.       kapt%dim_1%EX = 5
+  158.       kapt%dim_1%SM = 1
+  158.       _alocat( __allocate, 0x2200000000001L, 0, 0, _fcd( 0, 0 ), kapn, kapt )
+  159.       time%header%a_contig = 1
+  159.       time%header%decl_mem_handle = 0
+  159.       time%header%locl_mem_handle = 0
+  159.       time%header%omp_mem_handle = 0
+  159.       time%dim_1%LB = 0
+  159.       time%dim_1%EX = merge( 0, _zla( 0, ( 1 + nmx ) ), nmx < 0 )
+  159.       time%dim_1%SM = 1
+  159.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), time )
+  160.       yyamp%header%a_contig = 1
+  160.       yyamp%header%decl_mem_handle = 0
+  160.       yyamp%header%locl_mem_handle = 0
+  160.       yyamp%header%omp_mem_handle = 0
+  160.       yyamp%dim_1%LB = 0
+  160.       yyamp%dim_1%EX = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  160.       yyamp%dim_1%SM = 1
+  160.       yyamp%dim_2%LB = 0
+  160.       yyamp%dim_2%EX = 5
+  160.       yyamp%dim_2%SM = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  160.       yyre%header%a_contig = 1
+  160.       yyre%header%decl_mem_handle = 0
+  160.       yyre%header%locl_mem_handle = 0
+  160.       yyre%header%omp_mem_handle = 0
+  160.       yyre%dim_1%LB = 0
+  160.       yyre%dim_1%EX = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  160.       yyre%dim_1%SM = 1
+  160.       yyre%dim_2%LB = 0
+  160.       yyre%dim_2%EX = 5
+  160.       yyre%dim_2%SM = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  160.       yyim%header%a_contig = 1
+  160.       yyim%header%decl_mem_handle = 0
+  160.       yyim%header%locl_mem_handle = 0
+  160.       yyim%header%omp_mem_handle = 0
+  160.       yyim%dim_1%LB = 0
+  160.       yyim%dim_1%EX = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  160.       yyim%dim_1%SM = 1
+  160.       yyim%dim_2%LB = 0
+  160.       yyim%dim_2%EX = 5
+  160.       yyim%dim_2%SM = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  160.       camp%header%a_contig = 1
+  160.       camp%header%decl_mem_handle = 0
+  160.       camp%header%locl_mem_handle = 0
+  160.       camp%header%omp_mem_handle = 0
+  160.       camp%dim_1%LB = 0
+  160.       camp%dim_1%EX = 7
+  160.       camp%dim_1%SM = 2
+  160.       camp%dim_2%LB = 0
+  160.       camp%dim_2%EX = 50001
+  160.       camp%dim_2%SM = 14
+  160.       campf%header%a_contig = 1
+  160.       campf%header%decl_mem_handle = 0
+  160.       campf%header%locl_mem_handle = 0
+  160.       campf%header%omp_mem_handle = 0
+  160.       campf%dim_1%LB = 0
+  160.       campf%dim_1%EX = 7
+  160.       campf%dim_1%SM = 2
+  160.       campf%dim_2%LB = 0
+  160.       campf%dim_2%EX = merge( 0, _zla( 0, nfreq ), nfreq <= 0 )
+  160.       campf%dim_2%SM = 14
+  160.       _alocat( __allocate, 0x5200000000001L, 0, 0, _fcd( 0, 0 ), yyamp, yyre, yyim, camp, campf )
+  161.       coefx%header%a_contig = 1
+  161.       coefx%header%decl_mem_handle = 0
+  161.       coefx%header%locl_mem_handle = 0
+  161.       coefx%header%omp_mem_handle = 0
+  161.       coefx%dim_1%LB = 1
+  161.       coefx%dim_1%EX = _zla( 0, ( 100 + 8 * imx ) )
+  161.       coefx%dim_1%SM = 1
+  161.       coefy%header%a_contig = 1
+  161.       coefy%header%decl_mem_handle = 0
+  161.       coefy%header%locl_mem_handle = 0
+  161.       coefy%header%omp_mem_handle = 0
+  161.       coefy%dim_1%LB = 1
+  161.       coefy%dim_1%EX = _zla( 0, ( 100 + 8 * jmx ) )
+  161.       coefy%dim_1%SM = 1
+  161.       coefz%header%a_contig = 1
+  161.       coefz%header%decl_mem_handle = 0
+  161.       coefz%header%locl_mem_handle = 0
+  161.       coefz%header%omp_mem_handle = 0
+  161.       coefz%dim_1%LB = 1
+  161.       coefz%dim_1%EX = _zla( 0, ( 100 + 8 * kmx ) )
+  161.       coefz%dim_1%SM = 1
+  161.       _alocat( __allocate, 0x3200000000001L, 0, 0, _fcd( 0, 0 ), coefx, coefy, coefz )
+  163.       den%header%a_contig = 1
+  163.       den%header%decl_mem_handle = 0
+  163.       den%header%locl_mem_handle = 0
+  163.       den%header%omp_mem_handle = 0
+  163.       den%dim_1%LB = 1
+  163.       den%dim_1%EX = _zla( 0, nsmx )
+  163.       den%dim_1%SM = 1
+  163.       den%dim_2%LB = 0
+  163.       den%dim_2%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  163.       den%dim_2%SM = _zla( 0, nsmx )
+  163.       den%dim_3%LB = 0
+  163.       den%dim_3%EX = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  163.       den%dim_3%SM = _zla( 0, nsmx ) * merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  163.       den%dim_4%LB = 0
+  163.       den%dim_4%EX = 2
+  163.       den%dim_4%SM = _zla( 0, nsmx ) * merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 ) * merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  163.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), den )
+  164.       phi%header%a_contig = 1
+  164.       phi%header%decl_mem_handle = 0
+  164.       phi%header%locl_mem_handle = 0
+  164.       phi%header%omp_mem_handle = 0
+  164.       phi%dim_1%LB = 0
+  164.       phi%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  164.       phi%dim_1%SM = 1
+  164.       phi%dim_2%LB = 0
+  164.       phi%dim_2%EX = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  164.       phi%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  164.       phi%dim_3%LB = 0
+  164.       phi%dim_3%EX = 2
+  164.       phi%dim_3%SM = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 ) * merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  164.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), phi )
+  168.       xg%header%a_contig = 1
+  168.       xg%header%decl_mem_handle = 0
+  168.       xg%header%locl_mem_handle = 0
+  168.       xg%header%omp_mem_handle = 0
+  168.       xg%dim_1%LB = 0
+  168.       xg%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  168.       xg%dim_1%SM = 1
+  168.       yg%header%a_contig = 1
+  168.       yg%header%decl_mem_handle = 0
+  168.       yg%header%locl_mem_handle = 0
+  168.       yg%header%omp_mem_handle = 0
+  168.       yg%dim_1%LB = 0
+  168.       yg%dim_1%EX = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  168.       yg%dim_1%SM = 1
+  168.       zg%header%a_contig = 1
+  168.       zg%header%decl_mem_handle = 0
+  168.       zg%header%locl_mem_handle = 0
+  168.       zg%header%omp_mem_handle = 0
+  168.       zg%dim_1%LB = 0
+  168.       zg%dim_1%EX = 2
+  168.       zg%dim_1%SM = 1
+  168.       _alocat( __allocate, 0x3200000000001L, 0, 0, _fcd( 0, 0 ), xg, yg, zg )
+  170.       cfx%header%a_contig = 1
+  170.       cfx%header%decl_mem_handle = 0
+  170.       cfx%header%locl_mem_handle = 0
+  170.       cfx%header%omp_mem_handle = 0
+  170.       cfx%dim_1%LB = 0
+  170.       cfx%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  170.       cfx%dim_1%SM = 1
+  170.       cfx%dim_2%LB = 0
+  170.       cfx%dim_2%EX = 2
+  170.       cfx%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  170.       cfy%header%a_contig = 1
+  170.       cfy%header%decl_mem_handle = 0
+  170.       cfy%header%locl_mem_handle = 0
+  170.       cfy%header%omp_mem_handle = 0
+  170.       cfy%dim_1%LB = 0
+  170.       cfy%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  170.       cfy%dim_1%SM = 1
+  170.       cfy%dim_2%LB = 0
+  170.       cfy%dim_2%EX = 2
+  170.       cfy%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  170.       jac%header%a_contig = 1
+  170.       jac%header%decl_mem_handle = 0
+  170.       jac%header%locl_mem_handle = 0
+  170.       jac%header%omp_mem_handle = 0
+  170.       jac%dim_1%LB = 0
+  170.       jac%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  170.       jac%dim_1%SM = 1
+  170.       jac%dim_2%LB = 0
+  170.       jac%dim_2%EX = 2
+  170.       jac%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  170.       _alocat( __allocate, 0x3200000000001L, 0, 0, _fcd( 0, 0 ), cfx, cfy, jac )
+  171.       bmag%header%a_contig = 1
+  171.       bmag%header%decl_mem_handle = 0
+  171.       bmag%header%locl_mem_handle = 0
+  171.       bmag%header%omp_mem_handle = 0
+  171.       bmag%dim_1%LB = 0
+  171.       bmag%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  171.       bmag%dim_1%SM = 1
+  171.       bmag%dim_2%LB = 0
+  171.       bmag%dim_2%EX = 2
+  171.       bmag%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  171.       bdgxcgy%header%a_contig = 1
+  171.       bdgxcgy%header%decl_mem_handle = 0
+  171.       bdgxcgy%header%locl_mem_handle = 0
+  171.       bdgxcgy%header%omp_mem_handle = 0
+  171.       bdgxcgy%dim_1%LB = 0
+  171.       bdgxcgy%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  171.       bdgxcgy%dim_1%SM = 1
+  171.       bdgxcgy%dim_2%LB = 0
+  171.       bdgxcgy%dim_2%EX = 2
+  171.       bdgxcgy%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  171.       bdgrzn%header%a_contig = 1
+  171.       bdgrzn%header%decl_mem_handle = 0
+  171.       bdgrzn%header%locl_mem_handle = 0
+  171.       bdgrzn%header%omp_mem_handle = 0
+  171.       bdgrzn%dim_1%LB = 0
+  171.       bdgrzn%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  171.       bdgrzn%dim_1%SM = 1
+  171.       bdgrzn%dim_2%LB = 0
+  171.       bdgrzn%dim_2%EX = 2
+  171.       bdgrzn%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  171.       gthf%header%a_contig = 1
+  171.       gthf%header%decl_mem_handle = 0
+  171.       gthf%header%locl_mem_handle = 0
+  171.       gthf%header%omp_mem_handle = 0
+  171.       gthf%dim_1%LB = 0
+  171.       gthf%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  171.       gthf%dim_1%SM = 1
+  171.       gthf%dim_2%LB = 0
+  171.       gthf%dim_2%EX = 2
+  171.       gthf%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  171.       gsf%header%a_contig = 1
+  171.       gsf%header%decl_mem_handle = 0
+  171.       gsf%header%locl_mem_handle = 0
+  171.       gsf%header%omp_mem_handle = 0
+  171.       gsf%dim_1%LB = 0
+  171.       gsf%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  171.       gsf%dim_1%SM = 1
+  171.       _alocat( __allocate, 0x5200000000001L, 0, 0, _fcd( 0, 0 ), bmag, bdgxcgy, bdgrzn, gthf, gsf )
+  172.       ggxdgy%header%a_contig = 1
+  172.       ggxdgy%header%decl_mem_handle = 0
+  172.       ggxdgy%header%locl_mem_handle = 0
+  172.       ggxdgy%header%omp_mem_handle = 0
+  172.       ggxdgy%dim_1%LB = 0
+  172.       ggxdgy%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  172.       ggxdgy%dim_1%SM = 1
+  172.       ggxdgy%dim_2%LB = 0
+  172.       ggxdgy%dim_2%EX = 2
+  172.       ggxdgy%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  172.       ggy2%header%a_contig = 1
+  172.       ggy2%header%decl_mem_handle = 0
+  172.       ggy2%header%locl_mem_handle = 0
+  172.       ggy2%header%omp_mem_handle = 0
+  172.       ggy2%dim_1%LB = 0
+  172.       ggy2%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  172.       ggy2%dim_1%SM = 1
+  172.       ggy2%dim_2%LB = 0
+  172.       ggy2%dim_2%EX = 2
+  172.       ggy2%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  172.       ggx%header%a_contig = 1
+  172.       ggx%header%decl_mem_handle = 0
+  172.       ggx%header%locl_mem_handle = 0
+  172.       ggx%header%omp_mem_handle = 0
+  172.       ggx%dim_1%LB = 0
+  172.       ggx%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  172.       ggx%dim_1%SM = 1
+  172.       ggx%dim_2%LB = 0
+  172.       ggx%dim_2%EX = 2
+  172.       ggx%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  172.       _alocat( __allocate, 0x3200000000001L, 0, 0, _fcd( 0, 0 ), ggxdgy, ggy2, ggx )
+  173.       gn0e%header%a_contig = 1
+  173.       gn0e%header%decl_mem_handle = 0
+  173.       gn0e%header%locl_mem_handle = 0
+  173.       gn0e%header%omp_mem_handle = 0
+  173.       gn0e%dim_1%LB = 0
+  173.       gn0e%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  173.       gn0e%dim_1%SM = 1
+  173.       gt0e%header%a_contig = 1
+  173.       gt0e%header%decl_mem_handle = 0
+  173.       gt0e%header%locl_mem_handle = 0
+  173.       gt0e%header%omp_mem_handle = 0
+  173.       gt0e%dim_1%LB = 0
+  173.       gt0e%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  173.       gt0e%dim_1%SM = 1
+  173.       gt0i%header%a_contig = 1
+  173.       gt0i%header%decl_mem_handle = 0
+  173.       gt0i%header%locl_mem_handle = 0
+  173.       gt0i%header%omp_mem_handle = 0
+  173.       gt0i%dim_1%LB = 0
+  173.       gt0i%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  173.       gt0i%dim_1%SM = 1
+  173.       avap%header%a_contig = 1
+  173.       avap%header%decl_mem_handle = 0
+  173.       avap%header%locl_mem_handle = 0
+  173.       avap%header%omp_mem_handle = 0
+  173.       avap%dim_1%LB = 0
+  173.       avap%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  173.       avap%dim_1%SM = 1
+  173.       dtez%header%a_contig = 1
+  173.       dtez%header%decl_mem_handle = 0
+  173.       dtez%header%locl_mem_handle = 0
+  173.       dtez%header%omp_mem_handle = 0
+  173.       dtez%dim_1%LB = 0
+  173.       dtez%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  173.       dtez%dim_1%SM = 1
+  173.       _alocat( __allocate, 0x5200000000001L, 0, 0, _fcd( 0, 0 ), gn0e, gt0e, gt0i, avap, dtez )
+  174.       gn0s%header%a_contig = 1
+  174.       gn0s%header%decl_mem_handle = 0
+  174.       gn0s%header%locl_mem_handle = 0
+  174.       gn0s%header%omp_mem_handle = 0
+  174.       gn0s%dim_1%LB = 1
+  174.       gn0s%dim_1%EX = 5
+  174.       gn0s%dim_1%SM = 1
+  174.       gn0s%dim_2%LB = 0
+  174.       gn0s%dim_2%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  174.       gn0s%dim_2%SM = 5
+  174.       gt0s%header%a_contig = 1
+  174.       gt0s%header%decl_mem_handle = 0
+  174.       gt0s%header%locl_mem_handle = 0
+  174.       gt0s%header%omp_mem_handle = 0
+  174.       gt0s%dim_1%LB = 1
+  174.       gt0s%dim_1%EX = 5
+  174.       gt0s%dim_1%SM = 1
+  174.       gt0s%dim_2%LB = 0
+  174.       gt0s%dim_2%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  174.       gt0s%dim_2%SM = 5
+  174.       dtiz%header%a_contig = 1
+  174.       dtiz%header%decl_mem_handle = 0
+  174.       dtiz%header%locl_mem_handle = 0
+  174.       dtiz%header%omp_mem_handle = 0
+  174.       dtiz%dim_1%LB = 1
+  174.       dtiz%dim_1%EX = 5
+  174.       dtiz%dim_1%SM = 1
+  174.       dtiz%dim_2%LB = 0
+  174.       dtiz%dim_2%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  174.       dtiz%dim_2%SM = 5
+  174.       _alocat( __allocate, 0x3200000000001L, 0, 0, _fcd( 0, 0 ), gn0s, gt0s, dtiz )
+  180.       rmsphi%header%a_contig = 1
+  180.       rmsphi%header%decl_mem_handle = 0
+  180.       rmsphi%header%locl_mem_handle = 0
+  180.       rmsphi%header%omp_mem_handle = 0
+  180.       rmsphi%dim_1%LB = 0
+  180.       rmsphi%dim_1%EX = merge( 0, _zla( 0, ( 1 + nmx ) ), nmx < 0 )
+  180.       rmsphi%dim_1%SM = 1
+  180.       rmsapa%header%a_contig = 1
+  180.       rmsapa%header%decl_mem_handle = 0
+  180.       rmsapa%header%locl_mem_handle = 0
+  180.       rmsapa%header%omp_mem_handle = 0
+  180.       rmsapa%dim_1%LB = 0
+  180.       rmsapa%dim_1%EX = merge( 0, _zla( 0, ( 1 + nmx ) ), nmx < 0 )
+  180.       rmsapa%dim_1%SM = 1
+  180.       _alocat( __allocate, 0x2200000000001L, 0, 0, _fcd( 0, 0 ), rmsphi, rmsapa )
+  181.       nos%header%a_contig = 1
+  181.       nos%header%decl_mem_handle = 0
+  181.       nos%header%locl_mem_handle = 0
+  181.       nos%header%omp_mem_handle = 0
+  181.       nos%dim_1%LB = 1
+  181.       nos%dim_1%EX = _zla( 0, nsmx )
+  181.       nos%dim_1%SM = 1
+  181.       nos%dim_2%LB = 0
+  181.       nos%dim_2%EX = merge( 0, _zla( 0, ( 1 + nmx ) ), nmx < 0 )
+  181.       nos%dim_2%SM = _zla( 0, nsmx )
+  181.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), nos )
+  184.       vol%header%a_contig = 1
+  184.       vol%header%decl_mem_handle = 0
+  184.       vol%header%locl_mem_handle = 0
+  184.       vol%header%omp_mem_handle = 0
+  184.       vol%dim_1%LB = 1
+  184.       vol%dim_1%EX = merge( 0, _zla( 0, nsubd ), nsubd <= 0 )
+  184.       vol%dim_1%SM = 1
+  184.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), vol )
+  188.       deljp%header%a_contig = 1
+  188.       deljp%header%decl_mem_handle = 0
+  188.       deljp%header%locl_mem_handle = 0
+  188.       deljp%header%omp_mem_handle = 0
+  188.       deljp%dim_1%LB = 0
+  188.       deljp%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  188.       deljp%dim_1%SM = 1
+  188.       deljm%header%a_contig = 1
+  188.       deljm%header%decl_mem_handle = 0
+  188.       deljm%header%locl_mem_handle = 0
+  188.       deljm%header%omp_mem_handle = 0
+  188.       deljm%dim_1%LB = 0
+  188.       deljm%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  188.       deljm%dim_1%SM = 1
+  188.       _alocat( __allocate, 0x2200000000001L, 0, 0, _fcd( 0, 0 ), deljp, deljm )
+  189.       jpl%header%a_contig = 1
+  189.       jpl%header%decl_mem_handle = 0
+  189.       jpl%header%locl_mem_handle = 0
+  189.       jpl%header%omp_mem_handle = 0
+  189.       jpl%dim_1%LB = 0
+  189.       jpl%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  189.       jpl%dim_1%SM = 1
+  189.       jpl%dim_2%LB = 0
+  189.       jpl%dim_2%EX = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  189.       jpl%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  189.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), jpl )
+  190.       jpn%header%a_contig = 1
+  190.       jpn%header%decl_mem_handle = 0
+  190.       jpn%header%locl_mem_handle = 0
+  190.       jpn%header%omp_mem_handle = 0
+  190.       jpn%dim_1%LB = 0
+  190.       jpn%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  190.       jpn%dim_1%SM = 1
+  190.       jpn%dim_2%LB = 0
+  190.       jpn%dim_2%EX = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  190.       jpn%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  190.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), jpn )
+  191.       jmi%header%a_contig = 1
+  191.       jmi%header%decl_mem_handle = 0
+  191.       jmi%header%locl_mem_handle = 0
+  191.       jmi%header%omp_mem_handle = 0
+  191.       jmi%dim_1%LB = 0
+  191.       jmi%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  191.       jmi%dim_1%SM = 1
+  191.       jmi%dim_2%LB = 0
+  191.       jmi%dim_2%EX = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  191.       jmi%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  191.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), jmi )
+  192.       jmn%header%a_contig = 1
+  192.       jmn%header%decl_mem_handle = 0
+  192.       jmn%header%locl_mem_handle = 0
+  192.       jmn%header%omp_mem_handle = 0
+  192.       jmn%dim_1%LB = 0
+  192.       jmn%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  192.       jmn%dim_1%SM = 1
+  192.       jmn%dim_2%LB = 0
+  192.       jmn%dim_2%EX = merge( 0, _zla( 0, ( 1 + jmx ) ), jmx < 0 )
+  192.       jmn%dim_2%SM = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  192.       _alocat( __allocate, 0x1200000000001L, 0, 0, _fcd( 0, 0 ), jmn )
+  193.       weightp%header%a_contig = 1
+  193.       weightp%header%decl_mem_handle = 0
+  193.       weightp%header%locl_mem_handle = 0
+  193.       weightp%header%omp_mem_handle = 0
+  193.       weightp%dim_1%LB = 0
+  193.       weightp%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  193.       weightp%dim_1%SM = 1
+  193.       weightm%header%a_contig = 1
+  193.       weightm%header%decl_mem_handle = 0
+  193.       weightm%header%locl_mem_handle = 0
+  193.       weightm%header%omp_mem_handle = 0
+  193.       weightm%dim_1%LB = 0
+  193.       weightm%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  193.       weightm%dim_1%SM = 1
+  193.       _alocat( __allocate, 0x2200000000001L, 0, 0, _fcd( 0, 0 ), weightp, weightm )
+  194.       weightpn%header%a_contig = 1
+  194.       weightpn%header%decl_mem_handle = 0
+  194.       weightpn%header%locl_mem_handle = 0
+  194.       weightpn%header%omp_mem_handle = 0
+  194.       weightpn%dim_1%LB = 0
+  194.       weightpn%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  194.       weightpn%dim_1%SM = 1
+  194.       weightmn%header%a_contig = 1
+  194.       weightmn%header%decl_mem_handle = 0
+  194.       weightmn%header%locl_mem_handle = 0
+  194.       weightmn%header%omp_mem_handle = 0
+  194.       weightmn%dim_1%LB = 0
+  194.       weightmn%dim_1%EX = merge( 0, _zla( 0, ( 1 + imx ) ), imx < 0 )
+  194.       weightmn%dim_1%SM = 1
+  194.       _alocat( __allocate, 0x2200000000001L, 0, 0, _fcd( 0, 0 ), weightpn, weightmn )
+  196.       mxg%header%a_contig = 1
+  196.       mxg%header%decl_mem_handle = 0
+  196.       mxg%header%locl_mem_handle = 0
+  196.       mxg%header%omp_mem_handle = 0
+  196.       mxg%dim_1%LB = 1
+  196.       mxg%dim_1%EX = _zla( 0, ( -1 + imx ) )
+  196.       mxg%dim_1%SM = 2
+  196.       mxg%dim_2%LB = 1
+  196.       mxg%dim_2%EX = _zla( 0, ( -1 + imx ) )
+  196.       mxg%dim_2%SM = ( 2 * _zla( 0, -1 + imx ) )
+  196.       mxg%dim_3%LB = 0
+  196.       mxg%dim_3%EX = merge( 0, _zla( 0, jcnt ), jcnt <= 0 )
+  196.       mxg%dim_3%SM = ( _zla( 0, -1 + imx ) * _zla( 0, -1 + imx ) * 2 )
+  196.       mxg%dim_4%LB = 0
+  196.       mxg%dim_4%EX = 2
+  196.       mxg%dim_4%SM = _zla( 0, -1 + imx ) * _zla( 0, ( -1 + imx ) ) * merge( 0, _zla( 0, jcnt ), jcnt <= 0 ) * 2
+  196.       mxa%header%a_contig = 1
+  196.       mxa%header%decl_mem_handle = 0
+  196.       mxa%header%locl_mem_handle = 0
+  196.       mxa%header%omp_mem_handle = 0
+  196.       mxa%dim_1%LB = 1
+  196.       mxa%dim_1%EX = _zla( 0, ( -1 + imx ) )
+  196.       mxa%dim_1%SM = 2
+  196.       mxa%dim_2%LB = 1
+  196.       mxa%dim_2%EX = _zla( 0, ( -1 + imx ) )
+  196.       mxa%dim_2%SM = ( 2 * _zla( 0, -1 + imx ) )
+  196.       mxa%dim_3%LB = 0
+  196.       mxa%dim_3%EX = merge( 0, _zla( 0, jcnt ), jcnt <= 0 )
+  196.       mxa%dim_3%SM = ( _zla( 0, -1 + imx ) * _zla( 0, -1 + imx ) * 2 )
+  196.       mxa%dim_4%LB = 0
+  196.       mxa%dim_4%EX = 2
+  196.       mxa%dim_4%SM = _zla( 0, -1 + imx ) * _zla( 0, ( -1 + imx ) ) * merge( 0, _zla( 0, jcnt ), jcnt <= 0 ) * 2
+  196.       mxd%header%a_contig = 1
+  196.       mxd%header%decl_mem_handle = 0
+  196.       mxd%header%locl_mem_handle = 0
+  196.       mxd%header%omp_mem_handle = 0
+  196.       mxd%dim_1%LB = 1
+  196.       mxd%dim_1%EX = _zla( 0, ( -1 + imx ) )
+  196.       mxd%dim_1%SM = 2
+  196.       mxd%dim_2%LB = 1
+  196.       mxd%dim_2%EX = _zla( 0, ( -1 + imx ) )
+  196.       mxd%dim_2%SM = ( 2 * _zla( 0, -1 + imx ) )
+  196.       mxd%dim_3%LB = 0
+  196.       mxd%dim_3%EX = merge( 0, _zla( 0, jcnt ), jcnt <= 0 )
+  196.       mxd%dim_3%SM = ( _zla( 0, -1 + imx ) * _zla( 0, -1 + imx ) * 2 )
+  196.       mxd%dim_4%LB = 0
+  196.       mxd%dim_4%EX = 2
+  196.       mxd%dim_4%SM = _zla( 0, -1 + imx ) * _zla( 0, ( -1 + imx ) ) * merge( 0, _zla( 0, jcnt ), jcnt <= 0 ) * 2
+  197.       ipivg%header%a_contig = 1
+  197.       ipivg%header%decl_mem_handle = 0
+  197.       ipivg%header%locl_mem_handle = 0
+  197.       ipivg%header%omp_mem_handle = 0
+  197.       ipivg%dim_1%LB = 1
+  197.       ipivg%dim_1%EX = _zla( 0, ( -1 + imx ) )
+  197.       ipivg%dim_1%SM = 1
+  197.       ipivg%dim_2%LB = 0
+  197.       ipivg%dim_2%EX = merge( 0, _zla( 0, jcnt ), jcnt <= 0 )
+  197.       ipivg%dim_2%SM = _zla( 0, ( -1 + imx ) )
+  197.       ipivg%dim_3%LB = 0
+  197.       ipivg%dim_3%EX = 2
+  197.       ipivg%dim_3%SM = _zla( 0, -1 + imx ) * merge( 0, _zla( 0, jcnt ), jcnt <= 0 )
+  197.       ipiva%header%a_contig = 1
+  197.       ipiva%header%decl_mem_handle = 0
+  197.       ipiva%header%locl_mem_handle = 0
+  197.       ipiva%header%omp_mem_handle = 0
+  197.       ipiva%dim_1%LB = 1
+  197.       ipiva%dim_1%EX = _zla( 0, ( -1 + imx ) )
+  197.       ipiva%dim_1%SM = 1
+  197.       ipiva%dim_2%LB = 0
+  197.       ipiva%dim_2%EX = merge( 0, _zla( 0, jcnt ), jcnt <= 0 )
+  197.       ipiva%dim_2%SM = _zla( 0, ( -1 + imx ) )
+  197.       ipiva%dim_3%LB = 0
+  197.       ipiva%dim_3%EX = 2
+  197.       ipiva%dim_3%SM = _zla( 0, -1 + imx ) * merge( 0, _zla( 0, jcnt ), jcnt <= 0 )
+  197.       ipivd%header%a_contig = 1
+  197.       ipivd%header%decl_mem_handle = 0
+  197.       ipivd%header%locl_mem_handle = 0
+  197.       ipivd%header%omp_mem_handle = 0
+  197.       ipivd%dim_1%LB = 1
+  197.       ipivd%dim_1%EX = _zla( 0, ( -1 + imx ) )
+  197.       ipivd%dim_1%SM = 1
+  197.       ipivd%dim_2%LB = 0
+  197.       ipivd%dim_2%EX = merge( 0, _zla( 0, jcnt ), jcnt <= 0 )
+  197.       ipivd%dim_2%SM = _zla( 0, ( -1 + imx ) )
+  197.       ipivd%dim_3%LB = 0
+  197.       ipivd%dim_3%EX = 2
+  197.       ipivd%dim_3%SM = _zla( 0, -1 + imx ) * merge( 0, _zla( 0, jcnt ), jcnt <= 0 )
+  196.       _alocat( __allocate, 0x6200000000001L, 0, 0, _fcd( 0, 0 ), mxg, mxa, mxd, ipivg, ipiva, ipivd )
+  198.       return
+  198.       end
+  198.       
+   86.       
+   86.       module gem_com
+  200.       return
+  200.       end
+  200.       

@@ -1,0 +1,72 @@
+       !        
+       !        Hewlett Packard Enterprise Decompilation
+       !        Notice - This output is provided for information only.
+       !        
+       !        Hewlett Packard Enterprise reserves the right to change the
+       !        format of this information at any time and does not
+       !        guarantee the readability or accuracy of this information.
+       !        
+       !        This information may not be compilable and corresponds to
+       !        the internal representation of the program during the
+       !        optimization phase of the compilation process.
+       !        
+       !        Source                :  gem_pputil.f90
+       !        File                  :  /gpfs/alpine/fus123/world-shared/qihengcai/GEM_Yang_Simplified_0202/gem_pputil.opt
+       !        Network               :  Slingshot10 interconnect
+       !        Target                :  Heterogeneous
+       !              Cpu             :  x86-trento :: avx2, fma
+       !              Accel           :  amdgcn-gfx90a
+       !        
+   46.       
+   46.       subroutine ppinit_mpi( idproc, nproc )
+   27.       call mpi_init( ierr )
+   28.       if ( 0 /= ierr ) then
+   29.          _fwrite( _clist( 0, 0, 3, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, 0, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg ), _iolist( _iotype( 'problem with mpi_init: ierr=', 0x800600000000L ), _iotype( ierr, 0x2000200000000L ) ) )
+   30.           _substr(t$5,1,4) = ' '
+   30.          call _stop3(  _substr(t$5,1,1), 0, 0, .false., .false. )
+   30.       else
+   33.          call mpi_comm_size( 1140850688, npp, ierr )
+   34.          if ( 0 /= ierr ) then
+   35.             _fwrite( _clist( 0, 0, 3, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, 0, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg ), _iolist( _iotype( 'problem with mpi_comm_size: ierr=', 0x800600000000L ), _iotype( ierr, 0x2000200000000L ) ) )
+   36.              _substr(t$6,1,4) = ' '
+   36.             call _stop3(  _substr(t$6,1,1), 0, 0, .false., .false. )
+   36.          else
+   39.             call mpi_comm_rank( 1140850688, me, ierr )
+   40.             if ( 0 /= ierr ) then
+   41.                _fwrite( _clist( 0, 0, 3, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, 0, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg, Null_Arg ), _iolist( _iotype( 'problem with mpi_comm_rank: ierr=', 0x800600000000L ), _iotype( ierr, 0x2000200000000L ) ) )
+   42.                 _substr(t$7,1,4) = ' '
+   42.                call _stop3(  _substr(t$7,1,1), 0, 0, .false., .false. )
+   42.             else
+   44.                nproc = npp
+   45.                idproc = me
+   45.             endif
+   45.          endif
+   45.       endif
+   46.       return
+   46.       end
+   46.       
+   66.       
+   66.       subroutine ppinit_decomp( mype, nproc, ntube, com1, com2 )
+   55.       gclr = mype / ntube
+   57.       tclr = mod( mype, ntube )
+   60.       call mpi_comm_split( 1140850688, gclr, tclr, grid_comm, ierr )
+   61.       call mpi_comm_split( 1140850688, tclr, gclr, tube_comm, ierr )
+   63.       com1 = tube_comm
+   64.       com2 = grid_comm
+   65.       nvp = nproc / ntube
+   66.       return
+   66.       end
+   66.       
+   68.       
+   68.       subroutine ppexit
+   70.       call mpi_finalize( ierr )
+   71.        _substr(t$8,1,4) = ' '
+   71.       call _stop3(  _substr(t$8,1,1), 0, 0, .false., .false. )
+   72.       return
+   72.       end
+   72.       
+    3.       
+    3.       module gem_pputil
+   76.       return
+   76.       end
+   76.       

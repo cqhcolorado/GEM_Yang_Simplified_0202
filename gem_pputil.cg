@@ -1,0 +1,85 @@
+       !        
+       !        Hewlett Packard Enterprise Decompilation
+       !        Notice - This output is provided for information only.
+       !        
+       !        Hewlett Packard Enterprise reserves the right to change the
+       !        format of this information at any time and does not
+       !        guarantee the readability or accuracy of this information.
+       !        
+       !        This information may not be compilable and corresponds to
+       !        the internal representation of the program during the
+       !        optimization phase of the compilation process.
+       !        
+       !        Source                :  gem_pputil.f90
+       !        File                  :  /gpfs/alpine/fus123/world-shared/qihengcai/GEM_Yang_Simplified_0202/gem_pputil.cg
+       !        Network               :  Slingshot10 interconnect
+       !        Target                :  Heterogeneous
+       !              Cpu             :  x86-trento :: avx2, fma
+       !              Accel           :  amdgcn-gfx90a
+       !        
+   46.       
+   46.       subroutine ppinit_mpi( idproc, nproc )
+   27.       call mpi_init( ierr )
+   28.       if ( ierr /= 0 ) then
+   29.          $_StackIolist_O3 = $_StaticIolist_O1
+   29.          0[int( pointer to c_union  Pointer_union( loc( (7,$_StackIolist_O3)[0].L ) ), 8 ),0].L = loc( ierr )
+   29.          _fwf( pointer to integer*8( loc( $_StaticCntrl_O0 ) ), pointer to integer*8( loc( $_StackIolist_O3[0].L ) ), pointer to integer*8( loc( $_IO_Lib_Stack_O4 ) ) )
+   30.          substr[t$5,0:4] = ' '
+   30.          call _stop3( substr[t$5,0:1], 0, 0, .false., .false. )
+   30.       else
+   33.          $Con_P0 = 1140850688
+   33.          call mpi_comm_size( $Con_P0, npp, ierr )
+   34.          if ( ierr /= 0 ) then
+   35.             $_StackIolist_O8 = $_StaticIolist_O6
+   35.             0[int( pointer to c_union  Pointer_union( loc( (7,$_StackIolist_O8)[0].L ) ), 8 ),0].L = loc( ierr )
+   35.             _fwf( pointer to integer*8( loc( $_StaticCntrl_O5 ) ), pointer to integer*8( loc( $_StackIolist_O8[0].L ) ), pointer to integer*8( loc( $_IO_Lib_Stack_O4 ) ) )
+   36.             substr[t$6,0:4] = ' '
+   36.             call _stop3( substr[t$6,0:1], 0, 0, .false., .false. )
+   36.          else
+   39.             $Con_P0 = 1140850688
+   39.             call mpi_comm_rank( $Con_P0, me, ierr )
+   40.             if ( ierr /= 0 ) then
+   41.                $_StackIolist_O12 = $_StaticIolist_O10
+   41.                0[int( pointer to c_union  Pointer_union( loc( (7,$_StackIolist_O12)[0].L ) ), 8 ),0].L = loc( ierr )
+   41.                _fwf( pointer to integer*8( loc( $_StaticCntrl_O9 ) ), pointer to integer*8( loc( $_StackIolist_O12[0].L ) ), pointer to integer*8( loc( $_IO_Lib_Stack_O4 ) ) )
+   42.                substr[t$7,0:4] = ' '
+   42.                call _stop3( substr[t$7,0:1], 0, 0, .false., .false. )
+   42.             else
+   44.                0[loc( nproc ),0] = npp
+   45.                0[loc( idproc ),0] = me
+   45.             endif
+   45.          endif
+   45.       endif
+   46.       return
+   46.       end
+   46.       
+   66.       
+   66.       subroutine ppinit_decomp( mype, nproc, ntube, com1, com2 )
+   55.       $GVN_ntube_1 = 0[loc( ntube ),0]
+   55.       $GVN_mype_2 = 0[loc( mype ),0]
+   55.       $GVN_0 = $GVN_mype_2 / $GVN_ntube_1
+   55.       gclr = $GVN_0
+   57.       tclr = $GVN_mype_2 - $GVN_0 * $GVN_ntube_1
+   60.       $Con_P2 = 1140850688
+   60.       call mpi_comm_split( $Con_P2, gclr, tclr, grid_comm, ierr )
+   61.       $Con_P2 = 1140850688
+   61.       call mpi_comm_split( $Con_P2, tclr, gclr, tube_comm, ierr )
+   63.       0[loc( com1 ),0] = tube_comm
+   64.       0[loc( com2 ),0] = grid_comm
+   65.       nvp = 0[loc( nproc ),0] / $GVN_ntube_1
+   66.       return
+   66.       end
+   66.       
+   68.       
+   68.       subroutine ppexit
+   70.       call mpi_finalize( ierr )
+   71.       substr[t$8,0:4] = ' '
+   71.       call _stop3( substr[t$8,0:1], 0, 0, .false., .false. )
+   72.       return
+   72.       end
+   72.       
+    3.       
+    3.       module gem_pputil
+   76.       return
+   76.       end
+   76.       
